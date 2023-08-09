@@ -65,7 +65,7 @@ const page = () => {
   return (
     <div className='bg-blue-950 h-screen flex m-auto'>
       <div className='m-auto items-center'>
-        <div className='flex gap-80 h-screen'>
+        <div className='flex items-center h-screen'>
           <form onSubmit={handleSubmit(onSubmitHandler)}>
           <div className='flex flex-col gap-2 text-white py-32 px-24 font-bold'>
             <div className='py-2 px-10'>
@@ -118,8 +118,8 @@ const page = () => {
             
           </div>
           </form>
+          <AuthCanvas />
           <div className='p-10 text-white flex-grow justify-center flex flex-col items-start gap-10'>
-            {/* <AuthCanvas /> */}
             <div>
               <h1 className='text-4xl font-bold'>Unleash your</h1>
               <h1 className='text-4xl font-bold'>product's potential!</h1>

@@ -25,3 +25,8 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+/* Hide password reveal button in MS Edge */
+::-ms-reveal {
+  display: none;
+}
