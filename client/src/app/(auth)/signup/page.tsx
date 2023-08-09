@@ -36,15 +36,6 @@ const schema = yup.object().shape({
 const page = () => {
 
   const [passwordType, setPasswordType] = useState('password')
-  const [inputValue, setInputValue] = useState('')
-
-  const handleInputChange = (e: any) => {
-    setInputValue(e.target.value)
-  }
-
-  const handleClear = () => {
-    setInputValue('')
-  }
 
   const toggleHidePassword = () => {
     setPasswordType( (prev: string) => {
@@ -73,8 +64,8 @@ const page = () => {
             </div>
             <label className='text-xs'>Username*</label>
             <div className='flex items-center justify-between bg-white rounded p-1'>
-              <input value={inputValue} placeholder='Enter username' {...register('Username')} onChange={handleInputChange} className='focus:outline-none p-2 text-xs text-slate-600 bg-transparent' />
-              <span className='px-2 mx-2 cursor-pointer' onClick={handleClear}>
+              <input placeholder='Enter username' {...register('Username')} className='focus:outline-none p-2 text-xs text-slate-600 bg-transparent' />
+              <span className='px-2 mx-2 cursor-pointer' onClick={()=>{}}>
               <CloseCircle className='w-3.5 text-slate-600' />
               </span>
             </div>
