@@ -42,12 +42,7 @@ const otpverify = async (req: any, res: any) => {
         return
     }
     const token = authService.createAuthToken(user)
-    await res.cookie('access', token, {
-        domain: accessTokenCookieDomain,
-        httpOnly: true,
-        secure: true,
-      })
-      
+    //  
       await prisma.otp.delete({
         where: {
           id: otp.id,
@@ -86,4 +81,26 @@ const login = async (req: any, res: any) => {
     const token = authService.createAuthToken(user)
     res.status(200).json({ token, user })
 }
+const register = async (req: any, res: any) => {
+    const { email, password, name } = req.body
+    const { prisma } = req
+    const existingUser = await prisma.user.findUnique({
+        where: { email },
+    })
+    if (existingUser) {
+        res.status(400).json('User already exists.')
+        return
+    }
+    const hashedPassword = await bcrypt.hash(password, 10)
+    const user = await prisma.user.create({
+        data: {
+            email,
+            password: hashedPassword,
+            name,
+        },
+    })
+    const token = authService.createAuthToken(user)
+    res.status(200).json({ token, user })
+}
+
 export { otplogin, otpverify , logout, login }
