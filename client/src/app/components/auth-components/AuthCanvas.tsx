@@ -29,7 +29,7 @@ const MyMesh = () => {
 
   return (
     <mesh ref={mesh}>
-      <Stage preset="soft" environment={'night'} intensity={0.1}>
+      <Stage preset='portrait' environment={'night'} intensity={0.1}>
         <Model scale={0.01} />
       </Stage>
     </mesh>
@@ -39,6 +39,7 @@ const MyMesh = () => {
 function AuthCanvas() {
   return (
     <Canvas dpr={[1, 2]} shadows camera={{ fov: 10 }} style={{ width: '500px', height: '500px'}}>
+      <ambientLight />
       <MyMesh />
     </Canvas>
   );
