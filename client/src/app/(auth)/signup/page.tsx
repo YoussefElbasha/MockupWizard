@@ -94,7 +94,7 @@ const page = () => {
               </button>
             </div>
             {errors.ConfirmPassword && <motion.p className='text-xs text-red-500 font-medium' {...framer_error}>{errors.ConfirmPassword?.message}</motion.p>}
-            <button type='submit' className='my-4 text-white bg-blue-500 rounded-lg p-3 text-sm shadow-lg shadow-blue-500/50'>Sign Up</button>
+            <button type='submit' className='my-4 hover:bg-indigo-500 transition ease-in-out duration-600 text-white bg-blue-500 rounded-lg p-3 text-sm shadow-lg shadow-blue-500/50'>Sign Up</button>
             <div>
               <div className='flex items-center justify-center gap-2'>
                 <hr className='w-16' />
@@ -102,8 +102,8 @@ const page = () => {
                 <hr className='w-16' />
               </div>
               <div className='flex gap-10 justify-center my-8'>
-                <button className='px-8 py-2 bg-white rounded-xl text-black'><Facebook /></button>
-                <button className='px-8 py-2 bg-white rounded-xl text-black'><Google /></button>
+                <button type='button' className='px-8 py-2 bg-white rounded-xl text-black'><Facebook /></button>
+                <button type='button' className='px-8 py-2 bg-white rounded-xl text-black'><Google /></button>
               </div>
             </div>
             
@@ -120,7 +120,7 @@ const page = () => {
                 already have an account?
               </p>
               <p>
-                you can <span className='text-blue-700'><a>sign in here!</a></span>
+                you can <span className='text-blue-700'><a href='/signin'>sign in here!</a></span>
               </p>
             </div>
           </div>
