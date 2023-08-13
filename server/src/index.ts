@@ -17,7 +17,7 @@ declare global {
 
 dotenv.config()
 const app = express()
-const port = process.env.PORT
+const port = process.env.PORT || 5000
 app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -31,6 +31,9 @@ app.use((req, res, next) => {
   next()
 })
 
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
 app.listen(port, () => {
   console.log(`Listening on port ${port}: http://localhost:${port}`)
 })
