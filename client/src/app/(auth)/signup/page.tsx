@@ -54,47 +54,47 @@ const page = () => {
   }
 
   return (
-    <div className='bg-blue-950 h-screen flex m-auto'>
-      <div className='m-auto items-center'>
-        <div className='flex items-center h-screen'>
+    <div className='bg-blue-950 m-auto min-h-screen flex items-center justify-center'>
+      <div>
+        <div className='flex flex-col items-center justify-center md:flex-row'>
           <form onSubmit={handleSubmit(onSubmitHandler)}>
-          <div className='flex flex-col gap-2 text-white py-32 px-24 font-bold'>
+          <div className='flex flex-col gap-2 text-white py-10 px-24 font-bold'>
             <div className='py-2 px-10'>
               <h1 className='text-center text-lg mx-8'>Create Account</h1>
             </div>
             <label className='text-xs'>Username*</label>
-            <div className='flex items-center justify-between bg-white rounded p-1'>
-              <input placeholder='Enter username' {...register('Username')} className='focus:outline-none p-2 text-xs text-slate-600 bg-transparent' />
-              <span className='px-2 mx-2 cursor-pointer' onClick={()=>{}}>
+            <div className='relative'>
+              <input placeholder='Enter username' {...register('Username')} className='focus:outline-none p-3 w-full h-full bg-white rounded text-xs text-slate-600' />
+              <span className='p-2 right-2 top-1/2 -translate-y-1/2 cursor-pointer absolute' onClick={()=>{}}>
               <CloseCircle className='w-3.5 text-slate-600' />
               </span>
             </div>
             {errors.Username && <motion.p className='text-xs text-red-500 font-medium' {...framer_error}>{errors.Username?.message}</motion.p>}
             <label className='text-xs'>Email*</label>
-            <div className='flex items-center justify-between bg-white rounded p-1'>
-              <input placeholder='Enter email' type='email' {...register('Email')} className='focus:outline-none p-2 text-xs text-slate-600 bg-transparent' />
-              <span className='px-2 mx-2 cursor-pointer' onClick={()=>{}}>
+            <div className='relative'>
+              <input placeholder='Enter email' type='email' {...register('Email')} className='focus:outline-none p-3 w-full h-full bg-white rounded text-xs text-slate-600' />
+              <span className='p-2 right-2 top-1/2 -translate-y-1/2 cursor-pointer absolute' onClick={()=>{}}>
               <CloseCircle className='w-3.5 text-slate-600' />
               </span>
             </div>
             {errors.Email && <motion.p className='text-xs text-red-500 font-medium' {...framer_error}>{errors.Email?.message}</motion.p>}
             <label className='text-xs'>Password*</label>
-            <div className='flex items-center justify-between bg-white rounded p-1'>
-            <input placeholder='Enter password' type={passwordType} {...register('Password')} className='focus:outline-none p-2 text-xs text-slate-600 bg-transparent' />
-              <button type='button' className='px-2 mx-2 cursor-pointer' onClick={toggleHidePassword}>
+            <div className='relative'>
+            <input placeholder='Enter password' type={passwordType} {...register('Password')} className='focus:outline-none p-3 w-full h-full bg-white rounded text-xs text-slate-600' />
+              <button type='button' className='p-2 right-2 top-1/2 -translate-y-1/2 cursor-pointer absolute' onClick={toggleHidePassword}>
                 {passwordType === 'password'? <EyeOffIcon className='w-3.5 text-slate-600' /> : <EyeIcon className='w-3.5 text-slate-600' />}
               </button>
             </div>
             {errors.Password && <motion.p className='text-xs text-red-500 font-medium' {...framer_error}>{errors.Password?.message}</motion.p>}
             <label className='text-xs'>Confirm Password*</label>
-            <div className='flex items-center justify-between bg-white rounded p-1'>
-            <input placeholder='Confirm password' type={passwordType} {...register('ConfirmPassword')} className='focus:outline-none p-2 text-xs text-slate-600 bg-transparent' />
-              <button type='button' className='px-2 mx-2 cursor-pointer' onClick={toggleHidePassword}>
-              {passwordType === 'password'? <EyeOffIcon className='w-3.5 text-slate-400' /> : <EyeIcon className='w-3.5 text-slate-600' />}
+            <div className='relative'>
+            <input placeholder='Confirm password' type={passwordType} {...register('ConfirmPassword')} className='focus:outline-none p-3 w-full h-full bg-white rounded text-xs text-slate-600' />
+              <button type='button' className='p-2 right-2 top-1/2 -translate-y-1/2 cursor-pointer absolute' onClick={toggleHidePassword}>
+                {passwordType === 'password'? <EyeOffIcon className='w-3.5 text-slate-600' /> : <EyeIcon className='w-3.5 text-slate-600' />}
               </button>
             </div>
             {errors.ConfirmPassword && <motion.p className='text-xs text-red-500 font-medium' {...framer_error}>{errors.ConfirmPassword?.message}</motion.p>}
-            <button type='submit' className='my-4 text-white bg-blue-500 rounded-lg p-3 text-sm shadow-lg shadow-blue-500/50'>Sign Up</button>
+            <button type='submit' className='my-4 hover:bg-indigo-500 transition ease-in-out duration-600 text-white bg-blue-500 rounded-lg p-3 text-sm shadow-lg shadow-blue-500/50'>Sign Up</button>
             <div>
               <div className='flex items-center justify-center gap-2'>
                 <hr className='w-16' />
@@ -102,8 +102,8 @@ const page = () => {
                 <hr className='w-16' />
               </div>
               <div className='flex gap-10 justify-center my-8'>
-                <button className='px-8 py-2 bg-white rounded-xl text-black'><Facebook /></button>
-                <button className='px-8 py-2 bg-white rounded-xl text-black'><Google /></button>
+                <button type='button' className='px-8 py-2 bg-white rounded-xl text-black'><Facebook /></button>
+                <button type='button' className='px-8 py-2 bg-white rounded-xl text-black'><Google /></button>
               </div>
             </div>
             
@@ -120,7 +120,7 @@ const page = () => {
                 already have an account?
               </p>
               <p>
-                you can <span className='text-blue-700'><a>sign in here!</a></span>
+                you can <span className='text-blue-700'><a href='/signin'>sign in here!</a></span>
               </p>
             </div>
           </div>

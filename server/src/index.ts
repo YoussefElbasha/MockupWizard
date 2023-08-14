@@ -22,7 +22,6 @@ app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())
-app.use('/user',userRouter)
 
 app.use((req, res, next) => {
   req.context = {
@@ -30,6 +29,9 @@ app.use((req, res, next) => {
   }
   next()
 })
+app.use('/user',userRouter)
+
+
 
 app.get('/', (req, res) => {
   res.send('Hello World!')

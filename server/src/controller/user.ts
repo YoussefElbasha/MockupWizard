@@ -1,11 +1,11 @@
 import generateOTP from "../lib/otp";
 import bcrypt from 'bcrypt'
-import authService from "../services/auth.service";
+import createAuthToken from "../lib/create-auth-token";
 
 
 const otplogin = async (req: any, res: any) => {
     const { email } = req.body
-    const { prisma } = req
+    const { prisma } = req.context
     const user = await prisma.user.findUnique({
         where: { email },
     })
@@ -20,7 +20,7 @@ const otplogin = async (req: any, res: any) => {
 
 const otpverify = async (req: any, res: any) => {
     const { code, email } = req.body
-    const { prisma } = req
+    const { prisma } = req.context
     const accessTokenCookieDomain = process.env.ACCESS_TOKEN_COOKIE ?? ''
     const user = await prisma.user.findUnique({
         where: { email },
@@ -41,7 +41,7 @@ const otpverify = async (req: any, res: any) => {
         res.status(400).json('OTP expired.')
         return
     }
-    const token = authService.createAuthToken(user)
+    const token = createAuthToken(user.id)
     //  
       await prisma.otp.delete({
         where: {
@@ -66,7 +66,7 @@ const logout = async (req: any, res: any) => {
 }
 const login = async (req: any, res: any) => {
     const { email, password } = req.body
-    const { prisma } = req
+    const { prisma } = req.context
     const user = await prisma.user.findUnique({
         where: { email },
     })
@@ -78,12 +78,12 @@ const login = async (req: any, res: any) => {
         res.status(400).json('Invalid email or password.')
         return
     }
-    const token = authService.createAuthToken(user)
+    const token = createAuthToken(user.id)
     res.status(200).json({ token, user })
 }
 const register = async (req: any, res: any) => {
     const { email, password, name } = req.body
-    const { prisma } = req
+    const { prisma } = req.context
     const existingUser = await prisma.user.findUnique({
         where: { email },
     })
@@ -99,8 +99,8 @@ const register = async (req: any, res: any) => {
             name,
         },
     })
-    const token = authService.createAuthToken(user)
+    const token = createAuthToken(user.id)
     res.status(200).json({ token, user })
 }
 
-export { otplogin, otpverify , logout, login }
+export { otplogin, otpverify , logout, login, register}

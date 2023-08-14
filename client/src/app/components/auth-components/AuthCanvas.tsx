@@ -38,7 +38,8 @@ const MyMesh = () => {
 
 function AuthCanvas() {
   return (
-    <Canvas dpr={[1, 2]} shadows camera={{ fov: 10 }} style={{ width: '500px', height: '500px'}}>
+    <Canvas dpr={[1, 2]} shadows camera={{ fov: 20 }} style={{ width: '500px', height: '500px'}}>
+      <ambientLight />
       <MyMesh />
     </Canvas>
   );
