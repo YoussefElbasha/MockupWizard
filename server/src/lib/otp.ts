@@ -8,8 +8,7 @@ const generateOTP = async (user: {id: string} & Partial<User>, prisma: PrismaCli
   // make sure the otp code is unique
   do {
     otpCode = otpGenerator.generate(4, { lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false })
-    // eslint-disable-next-line no-await-in-loop
-    existingOtp = await prisma.otp.findUnique({
+      existingOtp = await prisma.otp.findUnique({
       where: { code: otpCode },
     })
   } while (existingOtp !== null)
