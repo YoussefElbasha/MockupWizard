@@ -79,46 +79,52 @@ const page = () => {
   }
 
   return (
-    <div className='bg-blue-950 m-auto min-h-screen flex items-center justify-center'>
-        <div className='flex flex-col items-center justify-center md:flex-row'>
+    <div className='bg-[#14162E] m-auto min-h-screen flex items-center justify-center relative'>
+      <div className='absolute top-1/8 left-2/3 transform -translate-y-1/2'>
+        <div className='w-48 h-48 bg-[#DDA82A] rounded-full blur-3xl opacity-50' />
+      </div>
+      <div className='absolute top-1/2 left-3/4 transform '>
+        <div className='w-48 h-48 bg-[#4461F2] rounded-full blur-3xl opacity-50' />
+      </div>
+        <div className='flex flex-col items-center justify-center md:flex-row z-10'>
           <form onSubmit={handleSubmit(onSubmitHandler)}>
           <div className='flex flex-col gap-2 text-white py-10 px-24 font-bold'>
-            <div className='py-2 px-10'>
+            <div className='py-2 px-8'>
               <h1 className='text-center text-lg mx-8'>Create Account</h1>
             </div>
             <label className='text-xs'>Username*</label>
             <div className='relative'>
-              <input placeholder='Enter username' {...register('username')} className='focus:outline-none p-3 w-full h-full bg-white rounded text-xs text-slate-600' />
+              <input placeholder='Enter username' {...register('username')} className='focus:outline-none p-3 w-full h-full bg-white rounded text-xs text-[#667085]' />
               <span className='p-2 right-2 top-1/2 -translate-y-1/2 cursor-pointer absolute' onClick={()=>{}}>
-              <CloseCircle className='w-3.5 text-slate-600' />
+              <CloseCircle className='w-3.5 text-[#667085]' />
               </span>
             </div>
             {errors.username && <motion.p className='text-xs text-red-500 font-medium' {...framer_error}>{errors.username?.message}</motion.p>}
             <label className='text-xs'>Email*</label>
             <div className='relative'>
-              <input placeholder='Enter email' type='email' {...register('email')} className='focus:outline-none p-3 w-full h-full bg-white rounded text-xs text-slate-600' />
+              <input placeholder='Enter email' type='email' {...register('email')} className='focus:outline-none p-3 w-full h-full bg-white rounded text-xs text-[#667085]' />
               <span className='p-2 right-2 top-1/2 -translate-y-1/2 cursor-pointer absolute' onClick={()=>{}}>
-              <CloseCircle className='w-3.5 text-slate-600' />
+              <CloseCircle className='w-3.5 text-[#667085]' />
               </span>
             </div>
             {errors.email && <motion.p className='text-xs text-red-500 font-medium' {...framer_error}>{errors.email?.message}</motion.p>}
             <label className='text-xs'>Password*</label>
             <div className='relative'>
-            <input placeholder='Enter password' type={passwordType} {...register('password')} className='focus:outline-none p-3 w-full h-full bg-white rounded text-xs text-slate-600' />
+            <input placeholder='Enter password' type={passwordType} {...register('password')} className='focus:outline-none p-3 w-full h-full bg-white rounded text-xs text-[#667085]' />
               <button type='button' className='p-2 right-2 top-1/2 -translate-y-1/2 cursor-pointer absolute' onClick={toggleHidePassword}>
-                {passwordType === 'password'? <EyeOffIcon className='w-3.5 text-slate-600' /> : <EyeIcon className='w-3.5 text-slate-600' />}
+                {passwordType === 'password'? <EyeOffIcon className='w-3.5 text-[#667085]' /> : <EyeIcon className='w-3.5 text-[#667085]' />}
               </button>
             </div>
             {errors.password && <motion.p className='text-xs text-red-500 font-medium' {...framer_error}>{errors.password?.message}</motion.p>}
             <label className='text-xs'>Confirm Password*</label>
             <div className='relative'>
-            <input placeholder='Confirm password' type={passwordType} {...register('confirmPassword')} className='focus:outline-none p-3 w-full h-full bg-white rounded text-xs text-slate-600' />
+            <input placeholder='Confirm password' type={passwordType} {...register('confirmPassword')} className='focus:outline-none p-3 w-full h-full bg-white rounded text-xs text-[#667085]' />
               <button type='button' className='p-2 right-2 top-1/2 -translate-y-1/2 cursor-pointer absolute' onClick={toggleHidePassword}>
-                {passwordType === 'password'? <EyeOffIcon className='w-3.5 text-slate-600' /> : <EyeIcon className='w-3.5 text-slate-600' />}
+                {passwordType === 'password'? <EyeOffIcon className='w-3.5 text-[#667085]' /> : <EyeIcon className='w-3.5 text-[#667085]' />}
               </button>
             </div>
             {errors.confirmPassword && <motion.p className='text-xs text-red-500 font-medium' {...framer_error}>{errors.confirmPassword?.message}</motion.p>}
-            <button type='submit' disabled={isMutating} className={isMutating? 'my-4 text-white bg-blue-100 rounded-lg p-3 text-sm shadow-lg shadow-blue-500/50' :'my-4 hover:bg-indigo-500 transition ease-in-out duration-600 text-white bg-blue-500 rounded-lg p-3 text-sm shadow-lg shadow-blue-500/50' }>Sign Up</button>
+            <button type='submit' disabled={isMutating} className={isMutating? 'my-6 text-white bg-blue-100 rounded-lg p-3 text-sm shadow-lg shadow-blue-500/50' :'my-6 hover:bg-indigo-500 transition ease-in-out duration-600 text-white bg-[#4461F2] rounded-lg p-3 text-sm shadow-lg shadow-blue-500/50' }>Sign Up</button>
             <div>
               <div className='flex items-center justify-center gap-2'>
                 <hr className='w-16' />
@@ -144,7 +150,7 @@ const page = () => {
                 already have an account?
               </p>
               <p>
-                you can <span className='text-blue-700'><a href='/sign-in'>sign in here!</a></span>
+                you can <span className='text-[#4461F2] hover:text-indigo-500'><a href='/sign-in'>sign in here!</a></span>
               </p>
             </div>
           </div>
