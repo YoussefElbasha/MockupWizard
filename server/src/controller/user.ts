@@ -75,14 +75,16 @@ const login = async (req: any, res: any) => {
         return
     }
     if (await bcrypt.compare(password, user.password) === false) {
-        res.status(400).json('Invalid email or password.')
+        res.status(400).json('Invalid password.')
         return
     }
     const token = createAuthToken(user.id)
+    res.cookie('accessToken', token.accessToken, { maxAge: 3600000, httpOnly: true, sameSite: 'none' })
+    res.cookie('refreshToken', token.refreshToken, { maxAge: 7 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'none' })
     res.status(200).json({ token, user })
 }
 const register = async (req: any, res: any) => {
-    const { email, password, name } = req.body
+    const { email, password, username } = req.body
     const { prisma } = req.context
     const existingUser = await prisma.user.findUnique({
         where: { email },
@@ -96,10 +98,12 @@ const register = async (req: any, res: any) => {
         data: {
             email,
             password: hashedPassword,
-            name,
+            username,
         },
     })
     const token = createAuthToken(user.id)
+    res.cookie('accessToken', token.accessToken, { maxAge: 3600000, httpOnly: true, sameSite: 'none' })
+    res.cookie('refreshToken', token.refreshToken, { maxAge: 7 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'none' })
     res.status(200).json({ token, user })
 }
 
