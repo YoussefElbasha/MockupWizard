@@ -6,3 +6,19 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id               String             @id @default(cuid()) @map("_id")
+  email            String             @unique
+  username         String?
+  password         String?
+  otp              Otp[]
+}
+model Otp {
+  id         String   @id @default(cuid()) @map("_id")
+  code       String   @unique
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  expiryDate DateTime
+  userId     String
+}

@@ -35,6 +35,9 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@svgr/webpack": "^8.0.1"
+    "@svgr/webpack": "^8.0.1",
+    "@types/three": "^0.155.0",
+    "prettier-plugin-tailwindcss": "^0.4.1",
+    "three": "^0.155.0"
   }
 }

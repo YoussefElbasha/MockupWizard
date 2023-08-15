@@ -10,7 +10,7 @@ function Model(props: any){
   scene.traverse(child => {
     if (child instanceof Mesh) {
       if (child.material instanceof MeshStandardMaterial) {
-        child.material.color.set('red');
+        child.material.color.set('#DDA82A');
       }
     }
   });
@@ -29,7 +29,7 @@ const MyMesh = () => {
 
   return (
     <mesh ref={mesh}>
-      <Stage preset="soft" environment={'night'} intensity={0.1}>
+      <Stage preset="upfront" environment={'warehouse'} intensity={0.05}>
         <Model scale={0.01} />
       </Stage>
     </mesh>
@@ -38,7 +38,8 @@ const MyMesh = () => {
 
 function AuthCanvas() {
   return (
-    <Canvas dpr={[1, 2]} shadows camera={{ fov: 10 }} style={{ width: '500px', height: '500px'}}>
+    <Canvas dpr={[1, 2]} shadows camera={{ fov: 20 }} style={{ width: '500px', height: '500px'}}>
+      <ambientLight />
       <MyMesh />
     </Canvas>
   );
