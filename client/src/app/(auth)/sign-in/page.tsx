@@ -89,7 +89,7 @@ const page = () => {
       <motion.div
         // className="absolute top-1/2 left-1/4 transform translate-y-1/4 -translate-x-3/4"
         initial={{ top: "50%", left: "50%", x: "-50%", y: "-50%", opacity: 1 }}
-        animate={{ top: "24%", left: "6%", x: "0%", y: "0%", opacity: 1 }}
+        animate={{ top: "21%", left: "6%", x: "0%", y: "0%", opacity: 1 }}
         transition={{ duration: 0.1, delay: 0 }}
         className="absolute"
       >
