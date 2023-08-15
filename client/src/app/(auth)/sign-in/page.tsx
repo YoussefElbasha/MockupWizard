@@ -16,6 +16,7 @@ import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import useSWRMutation from 'swr/mutation'
 import Navbar from '@/app/components/auth-components/Navbar'
+import toast, { Toaster } from 'react-hot-toast'
 
 interface loginData{
   email: string,
@@ -52,24 +53,27 @@ const page = () => {
 
   const loginUser = async (url: string, { arg }: { arg: loginData }) => {
     try {
-      const response = await axios.post(url, arg).then(res => res.data)
-      return response
+      const response = await axios.post(url, arg)
+      return response.data
 
-    }catch(err) {
+    }catch(err: any) {
       throw err
     }
   }
 
   const { data, trigger, isMutating, error } = useSWRMutation('http://localhost:4000/user/login', loginUser)
-  if(data) console.log(data)
 
   const onSubmitHandler = async (userData: loginData) => {
+    const loadingPromise = toast.loading('Logging in...');
     try{
       await trigger(userData)
+      toast.dismiss(loadingPromise)
+      toast.success('Login success.')
       router.push('/')
       
-    } catch(err) {
-      throw err
+    } catch(err: any) {
+      toast.dismiss(loadingPromise)
+      toast.error(err.response.data)
     }
     
   }
@@ -77,11 +81,11 @@ const page = () => {
   return (
     <div className='bg-[#14162E] m-auto min-h-screen flex flex-col items-center justify-center relative'>
 
-      <div className='absolute top-1/8 left-1/4 transform -translate-x-3/4 -translate-y-1/4'>
-        <div className='w-48 h-48 bg-[#DDA82A] rounded-full blur-3xl opacity-50' />
+      <div className='absolute top-1/8 left-[6%] transform -translate-y-1/4'>
+        <div className='w-60 h-60 bg-[#DDA82A] rounded-full blur-3xl opacity-50' />
       </div>
       <div className='absolute top-1/2 left-1/4 transform translate-y-1/4 -translate-x-3/4'>
-        <div className='w-48 h-48 bg-[#4461F2] rounded-full blur-3xl opacity-50' />
+        <div className='w-60 h-60 bg-[#4461F2] rounded-full blur-3xl opacity-50' />
       </div>
 
         <div className='flex flex-grow flex-col items-center justify-center md:flex-row z-10'>
@@ -121,6 +125,7 @@ const page = () => {
               </button>
             </div>
             {errors.password && <motion.p className='text-xs text-red-500 font-medium' {...framer_error}>{errors.password?.message}</motion.p>}
+            <Toaster />
             <button type='submit' disabled={isMutating} className={isMutating? 'my-6 text-white bg-blue-100 rounded-lg p-3 text-sm shadow-lg shadow-blue-500/50' :'my-6 hover:bg-indigo-500 transition ease-in-out duration-600 text-white bg-[#4461F2] rounded-lg p-3 text-sm shadow-lg shadow-blue-500/50' }>Sign in</button>
             <div>
               <div className='flex items-center justify-center gap-2'>
