@@ -1,3 +1,5 @@
+'use client'
+
 import { easing } from 'maath'
 import { useFrame } from '@react-three/fiber'
 import { Decal, useGLTF, useTexture } from '@react-three/drei'

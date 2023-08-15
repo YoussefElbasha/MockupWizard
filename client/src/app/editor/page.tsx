@@ -1,25 +1,16 @@
 'use client'
 
 import { useState } from 'react'
-import Editor from '../components/Editor'
-import { Sketch } from '@uiw/react-color'
-import EditorTabs from '../components/EditorTabs'
+import Editor from './components/Editor'
+import EditorTabs from './editor tabs/EditorTabs'
 
 const Home = () => {
   const [color, setColor] = useState('#fff')
 
   return (
-    <div className="h-screen w-full relative bg-white">
+    <div className="h-screen w-full relative bg-gray-500">
       <Editor color={color}></Editor>
-      {/* <Sketch
-          className="absolute top-0 left-0"
-          style={{ marginLeft: 20 }}
-          color={color}
-          onChange={(color) => {
-            setColor(color.hex)
-          }}
-        /> */}
-      <EditorTabs />
+      <EditorTabs color={color} setColor={setColor}></EditorTabs>
     </div>
   )
 }
