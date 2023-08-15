@@ -2,6 +2,13 @@ import { AnimatePresence, motion } from 'framer-motion'
 import React from 'react'
 import { CloseOutline, ColorPalette } from 'react-ionicons'
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '../../../components/Hover'
+
 interface TabButtonProps {
   isVisible: number
   onClick(): void
@@ -10,9 +17,14 @@ interface TabButtonProps {
 
 const TabButton = ({ isVisible, onClick, tabButtonIcon }: TabButtonProps) => {
   return (
+    // <TooltipProvider delayDuration={300}>
+    //   <Tooltip>
+    //     <TooltipTrigger
+    //   className="bg-red-400 p-2 rounded-full w-[3.5em] h-[3.5em]"
+    //   onClick={onClick}
+    // >
     <button
       className="bg-red-400 p-2 rounded-full w-[3.5em] h-[3.5em]"
-      title={'color picker menu button'}
       onClick={onClick}
     >
       <AnimatePresence mode="wait" initial={false}>
@@ -49,6 +61,17 @@ const TabButton = ({ isVisible, onClick, tabButtonIcon }: TabButtonProps) => {
         )}
       </AnimatePresence>
     </button>
+    //     </TooltipTrigger>
+    //     <TooltipContent
+    //       sideOffset={-45}
+    //       alignOffset={75}
+    //       align="start"
+    //       avoidCollisions={false}
+    //     >
+    //       <p>Model Color Picker</p>
+    //     </TooltipContent>
+    //   </Tooltip>
+    // </TooltipProvider>
   )
 }
 

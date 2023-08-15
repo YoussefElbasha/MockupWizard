@@ -9,7 +9,7 @@ const Home = () => {
 
   return (
     <div className="h-screen w-full relative bg-gray-500">
-      <Editor color={color}></Editor>
+      {/* <Editor color={color}></Editor> */}
       <EditorTabs color={color} setColor={setColor}></EditorTabs>
     </div>
   )

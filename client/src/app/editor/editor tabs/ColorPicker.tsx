@@ -1,6 +1,5 @@
-import { Colorful } from '@uiw/react-color'
+import Colorful from '@uiw/react-color-colorful'
 import { AnimatePresence, motion } from 'framer-motion'
-import react from 'react'
 
 interface ColorPickerProps {
   isVisible: number

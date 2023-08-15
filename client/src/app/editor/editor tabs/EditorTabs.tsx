@@ -1,9 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { CloseOutline, ColorPalette } from 'react-ionicons'
-import { Colorful } from '@uiw/react-color'
-import { AnimatePresence, motion } from 'framer-motion'
+import { ColorPalette } from 'react-ionicons'
 import TabButton from './TabButton'
 import ColorPicker from './ColorPicker'
 
@@ -23,7 +21,12 @@ const EditorTabs = ({ color, setColor }: EditorProps) => {
           isVisible={activeTab}
           onClick={() => (activeTab === 0 ? setActiveTab(1) : setActiveTab(0))}
           tabButtonIcon={
-            <ColorPalette color={'white'} height="2.5em" width="2.5em" />
+            <ColorPalette
+              style={{ fill: 'white' }}
+              color={'white'}
+              height="2.5em"
+              width="2.5em"
+            />
           }
         />
         <ColorPicker
