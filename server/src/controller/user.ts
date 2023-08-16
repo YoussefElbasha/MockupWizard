@@ -1,7 +1,7 @@
 import generateOTP from "../lib/otp";
 import bcrypt from 'bcrypt'
 import createAuthToken from "../lib/create-auth-token";
-
+import passport from 'passport'
 
 const otplogin = async (req: any, res: any) => {
     const { email } = req.body
@@ -103,4 +103,18 @@ const register = async (req: any, res: any) => {
     res.status(200).json({ token, user })
 }
 
-export { otplogin, otpverify , logout, login, register}
+const loginGoogle = async (req: any, res: any) => {
+    //passport.authenticate('google', { scope: [ 'email', 'profile' ] })
+    const GOOGLE_CLIENT_ID: any = process.env.GOOGLE_CLIENT_ID;
+    const googleOAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A2000%2Fprofile&scope=profile%20email&client_id=${GOOGLE_CLIENT_ID}`;
+    res.json({ redirectUrl: googleOAuthUrl });
+}
+
+const profile = async (req: any, res: any) => {
+    passport.authenticate( 'google', {
+        successRedirect: 'http://localhost:3000/profile',
+        failureRedirect: 'https://facebook.com'
+      })
+}    
+
+export { otplogin, otpverify, logout, login, register, loginGoogle, profile}

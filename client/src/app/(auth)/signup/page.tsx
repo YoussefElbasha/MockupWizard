@@ -12,6 +12,7 @@ import EyeOffIcon from '@/app/icons/eye-off-outline.svg'
 import CloseCircle from '@/app/icons/close-circle-outline.svg'
 import Google from '@/app/icons/google.svg'
 import Facebook from '@/app/icons/facebook.svg'
+import axios from 'axios'
 
 interface registerData{
   Username: string,
@@ -52,6 +53,17 @@ const page = () => {
   const onSubmitHandler = (data: registerData) => {
     console.log({data})
   }
+
+  const handleGoogleAuth = async () => {
+    try {
+      const response = await axios.get('http://localhost:4000/login/google');
+      window.location.href = response.data.redirectUrl;
+      // Handle the response
+    } catch (error) {
+      console.error("Error making request:", error);
+      // Handle the error
+    }
+  }   
 
   return (
     <div className='bg-blue-950 m-auto min-h-screen flex items-center justify-center'>
@@ -103,7 +115,7 @@ const page = () => {
               </div>
               <div className='flex gap-10 justify-center my-8'>
                 <button type='button' className='px-8 py-2 bg-white rounded-xl text-black'><Facebook /></button>
-                <button type='button' className='px-8 py-2 bg-white rounded-xl text-black'><Google /></button>
+                <button type='button' onClick={handleGoogleAuth} className='px-8 py-2 bg-white rounded-xl text-black'><Google /></button>
               </div>
             </div>
             
