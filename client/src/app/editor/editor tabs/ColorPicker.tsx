@@ -2,6 +2,7 @@ import Colorful from '@uiw/react-color-colorful'
 import { AnimatePresence, motion } from 'framer-motion'
 
 interface ColorPickerProps {
+  index: number
   isVisible: number
   color: string
   setColor(color: string): void
@@ -10,6 +11,7 @@ interface ColorPickerProps {
 }
 
 const ColorPicker = ({
+  index,
   isVisible,
   color,
   setColor,
@@ -39,7 +41,7 @@ const ColorPicker = ({
 
   return (
     <AnimatePresence mode="wait">
-      {isVisible === 1 && (
+      {isVisible === index && (
         <motion.div
           key="color picker"
           initial={{ opacity: 0, x: -6, y: '-50%' }}

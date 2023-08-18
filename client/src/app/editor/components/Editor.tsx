@@ -16,7 +16,7 @@ const Editor = ({ color }: EditorProps) => {
       camera={{ fov: 10 }}
       gl={{ preserveDrawingBuffer: true }}
       className="w-full max-w-full h-full transition-all ease-in"
-      style={{ background: '#14162E' }}
+      style={{ background: '#ffffff' }}
     >
       <ambientLight intensity={0.5} />
       <Environment preset="city" />

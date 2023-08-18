@@ -10,12 +10,18 @@ import {
 } from '../../../components/Hover'
 
 interface TabButtonProps {
+  index: number
   isVisible: number
   onClick(): void
   tabButtonIcon: React.ReactNode
 }
 
-const TabButton = ({ isVisible, onClick, tabButtonIcon }: TabButtonProps) => {
+const TabButton = ({
+  index,
+  isVisible,
+  onClick,
+  tabButtonIcon,
+}: TabButtonProps) => {
   return (
     // <TooltipProvider delayDuration={300}>
     //   <Tooltip>
@@ -24,11 +30,11 @@ const TabButton = ({ isVisible, onClick, tabButtonIcon }: TabButtonProps) => {
     //   onClick={onClick}
     // >
     <button
-      className="bg-red-400 p-2 rounded-full w-[3.5em] h-[3.5em]"
+      className="bg-white p-2 rounded-full w-[3.5em] h-[3.5em] drop-shadow-lg"
       onClick={onClick}
     >
       <AnimatePresence mode="wait" initial={false}>
-        {isVisible === 1 ? (
+        {isVisible === index ? (
           <motion.div
             initial={{ scale: 0, rotate: 90 }}
             animate={{
@@ -41,7 +47,11 @@ const TabButton = ({ isVisible, onClick, tabButtonIcon }: TabButtonProps) => {
             }}
             key={'close-icon'}
           >
-            <CloseOutline color={'white'} height="2.5em" width="2.5em" />
+            <div className="hover:scale-[1.1] transition-all ease-in-out duration-300">
+              <CloseOutline
+                style={{ fill: 'black', height: '2.5em', width: '2.5em' }}
+              />
+            </div>
           </motion.div>
         ) : (
           <motion.div
@@ -56,7 +66,7 @@ const TabButton = ({ isVisible, onClick, tabButtonIcon }: TabButtonProps) => {
             }}
             key={'color-picker-palette-icon'}
           >
-            <div className="translate-x-[-0.11em]">{tabButtonIcon}</div>
+            {tabButtonIcon}
           </motion.div>
         )}
       </AnimatePresence>
