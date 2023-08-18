@@ -5,11 +5,13 @@ import * as bodyParser from "body-parser";
 import { PrismaClient } from "@prisma/client";
 import userRouter from "./routes/user";
 import cookieParser from "cookie-parser";
+import isAuthenticated from "./middleware/auth.middleware";
 declare global {
   namespace Express {
     interface Request {
       context: {
         prisma: PrismaClient;
+        userId?: string;
       };
     }
   }
@@ -28,6 +30,7 @@ app.use(
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(isAuthenticated);
 
 app.use((req, res, next) => {
   req.context = {
