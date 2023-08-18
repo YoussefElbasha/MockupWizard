@@ -6,3 +6,50 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id      String   @id @default(cuid()) @map("_id")
+  folders Folder[]
+}
+
+model Folder {
+  id        String    @id @default(cuid()) @map("_id")
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String
+  name      String    @default("New Folder")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  projects  Project[]
+}
+
+model Project {
+  id          String   @id @default(cuid()) @map("_id")
+  folder      Folder   @relation(fields: [folderId], references: [id])
+  folderId    String
+  name        String   @default("New Project")
+  Model       Model?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  thumbnail   String   @default("https://archive.org/download/placeholder-image/placeholder-image.jpg")
+  screenshots String[]
+  modelId     String
+}
+
+model Model {
+  id        String   @id @default(cuid()) @map("_id")
+  project   Project  @relation(fields: [projectId], references: [id])
+  projectId String   @unique
+  color     String   @default("#fffffe")
+  modelType String   @default("shirt.gltf")
+  designs   Design[]
+}
+
+model Design {
+  id        String @id @default(cuid()) @map("_id")
+  model     Model  @relation(fields: [modelId], references: [id])
+  modelId   String
+  designUrl String
+  position  Int    @default(0)
+  scale     Int    @default(0)
+  rotation  Int    @default(0)
+}
