@@ -21,8 +21,10 @@ interface ShirtProps {
 const Shirt = ({ color }: ShirtProps) => {
   const { nodes, materials } = useGLTF('/shirt_baked.glb') as GLTFResult
 
-  // const logoTexture = useTexture('/strawhat.png')
+  const logoTexture = useTexture('/strawhat.png')
   // const fullTexture = useTexture('/strawhat.png')
+
+  logoTexture.offset()
 
   return (
     <group>
@@ -34,13 +36,13 @@ const Shirt = ({ color }: ShirtProps) => {
         material-roughness={1}
         dispose={null}
       >
-        {/* <Decal
+        <Decal
           position={[0, 0.04, 0.15]}
           rotation={[0, 0, 0]}
           scale={0.15}
           map={logoTexture}
           depthTest={false}
-        /> */}
+        />
       </mesh>
     </group>
   )
