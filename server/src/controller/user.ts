@@ -113,7 +113,7 @@ const loginGoogle = async (req: any, res: any) => {
 const profile = async (req: any, res: any) => {
     passport.authenticate( 'google', {
         successRedirect: 'http://localhost:3000/profile',
-        failureRedirect: 'https://facebook.com'
+        failureRedirect: 'http://localhost:3000/signin'
       })
 }    
 

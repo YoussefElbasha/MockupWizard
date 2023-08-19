@@ -7,7 +7,6 @@ import userRouter from "./routes/user";
 import cookieParser from "cookie-parser";
 import passport from "passport";
 import session from "express-session";
-import passportGoogle from "passport-google-oauth20";
 require('./lib/google-auth');
 
 declare global {
@@ -66,7 +65,7 @@ app.get(
   "/profile",
   passport.authenticate("google", {
     successRedirect: "http://localhost:3000/profile",
-    failureRedirect: "https://facebook.com",
+    failureRedirect: "http://localhost:3000/signin",
   })
 );
 
