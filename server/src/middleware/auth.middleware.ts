@@ -9,13 +9,14 @@ const isAuthenticated = (
 ): NextFunction | void => {
   try {
     let token;
-    const headers = String(req.headers.authentication);
     if (req.cookies?.["accessToken"] && req.cookies) {
       token = req.cookies?.["accessToken"];
       if (!token) res.status(400).json("Login first.");
       const decoded: any = JWT.verify(token, String(process.env.ACCESS_SECRET));
-      console.log(decoded.user);
-      req.context.userId = decoded.id;
+      const id: string = decoded.id;
+      req.userId = id;
+      // console.log(decoded.id);
+      // console.log(req.context.userId);
       next();
     } else {
       res.status(400).json("Login first.");
