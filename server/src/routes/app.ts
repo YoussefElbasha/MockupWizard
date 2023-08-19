@@ -3,14 +3,14 @@ import express from "express";
 const router = express.Router();
 
 router.get("/me", async (req, res) => {
-  const { userId, prisma } = req.context;
-
+  const { prisma } = req.context;
+  const userId = req.userId;
   const user = await prisma.user.findUnique({
     where: {
       id: userId,
     },
   });
-
-  res.send(200).json(user);
+  res.json(user);
+});
 
 export default router;

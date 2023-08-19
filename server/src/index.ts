@@ -4,6 +4,7 @@ import cors, { CorsOptions } from "cors";
 import * as bodyParser from "body-parser";
 import { PrismaClient } from "@prisma/client";
 import userRouter from "./routes/user";
+import apiRouter from "./routes/app";
 import cookieParser from "cookie-parser";
 import isAuthenticated from "./middleware/auth.middleware";
 declare global {
@@ -11,8 +12,8 @@ declare global {
     interface Request {
       context: {
         prisma: PrismaClient;
-        userId?: string;
       };
+      userId?: string;
     }
   }
 }
@@ -30,7 +31,7 @@ app.use(
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(isAuthenticated);
+app.use("/api", isAuthenticated);
 
 app.use((req, res, next) => {
   req.context = {
@@ -39,6 +40,7 @@ app.use((req, res, next) => {
   next();
 });
 app.use("/user", userRouter);
+app.use("/api", apiRouter);
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}: http://localhost:${port}`);
