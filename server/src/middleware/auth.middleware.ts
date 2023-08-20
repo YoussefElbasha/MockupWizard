@@ -1,7 +1,8 @@
 import * as JWT from 'jsonwebtoken'
 import { Request, Response, NextFunction } from 'express'
+import { IGetUserAuthInfoRequest } from '../request-definitions';
 
-const isAuthenticated = (req: any, res: Response, next: NextFunction): NextFunction | void => {
+const isAuthenticated = (req: IGetUserAuthInfoRequest, res: Response, next: NextFunction): NextFunction | void => {
     try {
         let token;
         const headers = String(req.headers.authentication)
