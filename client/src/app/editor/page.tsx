@@ -5,7 +5,7 @@ import Editor from './components/Editor'
 import EditorTabs from './editor tabs/EditorTabs'
 
 const Home = () => {
-  const [color, setColor] = useState('#fff')
+  const [color, setColor] = useState('#fffffe')
 
   return (
     <div className="h-screen w-full relative bg-gray-500">

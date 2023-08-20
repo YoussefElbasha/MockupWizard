@@ -24,7 +24,7 @@ const Shirt = ({ color }: ShirtProps) => {
   const logoTexture = useTexture('/strawhat.png')
   // const fullTexture = useTexture('/strawhat.png')
 
-  logoTexture.offset()
+  // logoTexture.offset()
 
   return (
     <group>
@@ -36,13 +36,13 @@ const Shirt = ({ color }: ShirtProps) => {
         material-roughness={1}
         dispose={null}
       >
-        <Decal
-          position={[0, 0.04, 0.15]}
+        {/* <Decal
+          position={[0.1, 0.04, 0]}
           rotation={[0, 0, 0]}
-          scale={0.15}
+          scale={[1, 1, 0.1]}
           map={logoTexture}
           depthTest={false}
-        />
+        /> */}
       </mesh>
     </group>
   )

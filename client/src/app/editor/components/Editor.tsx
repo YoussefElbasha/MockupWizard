@@ -4,6 +4,8 @@ import { Canvas } from '@react-three/fiber'
 import { Environment, Center, OrbitControls } from '@react-three/drei'
 
 import Shirt from './Shirt'
+import Mug from './mug'
+import Bunny from './bunny'
 
 interface EditorProps {
   color: string
@@ -28,11 +30,14 @@ const Editor = ({ color }: EditorProps) => {
       {/* <spotLight position={[-10, 10, 10]} intensity={10} color={'green'} /> */}
       {/* <directionalLight position={[5, 10, 10]} intensity={1} /> */}
 
-      <OrbitControls minDistance={1} maxDistance={6} zoomSpeed={2} />
+      {/* <OrbitControls minDistance={1} maxDistance={6} zoomSpeed={2} /> */}
+      <OrbitControls zoomSpeed={2} />
 
       {/* <Backdrop /> */}
       <Center>
-        <Shirt color={color} />
+        {/* <Shirt color={color} /> */}
+        <Mug color={color} />
+        {/* <Bunny /> */}
       </Center>
     </Canvas>
   )
