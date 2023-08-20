@@ -15,8 +15,6 @@ const isAuthenticated = (
       const decoded: any = JWT.verify(token, String(process.env.ACCESS_SECRET));
       const id: string = decoded.id;
       req.userId = id;
-      // console.log(decoded.id);
-      // console.log(req.context.userId);
       next();
     } else {
       res.status(400).json("Login first.");
