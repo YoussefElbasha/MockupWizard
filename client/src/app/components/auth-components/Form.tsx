@@ -3,6 +3,8 @@ import Input from "./Input";
 import Button from "./Button";
 import OauthComponent from "./OauthComponent";
 
+import Switch from "react-switch";
+
 interface formProps {
   label: string;
   signup?: boolean;
@@ -12,6 +14,8 @@ interface formProps {
   toggleHidePassword: any;
   passwordType: string;
   isMutating: boolean;
+  withOTP: boolean;
+  setWithOTP: any;
 }
 
 const Form = (props: formProps) => {
@@ -71,16 +75,30 @@ const Form = (props: formProps) => {
               errors={props.errors}
               onClick={() => {}}
             />
-            <Input
-              label="Password"
-              placeholder="Enter password"
-              register={props.register}
-              registerName="password"
-              errors={props.errors}
-              onClick={props.toggleHidePassword}
-              passwordType={props.passwordType}
-              eyeIcon={true}
-            />
+            {!props.withOTP && (
+              <Input
+                label="Password"
+                placeholder="Enter password"
+                register={props.register}
+                registerName="password"
+                errors={props.errors}
+                onClick={props.toggleHidePassword}
+                passwordType={props.passwordType}
+                eyeIcon={true}
+              />
+            )}
+            <div className="flex gap-2 text-xs items-center">
+              <Switch
+                onChange={() => {
+                  props.setWithOTP(!props.withOTP);
+                }}
+                checked={props.withOTP}
+                checkedIcon={false}
+                uncheckedIcon={false}
+              />
+              <p>Sign in with OTP</p>
+            </div>
+
             <Button label="Sign in" isMutating={props.isMutating} />
           </>
         )}

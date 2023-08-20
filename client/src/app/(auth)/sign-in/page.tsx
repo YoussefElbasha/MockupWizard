@@ -9,6 +9,7 @@ import api from "../../../../util/Axios";
 import { useRouter } from "next/navigation";
 import useSWRMutation from "swr/mutation";
 import toast, { Toaster } from "react-hot-toast";
+import Switch from "react-switch";
 
 import AuthCanvas from "@/app/components/auth-components/AuthCanvas";
 import Navbar from "@/app/components/auth-components/Navbar";
@@ -16,20 +17,23 @@ import Form from "@/app/components/auth-components/Form";
 
 interface loginData {
   email: string;
-  password: string;
+  password?: string;
 }
-
-const schema = yup.object().shape({
-  email: yup
-    .string()
-    .required("Email is required")
-    .email("Please enter a valid email"),
-  password: yup.string().required("Password is required").min(8).max(32),
-});
 
 const page = () => {
   const router = useRouter();
   const [passwordType, setPasswordType] = useState("password");
+  const [withOTP, setWithOTP] = useState(false);
+
+  const schema = yup.object().shape({
+    email: yup
+      .string()
+      .required("Email is required")
+      .email("Please enter a valid email"),
+    password: withOTP
+      ? yup.string()
+      : yup.string().required("Password is required").min(8).max(32),
+  });
 
   const toggleHidePassword = () => {
     setPasswordType((prev: string) => {
@@ -49,7 +53,8 @@ const page = () => {
 
   const loginUser = async (url: string, { arg }: { arg: loginData }) => {
     try {
-      const response = await api.post(url, arg);
+      if (withOTP) url += "/otp";
+      const response = await axios.post(url, arg);
       return response.data;
     } catch (err: any) {
       throw err;
@@ -134,6 +139,8 @@ const page = () => {
           toggleHidePassword={toggleHidePassword}
           passwordType={passwordType}
           isMutating={isMutating}
+          withOTP={withOTP}
+          setWithOTP={setWithOTP}
         />
       </div>
     </div>
