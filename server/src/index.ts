@@ -42,8 +42,6 @@ app.use((req, res, next) => {
 });
 app.use("/user", userRouter);
 app.use("/api", apiRouter);
-
-sendOtp("omar.m.elbarbary@gmail.com", "1234");
 app.listen(port, () => {
   console.log(`Listening on port ${port}: http://localhost:${port}`);
 });
