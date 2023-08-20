@@ -1,40 +1,49 @@
-import express from 'express'
-import dotenv from 'dotenv'
-import cors from 'cors'
-import * as bodyParser from 'body-parser'
-import { PrismaClient } from '@prisma/client'
-import  userRouter  from './routes/user'
-import cookieParser from 'cookie-parser'
+import express from "express";
+import dotenv from "dotenv";
+import cors, { CorsOptions } from "cors";
+import * as bodyParser from "body-parser";
+import { PrismaClient } from "@prisma/client";
+import userRouter from "./routes/user";
+import apiRouter from "./routes/app";
+import cookieParser from "cookie-parser";
+import isAuthenticated from "./middleware/auth.middleware";
+import sendOtp from "./lib/sendEmail";
 declare global {
   namespace Express {
     interface Request {
       context: {
-        prisma: PrismaClient,
-        }
+        prisma: PrismaClient;
+      };
+      userId?: string;
     }
   }
 }
 
-dotenv.config()
-const app = express()
-const port = process.env.PORT
-app.use(cookieParser())
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(cors())
+dotenv.config();
+const app = express();
+const port = process.env.PORT;
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  })
+);
+
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use("/api", isAuthenticated);
 
 app.use((req, res, next) => {
   req.context = {
     prisma: new PrismaClient(),
-  }
-  next()
-})
-app.use('/user',userRouter)
-
-
-
+  };
+  next();
+});
+app.use("/user", userRouter);
+app.use("/api", apiRouter);
 app.listen(port, () => {
-  console.log(`Listening on port ${port}: http://localhost:${port}`)
-})
+  console.log(`Listening on port ${port}: http://localhost:${port}`);
+});
 
-export default app
+export default app;

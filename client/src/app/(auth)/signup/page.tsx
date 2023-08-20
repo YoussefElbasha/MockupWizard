@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { motion } from "framer-motion";
-import axios from "axios";
+import api from "../../../../util/Axios";
 import { useRouter } from "next/navigation";
 import useSWRMutation from "swr/mutation";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -55,7 +55,7 @@ const page = () => {
 
   const registerUser = async (url: string, { arg }: { arg: registerData }) => {
     try {
-      const response = await axios.post(url, arg);
+      const response = await api.post(url, arg);
       return response.data;
     } catch (err: any) {
       throw err;
