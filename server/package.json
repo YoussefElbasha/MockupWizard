@@ -40,6 +40,7 @@
         "handlebars": "^4.7.8",
         "jsonwebtoken": "^9.0.1",
         "mjml": "^4.14.1",
-        "sucrase": "^3.32.0"
+        "sucrase": "^3.32.0",
+        "ts-node": "^10.9.1"
     }
 }

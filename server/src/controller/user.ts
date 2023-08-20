@@ -41,7 +41,6 @@ const otpverify = async (req: any, res: any) => {
       return;
     }
     const token = createAuthToken(user.id);
-    //
     await prisma.otp.delete({
       where: {
         id: otp.id,
@@ -56,7 +55,7 @@ const otpverify = async (req: any, res: any) => {
 
 const logout = async (req: any, res: any) => {
   const accessTokenCookieDomain = process.env.ACCESS_TOKEN_COOKIE ?? "";
-  await res.clearCookie("access", {
+  await res.clearCookie("accessToken", {
     domain: accessTokenCookieDomain,
     httpOnly: true,
     secure: true,

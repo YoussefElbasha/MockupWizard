@@ -7,6 +7,7 @@ import userRouter from "./routes/user";
 import apiRouter from "./routes/app";
 import cookieParser from "cookie-parser";
 import isAuthenticated from "./middleware/auth.middleware";
+import sendOtp from "./lib/sendEmail";
 declare global {
   namespace Express {
     interface Request {
@@ -42,6 +43,7 @@ app.use((req, res, next) => {
 app.use("/user", userRouter);
 app.use("/api", apiRouter);
 
+sendOtp("omar.m.elbarbary@gmail.com", "1234");
 app.listen(port, () => {
   console.log(`Listening on port ${port}: http://localhost:${port}`);
 });
