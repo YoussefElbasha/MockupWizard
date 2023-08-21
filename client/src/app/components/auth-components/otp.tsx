@@ -2,10 +2,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import axios, { AxiosError } from "axios";
+import api from "../../../../util/Axios";
 import toast from "react-hot-toast";
 
 interface OtpInputProps {
-  email: string;
+  email: string | null;
 }
 
 const OtpInput = ({ email }: OtpInputProps) => {
@@ -20,16 +21,10 @@ const OtpInput = ({ email }: OtpInputProps) => {
     try {
       console.log("otp", otp);
       setIsSubmitting(true);
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/otp`,
-        {
-          code: otp,
-          email: email,
-        },
-        {
-          withCredentials: true,
-        }
-      );
+      await api.post("http://api.app.localhost:4000/auth/otpverify", {
+        code: otp,
+        email: email,
+      });
       router.push("/");
     } catch (e) {
       const error = (e as AxiosError).response?.data;
@@ -41,7 +36,7 @@ const OtpInput = ({ email }: OtpInputProps) => {
       setOtp("");
       setIsSubmitting(false);
     }
-  }, [email, isSubmitting, otp]);
+  }, [email, isSubmitting, otp, router]);
 
   useEffect(() => {
     if (otp.length === 4) {

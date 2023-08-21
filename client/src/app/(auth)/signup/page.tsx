@@ -63,7 +63,7 @@ const page = () => {
   };
 
   const { data, trigger, isMutating } = useSWRMutation(
-    "http://localhost:4000/user/register",
+    "http://localhost:4000/auth/register",
     registerUser
   );
 
@@ -120,6 +120,8 @@ const page = () => {
           toggleHidePassword={toggleHidePassword}
           passwordType={passwordType}
           isMutating={isMutating}
+          withOTP={false}
+          setWithOTP={undefined}
         />
         <Toaster />
         <AuthCanvas />

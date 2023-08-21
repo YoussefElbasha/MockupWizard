@@ -3,19 +3,22 @@ import generateOTP from "../../lib/otp";
 import sendOtp from "../../lib/sendEmail";
 
 const otplogin = async (req: any, res: any) => {
-  const { email } = req.body;
-  const { prisma } = req.context;
-  const user = await prisma.user.findUnique({
-    where: { email },
-  });
-  if (!user) {
-    res.status(400).json("User not found.");
-    return;
+  try {
+    const { email } = req.body;
+    const { prisma } = req.context;
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
+    if (!user) {
+      res.status(400).json("User not found.");
+      return;
+    }
+    const otp = await generateOTP(user.id, prisma);
+    await sendOtp(user.email, otp.code);
+    res.status(200).json("OTP sent.");
+  } catch (err) {
+    res.status(400).json(err);
   }
-  const otp = await generateOTP(user, prisma);
-  //send otp to email
-  await sendOtp(user.email, otp.code);
-  res.status(200);
 };
 
 const otpverify = async (req: any, res: any) => {
