@@ -1,20 +1,23 @@
 "use client";
-// import ArrowBackIcon from "@/icons/arrow-back-outline.svg";
 import toast from "react-hot-toast";
-
 import OtpInput from "@/app/components/auth-components/otp";
-import Button from "@/app/components/auth-components/Button";
+import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
+import api from "../../../../util/Axios";
+import { use } from "react";
 
 interface OtpProps {
-  email: string;
+  email: string | null;
 }
 
-const page = ({ email }: OtpProps) => {
+const page = () => {
+  const router = useRouter();
+  const SearchParams = useSearchParams();
+  const email = SearchParams.get("email");
   const handleResubmission = async () => {
     try {
       console.log("resend otp");
-      // await sendOtp({ email: email });
+      await api.post("auth/login/otp", { email });
     } catch (errors) {
       toast.error("somethingWentWrong");
     }
@@ -34,11 +37,11 @@ const page = ({ email }: OtpProps) => {
           <span className="text-neutral-500">
             Enter below the 4 digits one-time password we sent to{" "}
           </span>
-          <span className="text-secondary">{"test@gmail.com"}</span>
+          <span className="text-secondary">{email}</span>
           <span className="text-neutral-400 ">. </span>
         </p>
 
-        <OtpInput email={"test@gmail.com"} />
+        <OtpInput email={email} />
         <div className="flex flex-col items-center justify-center">
           <div className="absolute z-10">
             <button

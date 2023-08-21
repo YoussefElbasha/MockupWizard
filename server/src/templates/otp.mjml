@@ -1,65 +1,58 @@
 <mjml>
   <mj-body>
-    <mj-container>
-      <mj-wrapper border-radius="10px" background-color="#14162E">
-        <mj-section>
-          <mj-column>
-            <mj-text font-size="24px" font-weight="bold" color="#FFFFFF">
-              Your OTP Code
-            </mj-text>
-            <mj-divider border-color="#cccccc" />
-            <mj-image
-              width="200px"
-              src="https://media.tenor.com/ZNhhwjnkZp8AAAAC/kek-wizard-pepe.gif"
-              alt="Illustration"
-            />
-          </mj-column>
-        </mj-section>
-        <mj-section
-          padding-top="20px"
-          padding-bottom="0px"
-          padding-left="30px"
-          padding-right="30px"
-        >
-          <mj-column>
-            <mj-text
-              font-size="16px"
-              color="#FFFFFF"
-              align="center"
-              line-height="24px"
-              font-weight="400"
-            >
-              Hi there! Here is your OTP code for authentication:
-            </mj-text>
-          </mj-column>
-        </mj-section>
-        <mj-section>
-          {{#each otp}}
-          <mj-column
-            width="36px"
-            background-color="#FFFFFF"
-            border-radius="5px"
+    <mj-wrapper border-radius="10px" background-color="#14162E">
+      <mj-section>
+        <mj-column>
+          <mj-text font-size="24px" font-weight="bold" color="#FFFFFF"
+            >Your OTP Code</mj-text
           >
-            <mj-text
-              font-size="24px"
-              font-weight="bold"
-              color="#4461F2"
-              padding="5px"
-              align="center"
-            >
-              {{this}}
-            </mj-text>
-          </mj-column>
-          <mj-column width="10px"></mj-column>
-          {{/each}}
-          <mj-column width="100%">
-            <mj-text font-size="16px" color="#333333">
-              This OTP code is valid for a short period of time. Please do not
-              share it with anyone.
-            </mj-text>
-          </mj-column>
-        </mj-section>
-      </mj-wrapper>
-    </mj-container>
+          <mj-divider border-color="#cccccc"></mj-divider>
+          <mj-image
+            width="200px"
+            src="https://media.tenor.com/ZNhhwjnkZp8AAAAC/kek-wizard-pepe.gif"
+            alt="Illustration"
+          ></mj-image>
+        </mj-column>
+      </mj-section>
+      <mj-section
+        padding-top="20px"
+        padding-bottom="0px"
+        padding-left="30px"
+        padding-right="30px"
+      >
+        <mj-column>
+          <mj-text
+            font-size="16px"
+            color="#FFFFFF"
+            align="center"
+            line-height="24px"
+            font-weight="400"
+            >Hi there! Here is your OTP code for authentication:</mj-text
+          >
+        </mj-column>
+      </mj-section>
+      <mj-section>
+        {{#each otp}}
+        <mj-column width="36px" background-color="#FFFFFF" border-radius="5px">
+          <mj-text
+            font-size="24px"
+            font-weight="bold"
+            color="#4461F2"
+            padding="5px"
+            align="center"
+          >
+            {{this}}
+          </mj-text>
+        </mj-column>
+        <mj-column width="10px"></mj-column>
+        {{/each}}
+        <mj-column width="100%">
+          <mj-text font-size="16px" color="#333333"
+            >This OTP code is valid for a short period of time. Please do not
+            share it with anyone.</mj-text
+          >
+        </mj-column>
+      </mj-section>
+    </mj-wrapper>
   </mj-body>
 </mjml>

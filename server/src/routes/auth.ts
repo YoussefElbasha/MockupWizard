@@ -13,7 +13,7 @@ router.post("/register", register);
 // router.post('/login/google',loginGoogle);
 // router.post('/login/facebook',loginFacebook);
 router.post("/login/otp", otplogin);
-router.post("/otp/verify", otpverify);
+router.post("/otpverify", otpverify);
 router.get("/logout", logout);
 
 export default router;

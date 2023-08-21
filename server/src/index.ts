@@ -3,11 +3,10 @@ import dotenv from "dotenv";
 import cors, { CorsOptions } from "cors";
 import * as bodyParser from "body-parser";
 import { PrismaClient } from "@prisma/client";
-import userRouter from "./routes/user";
+import authRouter from "./routes/auth";
 import apiRouter from "./routes/app";
 import cookieParser from "cookie-parser";
 import isAuthenticated from "./middleware/auth.middleware";
-import sendOtp from "./lib/sendEmail";
 import dashboardRouter from "./routes/dashboard";
 declare global {
   namespace Express {
@@ -41,12 +40,11 @@ app.use((req, res, next) => {
   };
   next();
 });
-app.use("/user", userRouter);
+app.use("/auth", authRouter);
 app.use("/api", apiRouter);
 // app.use(isAuthenticated);
 app.use("/dashboard", dashboardRouter);
 app.listen(port, () => {
   console.log(`Listening on port ${port}: http://localhost:${port}`);
 });
-
 export default app;
