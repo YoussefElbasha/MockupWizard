@@ -1,6 +1,18 @@
 import React from "react";
 import Google from "@/app/icons/google.svg";
 import Facebook from "@/app/icons/facebook.svg";
+import axios from "axios";
+
+const handleFacebookAuth = async () => {
+  try {
+    //await axios.get('http://localhost:4000/login/facebook');
+    window.location.href = 'http://localhost:4000/login/facebook'
+    // Handle the response
+  } catch (err: any) {
+    console.error("Error making request:", err);
+    // Handle the error
+  }
+}   
 
 const OauthComponent = () => {
   return (
@@ -11,7 +23,7 @@ const OauthComponent = () => {
         <hr className="w-16" />
       </div>
       <div className="flex gap-10 justify-center my-8">
-        <button
+        <button onClick={handleFacebookAuth}
           type="button"
           className="px-8 py-2 bg-white rounded-xl text-black"
         >

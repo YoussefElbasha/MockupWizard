@@ -86,6 +86,8 @@ const page = () => {
     }
   };
 
+  
+
   return (
     <div className="bg-[#14162E] m-auto min-h-screen flex items-center justify-center relative">
       <motion.div
@@ -119,8 +121,7 @@ const page = () => {
           errors={errors}
           toggleHidePassword={toggleHidePassword}
           passwordType={passwordType}
-          isMutating={isMutating}
-        />
+          isMutating={isMutating} withOTP={false} setWithOTP={undefined}        />
         <Toaster />
         <AuthCanvas />
         <div className="p-10 text-white flex-grow justify-center flex flex-col items-start gap-10">
