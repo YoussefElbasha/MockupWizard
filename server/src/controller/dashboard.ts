@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from "express";
 const createFolder = async (req: any, res: Response) => {
   const { prisma } = req.context;
   const { folderName } = req.body;
-  const { userId } = req.user;
+  const { userId } = req.userId;
 
   const user = await prisma.user.findUnique({
     where: { userId },

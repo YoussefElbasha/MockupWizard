@@ -12,7 +12,7 @@ router.post("/login", login);
 router.post("/register", register);
 // router.post('/login/google',loginGoogle);
 // router.post('/login/facebook',loginFacebook);
-router.post("/otp", otplogin);
+router.post("/login/otp", otplogin);
 router.post("/otp/verify", otpverify);
 router.get("/logout", logout);
 

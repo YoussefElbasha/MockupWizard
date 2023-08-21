@@ -120,6 +120,8 @@ const page = () => {
           toggleHidePassword={toggleHidePassword}
           passwordType={passwordType}
           isMutating={isMutating}
+          withOTP={false}
+          setWithOTP={undefined}
         />
         <Toaster />
         <AuthCanvas />
