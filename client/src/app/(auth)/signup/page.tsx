@@ -63,7 +63,7 @@ const page = () => {
   };
 
   const { data, trigger, isMutating } = useSWRMutation(
-    "http://localhost:4000/auth/register",
+    "http://api.app.localhost:4000/auth/register",
     registerUser
   );
 
