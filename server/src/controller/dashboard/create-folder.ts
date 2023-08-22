@@ -6,18 +6,6 @@ const createFolder = async (req: Request, res: Response) => {
     const { folderName } = req.body;
     const userId = req.userId;
 
-    const user = await prisma.user.findUnique({
-      where: { id: userId },
-    });
-
-    const folder = await prisma.folder.findFirst({
-      where: { name: folderName },
-    });
-
-    if (folder) {
-      return res.status(400).json("Folder already exists.");
-    }
-
     await prisma.folder.create({
       data: {
         user: { connect: { id: userId } },
