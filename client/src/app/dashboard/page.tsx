@@ -23,6 +23,15 @@ const page = () => {
       console.log(e);
     }
   };
+  const handleDeleteFolder = async () => {
+    try {
+      await api.delete(
+        `http://api.app.localhost:4000/dashboard/delete-folder/cllma7q690000trck231h3f5g`
+      );
+    } catch (e: any) {
+      console.log(e);
+    }
+  };
   return (
     <div className="bg-[#14162E] min-h-screen text-white">
       <AnimatePresence mode="wait">
@@ -42,6 +51,17 @@ const page = () => {
                     <Add />
                   </div>
                   <p className="text-sm">New folder</p>
+                </button>
+              </div>
+              <div className="bg-[#4461F21A] pl-[7px] py-[5px] pr-[20px] rounded-full">
+                <button
+                  onClick={handleDeleteFolder}
+                  className="flex gap-[10px] items-center"
+                >
+                  <div className="w-10 h-10 rounded-full bg-[#DDA82A] flex items-center justify-center">
+                    <Add />
+                  </div>
+                  <p className="text-sm">delete folder</p>
                 </button>
               </div>
               <div className="flex flex-col gap-4">
