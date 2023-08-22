@@ -1,36 +1,31 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 
-const createFolder = async (req: any, res: Response) => {
+const createFolder = async (req: Request, res: Response) => {
   const { prisma } = req.context;
   const { folderName } = req.body;
-  const { userId } = req.userId;
+  const userId = req.userId;
 
   const user = await prisma.user.findUnique({
-    where: { userId },
+    where: { id: userId },
   });
 
-  if (!user) {
-    res.status(400).json("User not found.");
+  const folder = await prisma.folder.findFirst({
+    where: { name: folderName },
+  });
+
+  if (folder) {
+    res.status(400).json("Folder already exists.");
     return;
   }
 
-  const folder = await prisma.folder.create({
-    user: user,
-    name: String(folderName),
+  await prisma.folder.create({
+    data: {
+      user: { connect: { id: userId } },
+      name: String(folderName),
+    },
   });
 
   res.status(200).json("Folder created.");
-};
-
-const deleteFolder = async (req: any, res: Response) => {
-  const { prisma } = req.context;
-  const { folderId } = req.body;
-
-  const folder = await prisma.folder.delete({
-    where: { folderId },
-  });
-
-  res.status(200).json("Folder deleted.");
 };
 
 export { createFolder };
