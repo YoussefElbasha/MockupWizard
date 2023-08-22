@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { motion } from "framer-motion";
-import axios from "axios";
+import api from "../../../../util/Axios";
 import { useRouter } from "next/navigation";
 import useSWRMutation from "swr/mutation";
 import toast, { Toaster } from "react-hot-toast";
@@ -54,8 +54,7 @@ const page = () => {
   const loginUser = async (url: string, { arg }: { arg: loginData }) => {
     try {
       if (withOTP) url += "/otp";
-
-      const response = await axios.post(url, arg);
+      const response = await api.post(url, arg);
       return response.data;
     } catch (err: any) {
       throw err;
@@ -63,7 +62,7 @@ const page = () => {
   };
 
   const { data, trigger, isMutating, error } = useSWRMutation(
-    "http://localhost:4000/user/login",
+    "http://api.app.localhost:4000/auth/login",
     loginUser
   );
 
@@ -72,8 +71,13 @@ const page = () => {
     try {
       await trigger(userData);
       toast.dismiss(loadingPromise);
-      toast.success("Login success.");
-      router.push("/");
+      if (withOTP) {
+        router.push(`/otp?email=${userData.email}`);
+      } else {
+        toast.success("Login success.");
+        router.push("/");
+      }
+      // router.push("/");
     } catch (err: any) {
       toast.dismiss(loadingPromise);
       if (err.response && err.response.data) {
