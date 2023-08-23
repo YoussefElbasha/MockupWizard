@@ -8,10 +8,30 @@ import { AnimatePresence, motion } from "framer-motion";
 import AddProject from "../components/dashboard-components/AddProject";
 import Home from "../page";
 import { fadeAnimation, slideAnimation } from "./motion";
+import axios from "axios";
+import api from "../../../util/Axios";
 
 const page = () => {
   const [inCustomizer, setInCustomizer] = useState(true);
   const projects = [1, 1.1, 1.2, 1.3, 1.4, 1.5];
+  const handleCreateFolder = async () => {
+    try {
+      await api.post("http://api.app.localhost:4000/dashboard/create-folder", {
+        folderName: "sbacefolderr",
+      });
+    } catch (e: any) {
+      console.log(e);
+    }
+  };
+  const handleDeleteFolder = async () => {
+    try {
+      await api.delete(
+        `http://api.app.localhost:4000/dashboard/delete-folder/cllma7q690000trck231h3f5g`
+      );
+    } catch (e: any) {
+      console.log(e);
+    }
+  };
   return (
     <div className="bg-[#14162E] min-h-screen text-white">
       <AnimatePresence mode="wait">
@@ -23,12 +43,26 @@ const page = () => {
           >
             <div className="flex flex-col gap-10">
               <div className="bg-[#4461F21A] pl-[7px] py-[5px] pr-[20px] rounded-full">
-                <div className="flex gap-[10px] items-center">
+                <button
+                  onClick={handleCreateFolder}
+                  className="flex gap-[10px] items-center"
+                >
                   <div className="w-10 h-10 rounded-full bg-[#DDA82A] flex items-center justify-center">
                     <Add />
                   </div>
                   <p className="text-sm">New folder</p>
-                </div>
+                </button>
+              </div>
+              <div className="bg-[#4461F21A] pl-[7px] py-[5px] pr-[20px] rounded-full">
+                <button
+                  onClick={handleDeleteFolder}
+                  className="flex gap-[10px] items-center"
+                >
+                  <div className="w-10 h-10 rounded-full bg-[#DDA82A] flex items-center justify-center">
+                    <Add />
+                  </div>
+                  <p className="text-sm">delete folder</p>
+                </button>
               </div>
               <div className="flex flex-col gap-4">
                 <div className="bg-[#4461F21A] pl-4 py-3.5 pr-[20px] rounded-full">
