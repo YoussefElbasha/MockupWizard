@@ -8,7 +8,7 @@ import deleteFolder from "../controller/dashboard/delete-folder";
 import deleteScreenshot from "../controller/dashboard/delete-screenshot";
 import deleteProject from "../controller/dashboard/delete-project";
 import getFolderContents from "../controller/dashboard/get-folder-contents";
-import getProjectContents from '../controller/dashboard/get-project-contents';
+import getProjectContents from "../controller/dashboard/get-project-contents";
 import deleteDesign from "../controller/dashboard/delete-design";
 
 router.get("/", getAllFolders);

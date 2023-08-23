@@ -12,7 +12,7 @@ const getFolderContents = async (req: Request, res: Response) => {
     if (!projects) return res.status(400).json("No projects found.");
 
     const response = projects.map((p) => {
-      return { id: p.id, thumbnail: p.thumbnail };
+      return { id: p.id, name: p.name, thumbnail: p.thumbnail };
     });
     return res.status(200).json(response);
   } catch (e: any) {
