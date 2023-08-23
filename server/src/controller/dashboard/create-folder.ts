@@ -20,4 +20,4 @@ const createFolder = async (req: Request, res: Response) => {
   }
 };
 
-export { createFolder };
+export default createFolder;
