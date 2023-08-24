@@ -12,7 +12,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Switch from "react-switch";
 
 import AuthCanvas from "@/app/components/auth-components/AuthCanvas";
-import Navbar from "@/app/components/auth-components/Navbar";
+import Navbar from "@/app/components/navbar-components/Navbar";
 import Form from "@/app/components/auth-components/Form";
 
 interface loginData {
