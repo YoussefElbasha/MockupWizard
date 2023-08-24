@@ -8,6 +8,11 @@ import apiRouter from "./routes/app";
 import cookieParser from "cookie-parser";
 import isAuthenticated from "./middleware/auth.middleware";
 import dashboardRouter from "./routes/dashboard";
+import passport from "passport";
+import session from "express-session";
+require('./lib/google-auth');
+
+
 declare global {
   namespace Express {
     interface Request {
@@ -33,6 +38,9 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/api", isAuthenticated);
+app.use(session({ secret: String(process.env.ACCESS_SECRET), resave: false, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use((req, res, next) => {
   req.context = {

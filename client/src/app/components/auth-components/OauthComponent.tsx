@@ -2,6 +2,10 @@ import React from "react";
 import Google from "@/app/icons/google.svg";
 import Facebook from "@/app/icons/facebook.svg";
 
+const handleGoogleLogin = () => {
+  window.location.href = "http://localhost:4000/login/google";
+}
+
 const OauthComponent = () => {
   return (
     <div>
@@ -17,7 +21,7 @@ const OauthComponent = () => {
         >
           <Facebook />
         </button>
-        <button
+        <button onClick={handleGoogleLogin}
           type="button"
           className="px-8 py-2 bg-white rounded-xl text-black"
         >
