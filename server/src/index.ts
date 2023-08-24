@@ -64,7 +64,7 @@ app.get(
 app.get(
   "/profile",
   passport.authenticate("google", {
-    successRedirect: "http://localhost:3000/profile",
+    successRedirect: "https://google.com",
     failureRedirect: "http://localhost:3000/signin",
   })
 );
