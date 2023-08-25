@@ -16,7 +16,7 @@ const createProject = async (req: Request, res: Response) => {
       },
     });
 
-    return res.status(200).json("Project created successfully.");
+    return res.status(200).json("Created Project record and 3DModel record.");
 
   } catch (error) {
     console.log("Error creating project: ", error);
