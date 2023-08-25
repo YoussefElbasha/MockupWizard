@@ -23,3 +23,5 @@ const createProject = async (req: Request, res: Response) => {
     return res.status(500).json("An error occurred.");
   }
 };
+
+export default createProject;

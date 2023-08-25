@@ -10,6 +10,7 @@ import deleteProject from "../controller/dashboard/delete-project";
 import getFolderContents from "../controller/dashboard/get-folder-contents";
 import getProjectContents from "../controller/dashboard/get-project-contents";
 import deleteDesign from "../controller/dashboard/delete-design";
+import createProject from "../controller/dashboard/create-project";
 
 router.get("/", getAllFolders);
 router.post("/create-folder", createFolder);
@@ -19,5 +20,6 @@ router.delete("/delete-project/:projectId", deleteProject);
 router.get("/get-project-contents/:projectId", getProjectContents);
 router.get("/get-folder-contents/:folderId", getFolderContents);
 router.delete("/delete-design/:designId", deleteDesign);
+router.post("/create-project", createProject);
 
 export default router;
