@@ -40,7 +40,12 @@ const profileMenuItems = [
   },
 ];
 
-function ProfileMenu() {
+interface profileMenuProps {
+  email: string;
+  username: string;
+}
+
+function ProfileMenu(props: profileMenuProps) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const closeMenu = () => setIsMenuOpen(false);
@@ -56,8 +61,8 @@ function ProfileMenu() {
             <img className="rounded-full w-10" src="/pepeWizard.png" />
           </div>
           <div className="flex flex-col font-[500] text-sm text-left">
-            <p>bace</p>
-            <p className="text-[#CFD1D4]">youssef2311@gmail.com</p>
+            <p>{props.username}</p>
+            <p className="text-[#CFD1D4]">{props.email}</p>
           </div>
           <ArrowDown
             className={`transition-transform ${isMenuOpen ? "rotate-180" : ""}`}
@@ -71,7 +76,7 @@ function ProfileMenu() {
             <MenuItem
               key={label}
               onClick={closeMenu}
-              className={`flex items-center hover:bg-gray-200 gap-2 rounded p-2 ${
+              className={`flex items-center text-black hover:bg-gray-200 gap-2 rounded p-2 ${
                 isLastItem
                   ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
                   : ""

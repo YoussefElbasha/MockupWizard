@@ -20,7 +20,7 @@ export default function Home() {
       }
     };
 
-    fetchUserInfo(); // Call the function to fetch user info
+    // fetchUserInfo(); // Call the function to fetch user info
   }, []);
   return (
     <div className="relative bg-[#14162E] min-h-screen text-white">
