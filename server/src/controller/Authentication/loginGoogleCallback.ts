@@ -23,10 +23,6 @@ const googleOAuthCallback = async (req: any, res: any) => {
 
     if (user) {
       const token = createAuthToken(user.id);
-      console.log(token);
-      console.log(picture);
-      console.log(name);
-      console.log(email);
       res.cookie("accessToken", token.accessToken, {
         maxAge: 3600000,
         httpOnly: true,
