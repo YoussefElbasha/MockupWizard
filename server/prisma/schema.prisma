@@ -12,6 +12,7 @@ model User {
   email            String             @unique
   username         String?
   password         String?
+  picture          String?             
   otp              Otp[]
   folders Folder[]
 }
