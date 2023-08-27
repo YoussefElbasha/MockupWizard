@@ -61,7 +61,7 @@ function ProfileMenu(props: profileMenuProps) {
             <img className="rounded-full w-10" src="/pepeWizard.png" />
           </div>
           <div className="flex flex-col font-[500] text-sm text-left">
-            <p>{props.username}</p>
+            <p className="text-white">{props.username}</p>
             <p className="text-[#CFD1D4]">{props.email}</p>
           </div>
           <ArrowDown
@@ -102,10 +102,3 @@ function ProfileMenu(props: profileMenuProps) {
   );
 }
 export default ProfileMenu;
-// export function AvatarDropdown() {
-//   return (
-//     <div className="flex items-center gap-2">
-//       <ProfileMenu />
-//     </div>
-//   );
-// }

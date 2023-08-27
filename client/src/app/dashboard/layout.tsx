@@ -17,7 +17,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import CreateFolder from "../components/dashboard-components/CreateFolder";
 
-const page = () => {
+const Layout = ({ children }: any) => {
   const router = useRouter();
   const [inCustomizer, setInCustomizer] = useState(true);
   const [folders, setFolders] = useState([]);
@@ -84,12 +84,16 @@ const page = () => {
       }
     }
   };
-  // const { data, error, isLoading } = useSWR("getFolders", getFolders);
-  // useEffect(() => {
-  //   if (data) {
-  //     setFolders(data);
-  //   }
-  // }, [data]);
+  const handleFolderContent = (folderId: string) => {
+    setCurrentFolder(folderId);
+    router.push(`/dashboard/${folderId}`);
+  };
+  const { data, error, isLoading } = useSWR("getFolders", getFolders);
+  useEffect(() => {
+    if (data) {
+      setFolders(data);
+    }
+  }, [data]);
   const handleDeleteFolder = async () => {
     try {
       await api.delete(
@@ -100,79 +104,53 @@ const page = () => {
     }
   };
   return (
-    <></>
-    // <div className="relative bg-[#14162E] min-h-screen text-white">
-    //   <Toaster />
-    //   <AnimatePresence mode="wait">
-    //     {inCustomizer && !isLogged && (
-    //       <>
-    //         <div className="">
-    //           <Navbar />
-    //         </div>
-    //         <motion.div
-    //           key="customizer"
-    //           {...fadeAnimation}
-    //           className="flex gap-16 p-4 sm:p-10 md:p-20"
-    //         >
-    //           <div className="flex flex-col gap-10">
-    //             <CreateFolder onClick={createFolder} />
-    //             <div>
-    //               {isLoading
-    //                 ? "Loading..."
-    //                 : folders.map((folder: any) => {
-    //                     return (
-    //                       <div className="py-2">
-    //                         <Folder
-    //                           key={folder.id}
-    //                           id={folder.id}
-    //                           name={folder.name}
-    //                           onClick={getFolderContent}
-    //                           isCurrent={
-    //                             currentFolder === folder.id ? true : false
-    //                           }
-    //                         />
-    //                       </div>
-    //                     );
-    //                   })}
-    //             </div>
-    //           </div>
-    //           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-    //             {isLoadingContent ? "Loading..." : ""}
-    //             {currentFolderContents &&
-    //               currentFolderContents.map((content: any, idx) => (
-    //                 <motion.div
-    //                   onClick={() => setInCustomizer(false)}
-    //                   key={idx}
-    //                   initial={{ opacity: 0, x: -10, y: 20 }}
-    //                   animate={{ opacity: 1, x: 0, y: 0 }}
-    //                   transition={{ duration: 0.5, delay: idx + 0.1 }}
-    //                 >
-    //                   <ProjectCard
-    //                     key={content.id}
-    //                     label={content.name}
-    //                     image={content.thumbnail}
-    //                   />
-    //                 </motion.div>
-    //               ))}
-    //             <motion.div
-    //               initial={{ opacity: 0, x: -10, y: 20 }}
-    //               animate={{ opacity: 1, x: 0, y: 0 }}
-    //               transition={{ duration: 0.5, delay: 1.6 }}
-    //             >
-    //               <AddProject />
-    //             </motion.div>
-    //           </div>
-    //         </motion.div>
-    //       </>
-    //     )}
-    //     {!inCustomizer && (
-    //       <motion.div key="home" {...fadeAnimation}>
-    //         <Home />
-    //       </motion.div>
-    //     )}
-    //   </AnimatePresence>
-    // </div>
+    <div className="relative bg-[#14162E] min-h-screen text-white">
+      <Toaster />
+      <AnimatePresence mode="wait">
+        {inCustomizer && !isLogged && (
+          <>
+            <div className="">
+              <Navbar />
+            </div>
+            <motion.div
+              key="customizer"
+              {...fadeAnimation}
+              className="flex gap-16 p-4 sm:p-10 md:p-20"
+            >
+              <div className="flex flex-col gap-10">
+                <CreateFolder onClick={createFolder} />
+                <div>
+                  {isLoading
+                    ? "Loading..."
+                    : folders.map((folder: any) => {
+                        return (
+                          <div className="py-2">
+                            <Folder
+                              key={folder.id}
+                              id={folder.id}
+                              name={folder.name}
+                              onClick={handleFolderContent}
+                              isCurrent={
+                                currentFolder === folder.id ? true : false
+                              }
+                            />
+                          </div>
+                        );
+                      })}
+                </div>
+              </div>
+              {children}
+            </motion.div>
+          </>
+        )}
+        {!inCustomizer && (
+          <motion.div key="home" {...fadeAnimation}>
+            <Home />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 };
 
-export default page;
+export default Layout;

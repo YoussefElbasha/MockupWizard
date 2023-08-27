@@ -3,6 +3,7 @@ import ProfileMenu from "./ProfileMenu";
 import Dashboard from "@/app/icons/dashboard.svg";
 import api from "../../../../util/Axios";
 import useSWR from "swr";
+import Link from "next/link";
 
 const currentTabStyle =
   "bg-[#5C9DFF1A] py-[7px] px-[16px] rounded-lg text-[#DDA82A]";
@@ -31,34 +32,46 @@ const Navbar = () => {
   const currentTab = window.location.pathname;
   return (
     !isLoading && (
-      <div className="container mx-auto flex flex-wrap justify-between py-5 px-14 flex-col md:flex-row items-center">
-        <a href="/">
+      <div className="absolute z-50 container top-0 mx-auto flex flex-wrap justify-between py-5 px-14 flex-col md:flex-row items-center">
+        <Link href="/">
           <p className="text-white text-[28px] font-[600]">
             Mockup<span className="text-[#4461F2]">Wizard</span>
           </p>
-        </a>
+        </Link>
         <div className="flex gap-8 flex-wrap items-center text-base justify-center">
-          <a
+          <Link
             href="/dashboard"
-            className={`flex gap-2 items-center ${
+            className={`flex text-white gap-2 items-center ${
               currentTab === "/dashboard" ? currentTabStyle : ""
             }`}
           >
             <Dashboard />
             Dashboard
-          </a>
-          <a
-            className={`${currentTab === "/" ? currentTabStyle : ""}`}
+          </Link>
+          <Link
+            className={`text-white ${
+              currentTab === "/" ? currentTabStyle : ""
+            }`}
             href="/"
           >
             Home
-          </a>
-          <a>Account</a>
+          </Link>
+          <a className="text-white">Account</a>
         </div>
         {userInfo ? (
           <ProfileMenu email={userInfo.email} username={userInfo.username} />
         ) : (
-          <p>register</p>
+          <div className="flex gap-6 items-center">
+            <a href="/sign-in" className="text-[#4461F2] text-sm font-[700]">
+              Sign in
+            </a>
+            <a
+              href="/signup"
+              className="bg-white rounded-xl text-[#4461F2] py-2 px-3 text-sm font-[700]"
+            >
+              Sign up
+            </a>
+          </div>
         )}
       </div>
     )
