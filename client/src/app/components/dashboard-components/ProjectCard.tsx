@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 interface ProjectCardProps {
   label: string;
@@ -19,14 +20,20 @@ const ProjectCard = (props: ProjectCardProps) => {
         className="flex w-full hover:cursor-pointer rounded-2xl"
       >
         <div className="relative h-full rounded-2xl overflow-hidden">
-          <motion.img
+          <motion.div
             animate={{ scale: isHover ? 1.08 : 1 }}
             transition={{
               duration: 0.5,
             }}
-            src={props.image}
-            className="object-cover h-full"
-          />
+          >
+            <Image
+              src={props.image}
+              alt={props.label}
+              width={500}
+              height={500}
+              className="object-cover h-full"
+            />
+          </motion.div>
           <motion.div
             className="flex items-center justify-center absolute rounded-b-2xl w-full bottom-0 p-4 bg-black bg-opacity-20"
             initial={{ opacity: 0, y: 10 }}

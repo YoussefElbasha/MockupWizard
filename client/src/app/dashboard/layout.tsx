@@ -16,6 +16,14 @@ import useSWR from "swr";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import CreateFolder from "../components/dashboard-components/CreateFolder";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import Trash from "@/app/icons/trash-outline.svg";
+
+const schema = yup.object().shape({
+  folderName: yup.string().required("Folder name is required").max(20),
+});
 
 const Layout = ({ children }: any) => {
   const router = useRouter();
@@ -25,6 +33,14 @@ const Layout = ({ children }: any) => {
   const [currentFolderContents, setCurrentFolderContents] = useState([]);
   const [isLoadingContent, setIsLoadingContent] = useState(false);
   const [currentFolder, setCurrentFolder] = useState("");
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   const getFolders = async () => {
     try {
@@ -49,8 +65,9 @@ const Layout = ({ children }: any) => {
       }
     }
   };
-  const createFolder = async (folderName: string) => {
+  const createFolder = async ({ folderName }: any) => {
     try {
+      console.log(folderName);
       await api.post("http://api.app.localhost:4000/dashboard/create-folder", {
         folderName: folderName,
       });
@@ -107,24 +124,32 @@ const Layout = ({ children }: any) => {
     <div className="relative bg-[#14162E] min-h-screen text-white">
       <Toaster />
       <AnimatePresence mode="wait">
-        {inCustomizer && !isLogged && (
-          <>
-            <div className="">
-              <Navbar />
-            </div>
-            <motion.div
-              key="customizer"
-              {...fadeAnimation}
-              className="flex gap-16 p-4 sm:p-10 md:p-20"
-            >
-              <div className="flex flex-col gap-10">
-                <CreateFolder onClick={createFolder} />
-                <div>
-                  {isLoading
-                    ? "Loading..."
-                    : folders.map((folder: any) => {
-                        return (
-                          <div className="py-2">
+        <div className="flex flex-col">
+          <Navbar
+            navLinks={[
+              { href: "/dashboard", name: "Dashboard" },
+              { href: "/", name: "Home" },
+              { href: "/account", name: "Account" },
+            ]}
+          />
+          <motion.div
+            key="customizer"
+            {...fadeAnimation}
+            className="flex gap-16 p-4 sm:p-10 md:px-40 md:py-14"
+          >
+            <div className="flex flex-col gap-8">
+              <CreateFolder
+                register={register}
+                errors={errors}
+                onClick={handleSubmit(createFolder)}
+              />
+              <div>
+                {isLoading
+                  ? "Loading..."
+                  : folders.map((folder: any) => {
+                      return (
+                        <div className="py-2">
+                          <div className="flex items-center gap-2">
                             <Folder
                               key={folder.id}
                               id={folder.id}
@@ -134,20 +159,21 @@ const Layout = ({ children }: any) => {
                                 currentFolder === folder.id ? true : false
                               }
                             />
+                            <motion.div
+                              whileHover={{ color: "red", scale: 1.4 }}
+                              className="rounded-full text-gray-500 p-2.5 cursor-pointer"
+                            >
+                              <Trash className="w-4" />
+                            </motion.div>
                           </div>
-                        );
-                      })}
-                </div>
+                        </div>
+                      );
+                    })}
               </div>
-              {children}
-            </motion.div>
-          </>
-        )}
-        {!inCustomizer && (
-          <motion.div key="home" {...fadeAnimation}>
-            <Home />
+            </div>
+            {children}
           </motion.div>
-        )}
+        </div>
       </AnimatePresence>
     </div>
   );

@@ -89,7 +89,13 @@ const page = () => {
 
   return (
     <div className="bg-[#14162E] m-auto min-h-screen flex items-center justify-center relative">
-      <Navbar />
+      <Navbar
+        navLinks={[
+          { href: "/dashboard", name: "Dashboard" },
+          { href: "/", name: "Home" },
+          { href: "/account", name: "Account" },
+        ]}
+      />
       <motion.div
         // className="absolute top-1/8 left-2/3 transform -translate-y-1/2"
         initial={{ top: "50%", left: "50%", x: "-50%", y: "-50%", opacity: 1 }}

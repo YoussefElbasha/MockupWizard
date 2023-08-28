@@ -25,7 +25,13 @@ export default function Home() {
   return (
     <div className="relative bg-[#14162E] min-h-screen text-white">
       <div className="fixed top-0 left-0 w-full z-50">
-        <Navbar />
+        <Navbar
+          navLinks={[
+            { href: "/dashboard", name: "Dashboard" },
+            { href: "/", name: "Home" },
+            { href: "/account", name: "Account" },
+          ]}
+        />
       </div>
       <div className="bg-[#14162E] h-screen flex m-auto relative">
         <div className="absolute top-1/4 left-[6%] transform -translate-y-1/4">

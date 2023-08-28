@@ -29,14 +29,14 @@ const Folder = (props: folderProps) => {
         className={`${
           props.isCurrent
             ? currentStyle
-            : "hover:bg-[#4461F21A] p-4 rounded-full"
+            : "hover:bg-[#4461F21A] px-4 py-2 rounded-full"
         }`}
       >
         <div className="flex gap-[10px] items-center">
           {props.isCurrent ? (
-            <FolderOpenIcon className="w-6" />
+            <FolderOpenIcon className="w-5" />
           ) : (
-            <FolderIcon className="w-6" />
+            <FolderIcon className="w-5" />
           )}
           <p className="text-xs w-20 text-left">{props.name}</p>
         </div>
