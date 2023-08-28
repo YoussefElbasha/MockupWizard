@@ -1,18 +1,12 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Add from "@/app/icons/add.svg";
-import HomeIcon from "@/app/icons/home.svg";
-import ProjectCard from "../components/dashboard-components/ProjectCard";
 import { AnimatePresence, motion } from "framer-motion";
-import AddProject from "../components/dashboard-components/AddProject";
-import Home from "../page";
-import { fadeAnimation, slideAnimation } from "./motion";
-import axios from "axios";
+import { fadeAnimation } from "./motion";
 import api from "../../../util/Axios";
 import Navbar from "../components/navbar-components/Navbar";
 import Folder from "../components/dashboard-components/Folder";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import toast, { Toaster } from "react-hot-toast";
 import { usePathname, useRouter } from "next/navigation";
 import CreateFolder from "../components/dashboard-components/CreateFolder";
@@ -20,10 +14,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Trash from "@/app/icons/trash-outline.svg";
-import { BeatLoader } from "react-spinners";
-import FolderPulse from "../components/dashboard-components/FolderPulse";
 import FolderLoader from "../components/dashboard-components/FolderLoader";
-import FolderrIcon from "@/app/icons/folderr.svg";
 import Folderr from "../components/dashboard-components/Folderr";
 
 const schema = yup.object().shape({
@@ -31,15 +22,11 @@ const schema = yup.object().shape({
 });
 
 const Layout = ({ children }: any) => {
-  const router = useRouter();
-  const [inCustomizer, setInCustomizer] = useState(true);
-  const [folders, setFolders] = useState([]);
-  const [isLogged, setIsLogged] = useState(false);
-  const [currentFolderContents, setCurrentFolderContents] = useState([]);
-  const [isLoadingContent, setIsLoadingContent] = useState(false);
-  const [currentFolder, setCurrentFolder] = useState("");
-
   const pathname = usePathname();
+  const router = useRouter();
+  const [folders, setFolders] = useState([]);
+  const [currentFolder, setCurrentFolder] = useState(pathname.split("/")[2]);
+
   const folderId = pathname.split("/")[2];
 
   const {
@@ -79,25 +66,7 @@ const Layout = ({ children }: any) => {
       await api.post("http://api.app.localhost:4000/dashboard/create-folder", {
         folderName: folderName,
       });
-    } catch (err: any) {
-      if (err.response && err.response.data) {
-        toast.error(err.response.data);
-      } else if (err.code === "ERR_NETWORK") {
-        toast.error("Network error.");
-      } else {
-        toast.error("An error occurred. Please try again.");
-      }
-    }
-  };
-  const getFolderContent = async (folderId: string) => {
-    try {
-      setCurrentFolder(folderId);
-      setIsLoadingContent(true);
-      const response = await api.get(
-        `http://api.app.localhost:4000/dashboard/get-folder-contents/${folderId}`
-      );
-      setCurrentFolderContents(response.data);
-      setIsLoadingContent(false);
+      mutate("getFolders");
     } catch (err: any) {
       if (err.response && err.response.data) {
         toast.error(err.response.data);
@@ -112,7 +81,7 @@ const Layout = ({ children }: any) => {
     setCurrentFolder(folderId);
     router.push(`/dashboard/${folderId}`);
   };
-  const { data, error, isLoading } = useSWR("getFolders", getFolders);
+  const { data, isLoading } = useSWR("getFolders", getFolders);
   useEffect(() => {
     if (data) {
       setFolders(data);
@@ -166,7 +135,9 @@ const Layout = ({ children }: any) => {
                             id={folder.id}
                             name={folder.name}
                             onClick={handleFolderContent}
-                            isCurrent={folderId === folder.id ? true : false}
+                            isCurrent={
+                              currentFolder === folder.id ? true : false
+                            }
                           />
                           <motion.div
                             onClick={() => {

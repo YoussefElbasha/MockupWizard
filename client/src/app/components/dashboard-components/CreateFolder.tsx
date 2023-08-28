@@ -25,13 +25,12 @@ const CreateFolder = (props: createFolderProps) => {
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    // Check if there is input in the folderName field
-    console.log(props.register);
+    props.onClick(event);
     if (props.errors.folderName) {
-      // console.log(props.register.folderName);
-      props.onClick(event);
-      closeDialog(); // Close the dialog
+      console.log(props.errors);
+    } else {
+      console.log("no errors");
+      closeDialog();
     }
   };
 
@@ -57,7 +56,7 @@ const CreateFolder = (props: createFolderProps) => {
               transition={{ duration: 0.3 }}
               exit={{ opacity: 0 }}
             >
-              <Dialog.Content className="bg-white font-semibold text-black w-[500px] rounded-md shadow-md fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-10 animate-contentShow focus:outline-none">
+              <Dialog.Content className="bg-background font-semibold text-white w-[500px] rounded-md shadow-md fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-10 animate-contentShow focus:outline-none">
                 <form onSubmit={handleFormSubmit}>
                   <Dialog.Title className="text-xl">Create Folder</Dialog.Title>
                   <fieldset className="flex flex-col gap-3 mt-5">
@@ -76,7 +75,7 @@ const CreateFolder = (props: createFolderProps) => {
                   <div className="flex mt-6 justify-end space-x-2">
                     <button
                       type="submit"
-                      className="border border-black text-sm p-2 rounded-md"
+                      className="border border-black text-sm p-2 rounded-md hover:bg-secondary hover:text-white transition duration-300 ease-in-out"
                     >
                       Create
                     </button>
