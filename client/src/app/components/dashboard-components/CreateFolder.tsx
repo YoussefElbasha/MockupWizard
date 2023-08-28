@@ -13,9 +13,31 @@ interface createFolderProps {
 }
 
 const CreateFolder = (props: createFolderProps) => {
+  const [isOpen, setIsOpen] = useState(false); // Track whether the dialog is open
+
+  const openDialog = () => {
+    setIsOpen(true);
+  };
+
+  const closeDialog = () => {
+    setIsOpen(false);
+  };
+
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    // Check if there is input in the folderName field
+    console.log(props.register);
+    if (props.errors.folderName) {
+      // console.log(props.register.folderName);
+      props.onClick(event);
+      closeDialog(); // Close the dialog
+    }
+  };
+
   return (
     <AnimatePresence mode="wait">
-      <Dialog.Root>
+      <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
         <Dialog.Trigger asChild>
           <div className="bg-[#4461F21A] p-2 rounded-full cursor-pointer">
             <div className="flex gap-[10px] items-center">
@@ -36,7 +58,7 @@ const CreateFolder = (props: createFolderProps) => {
               exit={{ opacity: 0 }}
             >
               <Dialog.Content className="bg-white font-semibold text-black w-[500px] rounded-md shadow-md fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-10 animate-contentShow focus:outline-none">
-                <form onSubmit={props.onClick}>
+                <form onSubmit={handleFormSubmit}>
                   <Dialog.Title className="text-xl">Create Folder</Dialog.Title>
                   <fieldset className="flex flex-col gap-3 mt-5">
                     <label className="text-sm">Name</label>
