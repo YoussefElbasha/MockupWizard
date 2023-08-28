@@ -20,19 +20,19 @@ const ProjectCard = (props: ProjectCardProps) => {
         onMouseLeave={() => setIsHover(false)}
         className="flex w-full hover:cursor-pointer rounded-2xl"
       >
-        <div className="relative h-full rounded-2xl overflow-hidden">
+        <div className="relative h-full w-full rounded-2xl overflow-hidden">
           <motion.div
             animate={{ scale: isHover ? 1.08 : 1 }}
             transition={{
               duration: 0.5,
             }}
+            className="min-h-[20rem]"
           >
             <Image
               src={props.image}
               alt={props.label}
-              width={500}
-              height={500}
-              className="object-fill h-full"
+              layout="fill"
+              className="object-cover"
             />
           </motion.div>
           <motion.div
