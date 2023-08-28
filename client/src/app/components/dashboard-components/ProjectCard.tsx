@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import OptionsIcon from "@/app/icons/ellipsis-horizontal-outline.svg";
 
 interface ProjectCardProps {
   label: string;
@@ -31,7 +32,7 @@ const ProjectCard = (props: ProjectCardProps) => {
               alt={props.label}
               width={500}
               height={500}
-              className="object-cover h-full"
+              className="object-fill h-full"
             />
           </motion.div>
           <motion.div
@@ -41,9 +42,9 @@ const ProjectCard = (props: ProjectCardProps) => {
             transition={{ duration: 0.3 }}
           >
             <p className="">{props.label}</p>
-            <p className="absolute right-[10px] top-1/2 transform -translate-y-1/2">
-              ...
-            </p>
+            <div className="absolute hover:opacity-50 right-[10px] top-1/2 transform -translate-y-1/2">
+              <OptionsIcon className="w-8" />
+            </div>
           </motion.div>
         </div>
       </button>

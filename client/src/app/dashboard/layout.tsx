@@ -14,12 +14,17 @@ import Navbar from "../components/navbar-components/Navbar";
 import Folder from "../components/dashboard-components/Folder";
 import useSWR from "swr";
 import toast, { Toaster } from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import CreateFolder from "../components/dashboard-components/CreateFolder";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Trash from "@/app/icons/trash-outline.svg";
+import { BeatLoader } from "react-spinners";
+import FolderPulse from "../components/dashboard-components/FolderPulse";
+import FolderLoader from "../components/dashboard-components/FolderLoader";
+import FolderrIcon from "@/app/icons/folderr.svg";
+import Folderr from "../components/dashboard-components/Folderr";
 
 const schema = yup.object().shape({
   folderName: yup.string().required("Folder name is required").max(20),
@@ -33,6 +38,8 @@ const Layout = ({ children }: any) => {
   const [currentFolderContents, setCurrentFolderContents] = useState([]);
   const [isLoadingContent, setIsLoadingContent] = useState(false);
   const [currentFolder, setCurrentFolder] = useState("");
+
+  const pathname = usePathname();
 
   const {
     register,
@@ -111,10 +118,13 @@ const Layout = ({ children }: any) => {
       setFolders(data);
     }
   }, [data]);
-  const handleDeleteFolder = async () => {
+  const handleDeleteFolder = async (folderId: string) => {
     try {
+      setFolders((prevFolders) => {
+        return prevFolders.filter((f: any) => f.id !== folderId);
+      });
       await api.delete(
-        `http://api.app.localhost:4000/dashboard/delete-folder/cllma7q690000trck231h3f5g`
+        `http://api.app.localhost:4000/dashboard/delete-folder/${folderId}`
       );
     } catch (e: any) {
       console.log(e);
@@ -144,34 +154,55 @@ const Layout = ({ children }: any) => {
                 onClick={handleSubmit(createFolder)}
               />
               <div>
-                {isLoading
-                  ? "Loading..."
-                  : folders.map((folder: any) => {
-                      return (
-                        <div className="py-2">
-                          <div className="flex items-center gap-2">
-                            <Folder
-                              key={folder.id}
-                              id={folder.id}
-                              name={folder.name}
-                              onClick={handleFolderContent}
-                              isCurrent={
-                                currentFolder === folder.id ? true : false
-                              }
-                            />
-                            <motion.div
-                              whileHover={{ color: "red", scale: 1.4 }}
-                              className="rounded-full text-gray-500 p-2.5 cursor-pointer"
-                            >
-                              <Trash className="w-4" />
-                            </motion.div>
-                          </div>
+                {isLoading ? (
+                  <FolderLoader />
+                ) : (
+                  folders.map((folder: any) => {
+                    return (
+                      <div className="py-2">
+                        <div className="flex items-center gap-2">
+                          <Folder
+                            key={folder.id}
+                            id={folder.id}
+                            name={folder.name}
+                            onClick={handleFolderContent}
+                            isCurrent={
+                              currentFolder === folder.id ? true : false
+                            }
+                          />
+                          <motion.div
+                            onClick={() => {
+                              handleDeleteFolder(folder.id);
+                            }}
+                            whileHover={{ color: "red", scale: 1.4 }}
+                            className="rounded-full text-gray-500 p-2.5 cursor-pointer"
+                          >
+                            <Trash className="w-4" />
+                          </motion.div>
                         </div>
-                      );
-                    })}
+                      </div>
+                    );
+                  })
+                )}
               </div>
             </div>
-            {children}
+            {pathname === "/dashboard" && !isLoading ? (
+              <div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8">
+                  {folders.map((folder: any) => {
+                    return (
+                      <Folderr
+                        id={folder.id}
+                        name={folder.name}
+                        onClick={handleFolderContent}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            ) : (
+              children
+            )}
           </motion.div>
         </div>
       </AnimatePresence>

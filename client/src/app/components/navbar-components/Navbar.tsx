@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import ProfileMenu from "./ProfileMenu";
 import Dashboard from "@/app/icons/dashboard.svg";
@@ -31,7 +33,6 @@ const Navbar = ({ navLinks }: any) => {
     }
   }, [data]);
 
-  const currentTab = window.location.pathname;
   return (
     !isLoading && (
       <div className="container mx-auto flex justify-between py-5 px-28 flex-col md:flex-row items-center">

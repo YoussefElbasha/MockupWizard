@@ -9,7 +9,7 @@ const AddProject = () => {
       <button
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
-        className="flex justify-center items-center bg-[#4461F21A] rounded-2xl w-full"
+        className="flex justify-center items-center mx-20 py-14 bg-[#4461F21A] rounded-2xl w-full"
       >
         <div
           className={`flex flex-col items-center gap-3 ${

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Add from "@/app/icons/add.svg";
 import HomeIcon from "@/app/icons/home.svg";
 import FolderIcon from "@/app/icons/folder-outline.svg";
+import FolderrIcon from "@/app/icons/folderr.svg";
 import ProjectCard from "../components/dashboard-components/ProjectCard";
 import { AnimatePresence, motion } from "framer-motion";
 import AddProject from "../components/dashboard-components/AddProject";
@@ -101,14 +102,7 @@ const page = () => {
     }
   };
   return (
-    <div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8">
-        <FolderIcon className="w-40" />
-        <FolderIcon className="w-40" />
-        <FolderIcon className="w-40" />
-        <FolderIcon className="w-40" />
-      </div>
-    </div>
+    <></>
     // <div className="relative bg-[#14162E] min-h-screen text-white">
     //   <Toaster />
     //   <AnimatePresence mode="wait">

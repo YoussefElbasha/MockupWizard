@@ -11,7 +11,7 @@ interface folderProps {
   isCurrent: boolean;
 }
 
-const currentStyle = "bg-[#4461F21A] p-4 rounded-full text-[#DDA82A]";
+const currentStyle = "bg-[#4461F21A] px-4 py-3 rounded-full text-[#DDA82A]";
 
 const Folder = (props: folderProps) => {
   return (
@@ -29,7 +29,7 @@ const Folder = (props: folderProps) => {
         className={`${
           props.isCurrent
             ? currentStyle
-            : "hover:bg-[#4461F21A] px-4 py-2 rounded-full"
+            : "hover:bg-[#4461F21A] px-4 py-3 rounded-full"
         }`}
       >
         <div className="flex gap-[10px] items-center">

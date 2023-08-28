@@ -35,16 +35,14 @@ const CreateFolder = (props: createFolderProps) => {
               transition={{ duration: 0.3 }}
               exit={{ opacity: 0 }}
             >
-              <Dialog.Content className="bg-white text-black rounded-md shadow-md fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-90vw max-w-[450px] max-h-[85vh] p-6 animate-contentShow focus:outline-none">
+              <Dialog.Content className="bg-white font-semibold text-black w-[500px] rounded-md shadow-md fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-10 animate-contentShow focus:outline-none">
                 <form onSubmit={props.onClick}>
-                  <Dialog.Title className="text-lg ">
-                    Create Folder
-                  </Dialog.Title>
+                  <Dialog.Title className="text-xl">Create Folder</Dialog.Title>
                   <fieldset className="flex flex-col gap-3 mt-5">
                     <label className="text-sm">Name</label>
                     <input
                       {...props.register("folderName")}
-                      className="w-full rounded-md shadow-sm px-3 py-2 text-violet-11 border focus:ring-violet-7 focus:border-violet-8"
+                      className="w-full font-normal text-sm focus:outline-none rounded-md shadow-sm px-3 py-2 text-gray-600 border"
                       placeholder="Enter folder name"
                     />
                     {props.errors.folderName && (
@@ -54,7 +52,10 @@ const CreateFolder = (props: createFolderProps) => {
                     )}
                   </fieldset>
                   <div className="flex mt-6 justify-end space-x-2">
-                    <button type="submit" className="">
+                    <button
+                      type="submit"
+                      className="border border-black text-sm p-2 rounded-md"
+                    >
                       Create
                     </button>
                   </div>

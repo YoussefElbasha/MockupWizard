@@ -91,7 +91,7 @@ const page = () => {
   };
 
   return (
-    <div className="bg-[#14162E] m-auto min-h-screen flex flex-col items-center justify-center relative">
+    <>
       <motion.div
         // className="absolute top-1/2 left-1/4 transform translate-y-1/4 -translate-x-3/4"
         initial={{ top: "50%", left: "50%", x: "-50%", y: "-50%", opacity: 1 }}
@@ -117,13 +117,6 @@ const page = () => {
       {/* <div className="absolute top-1/2 left-1/4 transform translate-y-1/4 -translate-x-3/4">
         <div className="w-60 h-60 bg-[#4461F2] rounded-full blur-3xl opacity-0" />
       </div> */}
-      <Navbar
-        navLinks={[
-          { href: "/dashboard", name: "Dashboard" },
-          { href: "/", name: "Home" },
-          { href: "/account", name: "Account" },
-        ]}
-      />
       <div className="flex flex-grow flex-col items-center justify-center md:flex-row z-10">
         <div className="p-10 text-white flex-grow justify-center flex flex-col items-start gap-10">
           <div>
@@ -154,7 +147,7 @@ const page = () => {
           setWithOTP={setWithOTP}
         />
       </div>
-    </div>
+    </>
   );
 };
 

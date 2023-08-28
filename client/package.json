@@ -32,6 +32,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.4",
     "react-hot-toast": "^2.4.1",
+    "react-spinners": "^0.13.8",
     "react-switch": "^7.0.0",
     "swr": "^2.2.1",
     "tailwindcss": "3.3.3",

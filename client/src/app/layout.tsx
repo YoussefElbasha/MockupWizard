@@ -17,16 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <div className="flex fle-col">
-        <Navbar
-          navLinks={[
-            { href: "/dashboard", name: "Dashboard" },
-            { href: "/", name: "Home" },
-            { href: "/account", name: "Account" },
-          ]}
-        />
-        <body className={inter.className}>{children}</body>
-      </div>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }
