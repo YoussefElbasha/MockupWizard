@@ -7,14 +7,14 @@ import { Euler } from 'three'
 type StickerProps = {
   url: string
   position: Vector3
-  rotation: Euler
+  // rotation: Euler
   scale: number
 }
 
 const Sticker = ({
   url,
   position,
-  rotation,
+  // rotation,
   scale,
   ...props
 }: StickerProps) => {
@@ -25,7 +25,7 @@ const Sticker = ({
       {...props}
       scale={scale}
       position={position}
-      rotation={rotation}
+      // rotation={rotation}
     >
       <meshPhysicalMaterial
         transparent

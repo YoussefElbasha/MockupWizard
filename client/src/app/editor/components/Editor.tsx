@@ -6,16 +6,20 @@ import { Environment, Center, OrbitControls } from '@react-three/drei'
 import Shirt from './Shirt'
 import Mug from './mug'
 import Bunny from './bunny'
+import Mug2 from './mug_2'
+import TestBox from './box'
+import Tshirt2 from './tshirt2'
 
 interface EditorProps {
   color: string
+  designs?: string[]
 }
 
-const Editor = ({ color }: EditorProps) => {
+const Editor = ({ color, designs }: EditorProps) => {
   return (
     <Canvas
       shadows
-      camera={{ fov: 10 }}
+      camera={{ fov: 50 }}
       gl={{ preserveDrawingBuffer: true }}
       className="w-full max-w-full h-full transition-all ease-in"
       style={{ background: '#ffffff' }}
@@ -36,7 +40,10 @@ const Editor = ({ color }: EditorProps) => {
       {/* <Backdrop /> */}
       <Center>
         {/* <Shirt color={color} /> */}
-        <Mug color={color} />
+        {/* <Tshirt2 /> */}
+        {/* <Mug color={color} /> */}
+        <Mug2 color={color} designs={designs} />
+        {/* <TestBox /> */}
         {/* <Bunny /> */}
       </Center>
     </Canvas>

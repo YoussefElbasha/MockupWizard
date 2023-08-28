@@ -6,6 +6,11 @@ const nextConfig = {
       use: ['@svgr/webpack'],
     })
 
+    config.externals.push({
+      sharp: 'commonjs sharp',
+      canvas: 'commonjs canvas',
+    })
+
     return config
   },
 }

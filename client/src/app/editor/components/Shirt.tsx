@@ -4,6 +4,8 @@ import { easing } from 'maath'
 import { useFrame } from '@react-three/fiber'
 import { Decal, useGLTF, useTexture } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
+import THREE from 'three'
+import Sticker from './sticker'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -22,9 +24,9 @@ const Shirt = ({ color }: ShirtProps) => {
   const { nodes, materials } = useGLTF('/shirt_baked.glb') as GLTFResult
 
   const logoTexture = useTexture('/strawhat.png')
-  // const fullTexture = useTexture('/strawhat.png')
+  const fullTexture = useTexture('/uv_texture.png')
 
-  // logoTexture.offset()
+  logoTexture.offset.x = 0.1
 
   return (
     <group>
@@ -36,13 +38,14 @@ const Shirt = ({ color }: ShirtProps) => {
         material-roughness={1}
         dispose={null}
       >
-        {/* <Decal
-          position={[0.1, 0.04, 0]}
-          rotation={[0, 0, 0]}
-          scale={[1, 1, 0.1]}
+        <meshStandardMaterial map={fullTexture} side={2} />
+        <Decal
           map={logoTexture}
-          depthTest={false}
-        /> */}
+          position={[0, 0, 0]}
+          rotation={[0, 0, 0]}
+          scale={[0.3, 0.3, 1]}
+          onClick={() => console.log('clicked')}
+        />
       </mesh>
     </group>
   )
