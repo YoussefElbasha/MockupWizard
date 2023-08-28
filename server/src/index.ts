@@ -8,6 +8,7 @@ import apiRouter from "./routes/app";
 import cookieParser from "cookie-parser";
 import isAuthenticated from "./middleware/auth.middleware";
 import dashboardRouter from "./routes/dashboard";
+import { generateImage } from "./lib/generate-image";
 declare global {
   namespace Express {
     interface Request {
@@ -32,7 +33,7 @@ app.use(
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use("/api", isAuthenticated);
+// app.use("/api", isAuthenticated);
 
 app.use((req, res, next) => {
   req.context = {
@@ -42,8 +43,9 @@ app.use((req, res, next) => {
 });
 app.use("/auth", authRouter);
 app.use("/api", apiRouter);
-app.use(isAuthenticated);
+// app.use(isAuthenticated);
 app.use("/dashboard", dashboardRouter);
+
 app.listen(port, () => {
   console.log(`Listening on port ${port}: http://localhost:${port}`);
 });
