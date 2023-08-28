@@ -40,6 +40,7 @@ const Layout = ({ children }: any) => {
   const [currentFolder, setCurrentFolder] = useState("");
 
   const pathname = usePathname();
+  const folderId = pathname.split("/")[2];
 
   const {
     register,
@@ -95,7 +96,6 @@ const Layout = ({ children }: any) => {
       const response = await api.get(
         `http://api.app.localhost:4000/dashboard/get-folder-contents/${folderId}`
       );
-      console.log(response.data);
       setCurrentFolderContents(response.data);
       setIsLoadingContent(false);
     } catch (err: any) {
@@ -159,16 +159,14 @@ const Layout = ({ children }: any) => {
                 ) : (
                   folders.map((folder: any) => {
                     return (
-                      <div className="py-2">
+                      <div className="py-2" key={folder.id}>
                         <div className="flex items-center gap-2">
                           <Folder
                             key={folder.id}
                             id={folder.id}
                             name={folder.name}
                             onClick={handleFolderContent}
-                            isCurrent={
-                              currentFolder === folder.id ? true : false
-                            }
+                            isCurrent={folderId === folder.id ? true : false}
                           />
                           <motion.div
                             onClick={() => {
@@ -192,6 +190,7 @@ const Layout = ({ children }: any) => {
                   {folders.map((folder: any) => {
                     return (
                       <Folderr
+                        key={folder.id}
                         id={folder.id}
                         name={folder.name}
                         onClick={handleFolderContent}
