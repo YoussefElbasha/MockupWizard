@@ -24,7 +24,7 @@ const schema = yup.object().shape({
 const Layout = ({ children }: any) => {
   const pathname = usePathname();
   const router = useRouter();
-  const [folders, setFolders] = useState([]);
+  const [folders, setFolders] = useState<any[]>([]);
   const [currentFolder, setCurrentFolder] = useState(pathname.split("/")[2]);
 
   const folderId = pathname.split("/")[2];
@@ -62,11 +62,14 @@ const Layout = ({ children }: any) => {
   };
   const createFolder = async ({ folderName }: any) => {
     try {
-      console.log(folderName);
-      await api.post("http://api.app.localhost:4000/dashboard/create-folder", {
-        folderName: folderName,
-      });
-      mutate("getFolders");
+      await api
+        .post("http://api.app.localhost:4000/dashboard/create-folder", {
+          folderName: folderName,
+        })
+        .then((response) => {
+          setFolders([...folders, response.data]);
+        });
+      // mutate("getFolders");
     } catch (err: any) {
       if (err.response && err.response.data) {
         toast.error(err.response.data);
