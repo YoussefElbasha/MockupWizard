@@ -168,15 +168,14 @@ const Layout = ({ children }: any) => {
                             onClick={handleFolderContent}
                             isCurrent={folderId === folder.id ? true : false}
                           />
-                          <motion.div
+                          <button
                             onClick={() => {
                               handleDeleteFolder(folder.id);
                             }}
-                            whileHover={{ color: "red", scale: 1.4 }}
-                            className="rounded-full text-gray-500 p-2.5 cursor-pointer"
+                            className="rounded-full hover:text-red-600 text-gray-500 p-2.5"
                           >
                             <Trash className="w-4" />
-                          </motion.div>
+                          </button>
                         </div>
                       </div>
                     );

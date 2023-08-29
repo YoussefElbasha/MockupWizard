@@ -15,7 +15,7 @@ const Folderr = (props: folderrProps) => {
       onClick={() => props.onClick(props.id)}
       className="flex flex-col items-center gap-4 cursor-pointer"
     >
-      <FolderrIcon />
+      <FolderrIcon className="text-red-400" />
       <p>{props.name}</p>
     </motion.button>
   );
