@@ -11,6 +11,8 @@ import getFolderContents from "../controller/dashboard/get-folder-contents";
 import getProjectContents from "../controller/dashboard/get-project-contents";
 import deleteDesign from "../controller/dashboard/delete-design";
 import createProject from "../controller/dashboard/create-project";
+import saveEditor from "../controller/dashboard/save-editor";
+
 
 router.get("/", getAllFolders);
 router.post("/create-folder", createFolder);
@@ -21,5 +23,7 @@ router.get("/get-project-contents/:projectId", getProjectContents);
 router.get("/get-folder-contents/:folderId", getFolderContents);
 router.delete("/delete-design/:designId", deleteDesign);
 router.post("/create-project", createProject);
+router.post("/save-editor", saveEditor)
+
 
 export default router;
