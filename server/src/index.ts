@@ -8,6 +8,9 @@ import apiRouter from "./routes/app";
 import cookieParser from "cookie-parser";
 import isAuthenticated from "./middleware/auth.middleware";
 import dashboardRouter from "./routes/dashboard";
+import passport from "passport";
+import session from "express-session";
+
 declare global {
   namespace Express {
     interface Request {
@@ -33,6 +36,13 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/api", isAuthenticated);
+app.use(
+  session({
+    secret: String(process.env.ACCESS_SECRET),
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 app.use((req, res, next) => {
   req.context = {
@@ -42,7 +52,7 @@ app.use((req, res, next) => {
 });
 app.use("/auth", authRouter);
 app.use("/api", apiRouter);
-app.use(isAuthenticated);
+// app.use(isAuthenticated);
 app.use("/dashboard", dashboardRouter);
 app.listen(port, () => {
   console.log(`Listening on port ${port}: http://localhost:${port}`);
