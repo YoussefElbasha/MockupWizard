@@ -11,25 +11,15 @@ import { CanvasContextProvider } from './contexts/canvas-context'
 import ControlsTabs from './editor tabs/ControlsTabs'
 
 const Home = () => {
-  const [color, setColor] = useState('#fffffe')
-  const [designs, setDesigns] = useState<string[]>([
-    '/cooldude.png',
-    '/strawhat.png',
-    'vercel.svg',
-  ])
-
-  // console.log(designs)
-
   return (
     <CanvasContextProvider>
       <FabricContextProvider>
-        <div className="h-screen w-full relative bg-gray-500">
-          {/* <div className=" top-2 absolute"> */}
-          <TestCanvas />
-          {/* </div> */}
-          <Editor color={color} designs={designs} />
-          <EditorTabs color={color} setColor={setColor}></EditorTabs>
-          {/* <ControlsTabs designs={designs} setDesigns={setDesigns} /> */}
+        <div className="h-screen w-full relative bg-gray-500 overflow-hidden">
+          <Editor />
+          <EditorTabs />
+          <div className="">
+            <TestCanvas />
+          </div>
         </div>
       </FabricContextProvider>
     </CanvasContextProvider>

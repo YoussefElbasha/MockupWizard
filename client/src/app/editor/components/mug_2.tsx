@@ -1,12 +1,8 @@
 'use client'
 
 import * as THREE from 'three'
-import React, { useEffect, useRef, useState } from 'react'
-import { Decal, useGLTF, useTexture } from '@react-three/drei'
+import { useGLTF, useTexture } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
-import { fabric } from 'fabric'
-import { useFabricContext } from '../contexts/fabric-context'
-import Canvas from './Canvas'
 import { useCanvasContext } from '../contexts/canvas-context'
 
 type GLTFResult2 = GLTF & {
@@ -18,12 +14,7 @@ type GLTFResult2 = GLTF & {
   }
 }
 
-type ShirtProps = {
-  color: string
-  designs?: string[]
-}
-
-const Mug2 = ({ color, designs }: ShirtProps) => {
+const Mug2 = () => {
   const { nodes, materials } = useGLTF('/ceramic_white_mug.glb') as GLTFResult2
   // const fullTexture = useTexture('/uv_texture.png')
   const fullTexture = useTexture('/testing.png')
@@ -33,8 +24,6 @@ const Mug2 = ({ color, designs }: ShirtProps) => {
 
   const testTexture = useTexture(canvasUrl || '/uv_texture.png')
 
-  // const canvasTexture = Canvas({ designs: designs, color: color })
-
   return (
     <group dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
@@ -42,7 +31,7 @@ const Mug2 = ({ color, designs }: ShirtProps) => {
           <mesh
             geometry={nodes.defaultMaterial.geometry}
             material={materials.Mug_White}
-            position={[0, 8.17, 0]}
+            position={[0, 8.17, -0.01]}
             rotation={[0, Math.PI / 4, 0]}
             scale={[7.066, 8.17, 7.066]}
           >
@@ -50,7 +39,6 @@ const Mug2 = ({ color, designs }: ShirtProps) => {
             {canvasUrl && (
               <meshStandardMaterial map={testTexture} side={THREE.FrontSide} />
             )}
-            {/* <meshStandardMaterial map={canvasTexture} side={THREE.FrontSide} /> */}
           </mesh>
         </group>
       </group>

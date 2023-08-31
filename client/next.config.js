@@ -13,6 +13,14 @@ const nextConfig = {
 
     return config
   },
+  rewrites: async () => {
+    return [
+      {
+        source: '/image/:path*',
+        destination: 'https://res.cloudinary.com/:path*',
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig

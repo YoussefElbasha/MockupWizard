@@ -5,14 +5,11 @@ import { ColorPalette, Images } from 'react-ionicons'
 import TabButton from './TabButton'
 import ColorPicker from './ColorPicker'
 import FileUpload from './FileUpload'
+import { useCanvasContext } from '../contexts/canvas-context'
 
-interface EditorProps {
-  color: string
-  setColor(color: string): void
-}
-
-const EditorTabs = ({ color, setColor }: EditorProps) => {
+const EditorTabs = () => {
   const [activeTab, setActiveTab] = useState(0)
+  const { color, setColor } = useCanvasContext()
   const [hexInput, setHexInput] = useState(color)
 
   return (
