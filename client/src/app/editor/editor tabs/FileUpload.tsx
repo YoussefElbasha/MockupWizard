@@ -1,9 +1,7 @@
 import { useRef } from 'react'
-import { Cloudinary } from '@cloudinary/url-gen'
 import { Images } from 'react-ionicons'
 import axios from 'axios'
 import { useCanvasContext } from '../contexts/canvas-context'
-import { set } from 'react-hook-form'
 
 interface FileUploadProps {
   onClick(): void
@@ -37,8 +35,6 @@ const FileUpload = ({ onClick }: FileUploadProps) => {
 
     event.target.value = ''
 
-    console.log(res.data)
-
     const path = res.data.url.replace('http://res.cloudinary.com/', '/image/')
 
     setDesigns((prev: any) => [
@@ -51,25 +47,6 @@ const FileUpload = ({ onClick }: FileUploadProps) => {
         rotation: 0,
       },
     ])
-
-    //   setDesigns((prev: any) => [
-    //     canvasObjects.map((obj: any, index: any) => {
-    //       return {
-    //         url: prev[index].url,
-    //         top: obj.top,
-    //         left: obj.left,
-    //         scale: obj.scaleX,
-    //         rotation: obj.angle,
-    //       }
-    //     }),
-    //     {
-    //       url: path,
-    //       top: 0,
-    //       left: 0,
-    //       scale: 2,
-    //       rotation: 0,
-    //     },
-    //   ])
   }
 
   return (

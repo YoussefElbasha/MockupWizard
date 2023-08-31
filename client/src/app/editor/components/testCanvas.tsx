@@ -6,7 +6,6 @@ import { use, useEffect, useRef, useState } from 'react'
 import MagicWand from '../../icons/magic-line.svg'
 import { AnimatePresence, motion } from 'framer-motion'
 import { CloseOutline, TrashOutline } from 'react-ionicons'
-import { rectangle } from '@cloudinary/url-gen/qualifiers/region'
 
 const TestCanvas = () => {
   const {

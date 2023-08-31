@@ -3,7 +3,7 @@
 import { Canvas } from '@react-three/fiber'
 import { Environment, Center, OrbitControls } from '@react-three/drei'
 
-import Mug2 from './mug_2'
+import Mug2 from '../models/mug_2'
 
 const Editor = () => {
   return (
