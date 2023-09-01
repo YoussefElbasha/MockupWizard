@@ -8,13 +8,15 @@ datasource db {
 }
 
 model User {
-  id               String             @id @default(cuid()) @map("_id")
-  email            String             @unique
-  username         String?
-  password         String?
-  otp              Otp[]
-  folders Folder[]
+  id       String   @id @default(cuid()) @map("_id")
+  email    String   @unique
+  username String?
+  password String?
+  picture  String?
+  otp      Otp[]
+  folders  Folder[]
 }
+
 model Otp {
   id         String   @id @default(cuid()) @map("_id")
   code       String   @unique
@@ -39,29 +41,22 @@ model Project {
   folder      Folder   @relation(fields: [folderId], references: [id])
   folderId    String
   name        String   @default("New Project")
-  Model       Model?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   thumbnail   String   @default("https://archive.org/download/placeholder-image/placeholder-image.jpg")
   screenshots String[]
-  modelId     String
-}
-
-model Model {
-  id        String   @id @default(cuid()) @map("_id")
-  project   Project  @relation(fields: [projectId], references: [id])
-  projectId String   @unique
-  color     String   @default("#fffffe")
-  modelType String   @default("shirt.gltf")
-  designs   Design[]
+  color       String   @default("#ffffff")
+  modelType   String   @default("mug_2.glb")
+  designs     Design[]
 }
 
 model Design {
-  id        String @id @default(cuid()) @map("_id")
-  model     Model  @relation(fields: [modelId], references: [id])
-  modelId   String
+  id        String  @id @default(cuid()) @map("_id")
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId String
   designUrl String
-  position  Int    @default(0)
-  scale     Int    @default(0)
-  rotation  Int    @default(0)
+  top       Int     @default(0)
+  left      Int     @default(0)
+  scale     Int     @default(0)
+  rotation  Int     @default(0)
 }

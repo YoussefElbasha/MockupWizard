@@ -14,7 +14,20 @@ const nextConfig = {
       use: ['@svgr/webpack'],
     })
 
+    config.externals.push({
+      sharp: 'commonjs sharp',
+      canvas: 'commonjs canvas',
+    })
+
     return config
+  },
+  rewrites: async () => {
+    return [
+      {
+        source: '/image/:path*',
+        destination: 'https://res.cloudinary.com/:path*',
+      },
+    ]
   },
 }
 
