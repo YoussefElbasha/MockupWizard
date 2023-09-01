@@ -75,6 +75,7 @@ const page = () => {
       toast.dismiss(loadingPromise);
       toast.success("Registered successfully.");
       router.push("/");
+      router.refresh();
     } catch (err: any) {
       toast.dismiss(loadingPromise);
       if (err.response && err.response.data) {

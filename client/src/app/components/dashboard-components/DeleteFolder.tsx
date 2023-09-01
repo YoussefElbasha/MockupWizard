@@ -2,20 +2,20 @@
 import React, { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import Add from "@/app/icons/add.svg";
-import FolderIcon from "@/app/icons/create-folder.svg";
 import { motion, AnimatePresence } from "framer-motion";
 import Backdrop from "./Backdrop";
 import { framer_error } from "@/app/dashboard/motion";
 import Modal from "./Modal";
+import Trash from "@/app/icons/trash-outline.svg";
 
-interface createFolderProps {
+interface deleteFolderProps {
   onClick: any;
   errors: any;
   register: any;
-  fromIcon?: boolean;
+  folderId: string;
 }
 
-const CreateFolder = (props: createFolderProps) => {
+const DeleteFolder = (props: deleteFolderProps) => {
   const [isOpen, setIsOpen] = useState(false); // Track whether the dialog is open
 
   const openDialog = () => {
@@ -28,8 +28,8 @@ const CreateFolder = (props: createFolderProps) => {
 
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    props.onClick(event);
-    if (props.errors.folderName) {
+    props.onClick();
+    if (props.errors.deleteFolder) {
       console.log(props.errors);
     } else {
       console.log("no errors");
@@ -41,33 +41,21 @@ const CreateFolder = (props: createFolderProps) => {
     <AnimatePresence mode="wait">
       <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
         <Dialog.Trigger asChild>
-          {props.fromIcon ? (
-            <button className="flex flex-col items-center gap-4 cursor-pointer hover:opacity-50">
-              <FolderIcon />
-              <p>New Folder</p>
-            </button>
-          ) : (
-            <div className="hover:bg-highlight border border-highlight p-2 rounded-lg cursor-pointer">
-              <div className="flex gap-[10px] items-center">
-                <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center">
-                  <Add />
-                </div>
-                <p className="text-xs w-20 text-left">New Folder</p>
-              </div>
-            </div>
-          )}
+          <button className="rounded-full hover:text-red-600 text-gray-500 p-2.5">
+            <Trash className="w-4" />
+          </button>
         </Dialog.Trigger>
 
         <Dialog.Portal>
           <Modal
-            title="Create Folder"
-            label="Folder name"
-            placeholder="Enter folder name"
-            button="Create"
+            title="Delete Folder"
+            label="Type 'delete' to remove the folder"
+            placeholder="delete"
+            button="Delete"
             register={props.register}
             errors={props.errors}
             onSubmit={handleFormSubmit}
-            registerName="folderName"
+            registerName="deleteFolder"
           />
         </Dialog.Portal>
       </Dialog.Root>
@@ -75,4 +63,4 @@ const CreateFolder = (props: createFolderProps) => {
   );
 };
 
-export default CreateFolder;
+export default DeleteFolder;

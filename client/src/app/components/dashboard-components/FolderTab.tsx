@@ -11,9 +11,9 @@ interface folderProps {
   isCurrent: boolean;
 }
 
-const currentStyle = "bg-[#4461F21A] px-4 py-3 rounded-full text-[#DDA82A]";
+const currentStyle = "bg-highlight px-4 py-3 rounded-full text-secondary";
 
-const Folder = (props: folderProps) => {
+const FolderTab = (props: folderProps) => {
   return (
     <motion.div
       whileTap={{ scale: props.isCurrent ? 1 : 0.95 }}
@@ -29,7 +29,7 @@ const Folder = (props: folderProps) => {
         className={`${
           props.isCurrent
             ? currentStyle
-            : "hover:bg-[#4461F21A] px-4 py-3 rounded-full"
+            : "hover:bg-highlight px-4 py-3 rounded-full"
         }`}
       >
         <div className="flex gap-[10px] items-center">
@@ -45,4 +45,4 @@ const Folder = (props: folderProps) => {
   );
 };
 
-export default Folder;
+export default FolderTab;

@@ -13,7 +13,7 @@ import { fadeAnimation, slideAnimation } from "./motion";
 import axios from "axios";
 import api from "../../../util/Axios";
 import Navbar from "../components/navbar-components/Navbar";
-import Folder from "../components/dashboard-components/Folder";
+import Folder from "../components/dashboard-components/FolderTab";
 import useSWR from "swr";
 import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
