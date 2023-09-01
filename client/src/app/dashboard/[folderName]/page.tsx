@@ -9,6 +9,7 @@ import ProjectCard from "@/app/components/dashboard-components/ProjectCard";
 import { BeatLoader } from "react-spinners";
 import AddProject from "@/app/components/dashboard-components/AddProject";
 import BackIcon from "@/app/icons/arrow-back-outline.svg";
+import { useRouter } from "next/navigation";
 
 interface pageProps {
   params: {
@@ -17,6 +18,7 @@ interface pageProps {
 }
 
 const page = (props: pageProps) => {
+  const router = useRouter();
   const [content, setContent] = useState([]);
 
   const getFolderContent = async (folderId: string) => {
@@ -48,7 +50,10 @@ const page = (props: pageProps) => {
   return (
     <div className="flex flex-col gap-2 w-full">
       <div>
-        <button className="hover:bg-[#4461F21A] p-2 rounded-lg">
+        <button
+          onClick={() => router.push("/dashboard")}
+          className="hover:bg-[#4461F21A] p-2 rounded-lg"
+        >
           <BackIcon className="w-8 " />
         </button>
       </div>
@@ -60,15 +65,26 @@ const page = (props: pageProps) => {
       ) : content.length !== 0 && !isLoading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {content.map((c: any, idx: number) => (
-            <motion.div
-              onClick={() => {}}
-              key={idx}
-              initial={{ opacity: 0, x: -10, y: 20 }}
-              animate={{ opacity: 1, x: 0, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 * idx }}
-            >
-              <ProjectCard key={c.id} label={c.name} image={c.thumbnail} />
-            </motion.div>
+            <>
+              <motion.div
+                onClick={() => {}}
+                initial={{ opacity: 0, x: -10, y: 20 }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 * idx }}
+              >
+                <ProjectCard key={c.id} label={c.name} image={c.thumbnail} />
+              </motion.div>
+              {idx === content.length - 1 && (
+                <motion.div
+                  onClick={() => {}}
+                  initial={{ opacity: 0, x: -10, y: 20 }}
+                  animate={{ opacity: 1, x: 0, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 * idx }}
+                >
+                  <AddProject />
+                </motion.div>
+              )}
+            </>
           ))}
         </div>
       ) : (

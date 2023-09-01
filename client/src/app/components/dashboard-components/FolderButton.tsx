@@ -8,17 +8,17 @@ interface folderrProps {
   onClick: any;
 }
 
-const Folderr = (props: folderrProps) => {
+const FolderButton = (props: folderrProps) => {
   return (
     <motion.button
-      whileHover={{ scale: 1.1 }}
+      whileHover={{ scale: 1.08 }}
       onClick={() => props.onClick(props.id)}
       className="flex flex-col items-center gap-4 cursor-pointer"
     >
-      <FolderrIcon className="text-red-400" />
+      <FolderrIcon />
       <p>{props.name}</p>
     </motion.button>
   );
 };
 
-export default Folderr;
+export default FolderButton;

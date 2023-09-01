@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { fadeAnimation } from "./motion";
 import api from "../../../util/Axios";
 import Navbar from "../components/navbar-components/Navbar";
-import Folder from "../components/dashboard-components/Folder";
+import FolderTab from "../components/dashboard-components/FolderTab";
 import useSWR, { mutate } from "swr";
 import toast, { Toaster } from "react-hot-toast";
 import { usePathname, useRouter } from "next/navigation";
@@ -15,13 +15,22 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Trash from "@/app/icons/trash-outline.svg";
 import FolderLoader from "../components/dashboard-components/FolderLoader";
-import Folderr from "../components/dashboard-components/Folderr";
+import FolderButton from "../components/dashboard-components/FolderButton";
+import AllProjects from "../components/dashboard-components/AllProjects";
+import DeleteFolder from "../components/dashboard-components/DeleteFolder";
 
-const schema = yup.object().shape({
+const createFolderSchema = yup.object().shape({
   folderName: yup.string().required("Folder name is required").max(20),
 });
 
-const Layout = ({ children }: any) => {
+const deleteFolderSchema = yup.object().shape({
+  deleteFolder: yup
+    .string()
+    .required("You must type 'delete'")
+    .oneOf(["delete"], "You must type 'delete'"),
+});
+
+const Layout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const router = useRouter();
   const [folders, setFolders] = useState<any[]>([]);
@@ -29,12 +38,11 @@ const Layout = ({ children }: any) => {
 
   const folderId = pathname.split("/")[2];
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
+  const createFolderForm = useForm({
+    resolver: yupResolver(createFolderSchema),
+  });
+  const deleteFolderForm = useForm({
+    resolver: yupResolver(deleteFolderSchema),
   });
 
   const getFolders = async () => {
@@ -84,6 +92,9 @@ const Layout = ({ children }: any) => {
     setCurrentFolder(folderId);
     router.push(`/dashboard/${folderId}`);
   };
+  const getAllProjects = () => {
+    router.push("/dashboard/all-projects");
+  };
   const { data, isLoading } = useSWR("getFolders", getFolders);
   useEffect(() => {
     if (data) {
@@ -102,83 +113,85 @@ const Layout = ({ children }: any) => {
       console.log(e);
     }
   };
+  console.log("alo layout");
   return (
-    <div className="relative bg-[#14162E] min-h-screen text-white">
+    <>
       <Toaster />
       <AnimatePresence mode="wait">
-        <div className="flex flex-col">
-          <Navbar
-            navLinks={[
-              { href: "/dashboard", name: "Dashboard" },
-              { href: "/", name: "Home" },
-              { href: "/account", name: "Account" },
-            ]}
-          />
-          <motion.div
-            key="customizer"
-            {...fadeAnimation}
-            className="flex gap-16 p-4 sm:p-10 md:px-40 md:py-14"
-          >
-            <div className="flex flex-col gap-8">
+        <motion.div
+          key="customizer"
+          // {...fadeAnimation}
+          className="flex gap-16 p-4 sm:p-10 md:px-40 md:py-14"
+        >
+          <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-4">
               <CreateFolder
-                register={register}
-                errors={errors}
-                onClick={handleSubmit(createFolder)}
+                register={createFolderForm.register}
+                errors={createFolderForm.formState.errors}
+                onClick={createFolderForm.handleSubmit(createFolder)}
               />
-              <div>
-                {isLoading ? (
-                  <FolderLoader />
-                ) : (
-                  folders.map((folder: any) => {
-                    return (
-                      <div className="py-2" key={folder.id}>
-                        <div className="flex items-center gap-2">
-                          <Folder
-                            key={folder.id}
-                            id={folder.id}
-                            name={folder.name}
-                            onClick={handleFolderContent}
-                            isCurrent={
-                              currentFolder === folder.id ? true : false
-                            }
-                          />
-                          <button
-                            onClick={() => {
-                              handleDeleteFolder(folder.id);
-                            }}
-                            className="rounded-full hover:text-red-600 text-gray-500 p-2.5"
-                          >
-                            <Trash className="w-4" />
-                          </button>
-                        </div>
-                      </div>
-                    );
-                  })
-                )}
-              </div>
+              <AllProjects />
             </div>
-            {pathname === "/dashboard" && !isLoading ? (
-              <div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8">
-                  {folders.map((folder: any) => {
-                    return (
-                      <Folderr
-                        key={folder.id}
-                        id={folder.id}
-                        name={folder.name}
-                        onClick={handleFolderContent}
-                      />
-                    );
-                  })}
+
+            <div>
+              {isLoading ? (
+                <FolderLoader />
+              ) : (
+                folders.map((folder: any) => {
+                  return (
+                    <div className="py-2" key={folder.id}>
+                      <div className="flex items-center gap-2">
+                        <FolderTab
+                          key={folder.id}
+                          id={folder.id}
+                          name={folder.name}
+                          onClick={handleFolderContent}
+                          isCurrent={currentFolder === folder.id ? true : false}
+                        />
+                        <DeleteFolder
+                          onClick={deleteFolderForm.handleSubmit(() =>
+                            handleDeleteFolder(folder.id)
+                          )}
+                          errors={deleteFolderForm.formState.errors}
+                          register={deleteFolderForm.register}
+                          folderId={folder.id}
+                        />
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+            </div>
+          </div>
+          {pathname === "/dashboard" && !isLoading ? (
+            <div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+                {folders.map((folder: any) => {
+                  return (
+                    <FolderButton
+                      key={folder.id}
+                      id={folder.id}
+                      name={folder.name}
+                      onClick={handleFolderContent}
+                    />
+                  );
+                })}
+                <div className="grid-start">
+                  <CreateFolder
+                    register={createFolderForm.register}
+                    errors={createFolderForm.formState.errors}
+                    onClick={createFolderForm.handleSubmit(createFolder)}
+                    fromIcon={true}
+                  />
                 </div>
               </div>
-            ) : (
-              children
-            )}
-          </motion.div>
-        </div>
+            </div>
+          ) : (
+            children
+          )}
+        </motion.div>
       </AnimatePresence>
-    </div>
+    </>
   );
 };
 

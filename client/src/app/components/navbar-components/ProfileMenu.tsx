@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import ArrowDown from "@/app/icons/arrow-down.svg";
 import {
-  Avatar,
   Button,
   Menu,
   MenuHandler,
@@ -9,30 +8,15 @@ import {
   MenuList,
   Typography,
 } from "@material-tailwind/react";
-import {
-  UserCircleIcon,
-  PowerIcon,
-  InboxArrowDownIcon,
-  Cog6ToothIcon,
-  LifebuoyIcon,
-} from "@heroicons/react/24/outline";
+import { UserCircleIcon, PowerIcon } from "@heroicons/react/24/outline";
+import api from "../../../../util/Axios";
+import { toast, Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const profileMenuItems = [
   {
     label: "My Profile",
     icon: UserCircleIcon,
-  },
-  {
-    label: "Edit Profile",
-    icon: Cog6ToothIcon,
-  },
-  {
-    label: "Inbox",
-    icon: InboxArrowDownIcon,
-  },
-  {
-    label: "Help",
-    icon: LifebuoyIcon,
   },
   {
     label: "Sign Out",
@@ -46,12 +30,20 @@ interface profileMenuProps {
 }
 
 function ProfileMenu(props: profileMenuProps) {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const router = useRouter();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const closeMenu = () => setIsMenuOpen(false);
 
+  const handleSignout = async () => {
+    await api.get("http://api.app.localhost:4000/auth/logout");
+    // toast.success("Logged out.");
+    router.refresh();
+  };
+
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen}>
+      <Toaster />
       <MenuHandler>
         <Button
           variant="text"
@@ -75,7 +67,7 @@ function ProfileMenu(props: profileMenuProps) {
           return (
             <MenuItem
               key={label}
-              onClick={closeMenu}
+              onClick={label === "Sign Out" ? handleSignout : closeMenu}
               className={`flex items-center text-black hover:bg-gray-200 gap-2 rounded p-2 ${
                 isLastItem
                   ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
