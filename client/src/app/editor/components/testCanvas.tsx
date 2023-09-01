@@ -22,6 +22,7 @@ const TestCanvas = () => {
   } = useCanvasContext()
 
   useEffect(() => {
+    console.log(color)
     const canvas = new fabric.Canvas('canvas', {
       backgroundColor: `${color}`,
       width: 200,
@@ -30,30 +31,29 @@ const TestCanvas = () => {
 
     setCanvasObjects(designs)
 
-    if (designs) {
-      designs.forEach((design: any, index: any) => {
-        console.log('hello here')
-        fabric.Image.fromURL(design.url, function (img) {
-          try {
-            img.crossOrigin = 'anonymous'
-            img.scaleToWidth(design.scale)
-            img.rotate(design.rotation)
-            img.set({
-              left: design.left,
-              top: design.top,
-              originX: 'center',
-              originY: 'center',
-            })
-            canvas.add(img)
-          } catch (error) {
-            console.log(error)
-          }
-        })
+    const visibleDesigns = designs.length ? designs : ['/1x1.png']
+
+    visibleDesigns.forEach((design: any, index: any) => {
+      console.log('hello here')
+      fabric.Image.fromURL(design.url, function (img) {
+        try {
+          img.crossOrigin = 'anonymous'
+          img.scaleToWidth(design.scale)
+          img.rotate(design.rotation)
+          img.set({
+            left: design.left,
+            top: design.top,
+            originX: 'center',
+            originY: 'center',
+          })
+          canvas.add(img)
+          canvas.renderAll()
+          setCanvasUrl(canvas.toDataURL())
+        } catch (error) {
+          console.log(error)
+        }
       })
-    } else {
-      console.log('hello')
-      canvas.clear()
-    }
+    })
 
     canvas.on('object:modified', function (e) {
       console.log('modified')
@@ -72,38 +72,6 @@ const TestCanvas = () => {
       )
     })
 
-    canvas.on('object:removed', function (e) {
-      console.log('removed')
-      setCanvasUrl(canvas.toDataURL())
-      if (designs) {
-        setCanvasObjects(
-          designs.map((design: any, index: any) => {
-            return {
-              url: design.url,
-              top: canvas.getObjects()[index].top,
-              left: canvas.getObjects()[index].left,
-              scale: canvas.getObjects()[index].getScaledWidth(),
-              rotation: canvas.getObjects()[index].angle,
-            }
-          })
-        )
-        setDesigns(
-          designs.map((design: any, index: any) => {
-            return {
-              url: design.url,
-              top: canvas.getObjects()[index].top,
-              left: canvas.getObjects()[index].left,
-              scale: canvas.getObjects()[index].getScaledWidth(),
-              rotation: canvas.getObjects()[index].angle,
-            }
-          })
-        )
-      } else {
-        setCanvasObjects([])
-        setDesigns([])
-      }
-    })
-
     canvas.on('selection:created', function (event) {
       console.log('selected')
       setCanvas(canvas)
@@ -118,24 +86,13 @@ const TestCanvas = () => {
 
     canvas.on('selection:cleared', function (event) {
       console.log('cleared')
-      // setCanvas(null)
       setIsSelected(false)
     })
-
-    // canvas.on('after:render', function (event) {
-    //   canvas.getObjects().forEach((obj, index) => {
-    //     !obj.isOnScreen()
-    //   })
-    // })
 
     return () => {
       canvas.dispose()
     }
   }, [designs, color])
-
-  // useEffect(() => {
-  //   console.log('canvasObjects', canvasObjects)
-  // }, [canvasObjects])
 
   const deleteHandler = () => {
     const tempCanvasObjects = [...canvasObjects]
@@ -234,8 +191,6 @@ const TestCanvas = () => {
             className={` ${isVisible ? '' : 'hidden'}`}
           ></canvas>
         </div>
-        {/* <button onClick={() => saveHandler()}>save</button> */}
-        {/* <button onClick={() => deleteHandler()}>delete</button> */}
       </div>
     </div>
   )

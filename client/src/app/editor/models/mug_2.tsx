@@ -19,6 +19,8 @@ const Mug2 = () => {
 
   const { canvasUrl } = useCanvasContext()
 
+  console.log(canvasUrl)
+
   const testTexture = useTexture(canvasUrl || '/uv_texture.png')
 
   return (
