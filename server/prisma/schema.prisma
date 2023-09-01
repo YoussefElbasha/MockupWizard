@@ -55,7 +55,8 @@ model Design {
   project   Project @relation(fields: [projectId], references: [id])
   projectId String
   designUrl String
-  position  Int     @default(0)
+  top       Int     @default(0)
+  left      Int     @default(0)
   scale     Int     @default(0)
   rotation  Int     @default(0)
 }
