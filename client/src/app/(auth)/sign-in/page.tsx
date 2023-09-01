@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import api from "../../../../util/Axios";
 import { useRouter } from "next/navigation";
 import useSWRMutation from "swr/mutation";
+import { mutate } from "swr";
 import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
 
@@ -75,6 +76,7 @@ const page = () => {
         router.push(`/otp?email=${userData.email}`);
       } else {
         toast.success("Login success.");
+        mutate("user-info");
         router.push("/");
       }
       // router.push("/");

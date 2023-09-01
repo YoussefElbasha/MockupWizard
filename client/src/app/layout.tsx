@@ -34,6 +34,7 @@ export default function RootLayout({
       return response.data;
     } catch (error) {
       console.error("Error fetching user info:", error);
+      setUserInfo(null);
     }
   };
   const { data, error, isLoading } = useSWR("user-info", fetchUserInfo);
