@@ -3,9 +3,23 @@ import toast from "react-hot-toast";
 import ImageCard from "../components/dalle-components/imagecard";
 import TextInput from "../components/dalle-components/TextInput";
 import { motion } from "framer-motion";
+import api from "../../../util/Axios";
+import axios from "axios";
+import React, { useState } from "react";
 const page = () => {
-  const handleResubmission = async () => {
+  const [imageurl, setimageurl] = useState("");
+  const [urls, seturls] = useState([]);
+  const handleSubmission = async (prompt: string) => {
     try {
+      const images = await axios.post(
+        "http://api.app.localhost:4000/api/generate-image",
+        { prompt }
+      );
+      console.log(images.data);
+      seturls(images.data);
+      setimageurl(images.data[0]);
+
+      console.log(urls);
     } catch (errors) {
       toast.error("somethingWentWrong");
     }
@@ -29,8 +43,8 @@ const page = () => {
       >
         <div className="w-60 h-60 bg-[#4461F2] rounded-full blur-3xl opacity-50" />
       </motion.div>
-      <TextInput onSubmit={() => {}} />
-      <ImageCard imageUrl="https://tinyurl.com/2txk9mmc" onClick={() => {}} />
+      <TextInput onSubmit={handleSubmission} />
+      <ImageCard imageUrl={imageurl} onClick={() => {}} />
     </div>
   );
 };

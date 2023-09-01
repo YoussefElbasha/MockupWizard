@@ -11,10 +11,11 @@ const TextInput: React.FC<TextInputProps> = ({ onSubmit }) => {
   const [prompt, setPrompt] = useState("");
   const [isVisible, setIsVisible] = useState(false); // Track whether the text input is visible
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTextareaChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     setPrompt(event.target.value);
   };
-
   const handleSubmit = () => {
     onSubmit(prompt);
   };
@@ -29,16 +30,17 @@ const TextInput: React.FC<TextInputProps> = ({ onSubmit }) => {
         className="bg-primary rounded-full w-12 h-12 flex items-center justify-center text-white"
         onClick={toggleTextInput}
       >
-        Submit
+        Dalle
       </Button>
       {isVisible && (
-        <div className="absolute bg-white rounded-lg shadow-md top-10 right-0 z-10 w-64">
+        <div className="absolute bg-background rounded-lg shadow-md top-10 right-0 z-10 w-72 p-2">
           <Textarea
             placeholder="Enter your prompt..."
-            className="border border-gray-300 w-full h-32 p-4 bg-primary "
+            className="w-full h-24 bg-background rounded-none  p-2"
+            onChange={handleTextareaChange}
           />
           <Button
-            className="bg-primary text-white px-4 py-2 mt-2"
+            className="bg-secondary text-white px-4 py-2 mt-2 w-full rounded-lg"
             onClick={handleSubmit}
           >
             Submit
