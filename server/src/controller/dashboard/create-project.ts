@@ -4,12 +4,10 @@ const createProject = async (req: Request, res: Response) => {
   try {
     const { prisma } = req.context;
     const { name, modelId, folderId, thumbnail, screenshots } = req.body;
-    
+
     await prisma.project.create({
       data: {
         folder: { connect: { id: String(folderId) } },
-        Model: { connect: { id: String(modelId) } },
-        modelId: String(modelId),
         name: String(name),
         thumbnail: thumbnail,
         screenshots: screenshots,
