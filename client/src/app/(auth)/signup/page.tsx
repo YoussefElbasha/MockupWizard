@@ -9,9 +9,10 @@ import { useRouter } from "next/navigation";
 import useSWRMutation from "swr/mutation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import toast, { Toaster } from "react-hot-toast";
+import Link from "next/link";
 
 import AuthCanvas from "@/app/components/auth-components/AuthCanvas";
-import Navbar from "@/app/components/auth-components/Navbar";
+import Navbar from "@/app/components/navbar-components/Navbar";
 import Form from "@/app/components/auth-components/Form";
 
 interface registerData {
@@ -87,7 +88,14 @@ const page = () => {
   };
 
   return (
-    <div className="bg-[#14162E] m-auto min-h-screen flex items-center justify-center relative">
+    <>
+      {/* <Navbar
+        navLinks={[
+          { href: "/dashboard", name: "Dashboard" },
+          { href: "/", name: "Home" },
+          { href: "/account", name: "Account" },
+        ]}
+      /> */}
       <motion.div
         // className="absolute top-1/8 left-2/3 transform -translate-y-1/2"
         initial={{ top: "50%", left: "50%", x: "-50%", y: "-50%", opacity: 1 }}
@@ -135,13 +143,13 @@ const page = () => {
             <p>
               you can{" "}
               <span className="text-[#4461F2] hover:text-indigo-500">
-                <a href="/sign-in">sign in here!</a>
+                <Link href="/sign-in">sign in here!</Link>
               </span>
             </p>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

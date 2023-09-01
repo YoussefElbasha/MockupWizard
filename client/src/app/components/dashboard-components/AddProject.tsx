@@ -5,21 +5,20 @@ import { motion } from "framer-motion";
 const AddProject = () => {
   const [isHover, setIsHover] = useState(false);
   return (
-    <div className="flex">
+    <div className="flex h-full">
       <button
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
-        className="flex justify-center items-center bg-[#4461F21A] rounded-2xl w-full md:w-[314px] h-[177px] md:h-[200px]"
+        className="flex justify-center items-center mx-20 py-14 bg-[#4461F21A] rounded-2xl w-full"
       >
-        <motion.div
-          initial={{ scale: 1 }}
-          animate={{ scale: isHover ? 1.1 : 1 }}
-          transition={{ duration: 0.1 }}
-          className="flex flex-col items-center gap-3"
+        <div
+          className={`flex flex-col items-center gap-3 ${
+            isHover ? "opacity-100" : "opacity-50"
+          }`}
         >
           <Add />
           <p>New Project</p>
-        </motion.div>
+        </div>
       </button>
     </div>
   );
