@@ -52,8 +52,8 @@ app.use((req, res, next) => {
 });
 app.use("/auth", authRouter);
 app.use("/api", apiRouter);
-// app.use(isAuthenticated);
-app.use("/dashboard", dashboardRouter);
+app.use("/dashboard", isAuthenticated, dashboardRouter);
+
 app.listen(port, () => {
   console.log(`Listening on port ${port}: http://localhost:${port}`);
 });

@@ -3,6 +3,7 @@ import Image from "next/image";
 import AuthCanvas from "./components/auth-components/AuthCanvas";
 import { useState, useEffect } from "react";
 import api from "../../util/Axios";
+import Navbar from "./components/navbar-components/Navbar";
 
 export default function Home() {
   const [userInfo, setUserInfo] = useState(null);
@@ -19,10 +20,19 @@ export default function Home() {
       }
     };
 
-    fetchUserInfo(); // Call the function to fetch user info
+    // fetchUserInfo(); // Call the function to fetch user info
   }, []);
   return (
-    <div>
+    <div className="relative bg-[#14162E] min-h-screen text-white">
+      <div className="fixed top-0 left-0 w-full z-50">
+        <Navbar
+          navLinks={[
+            { href: "/dashboard", name: "Dashboard" },
+            { href: "/", name: "Home" },
+            { href: "/account", name: "Account" },
+          ]}
+        />
+      </div>
       <div className="bg-[#14162E] h-screen flex m-auto relative">
         <div className="absolute top-1/4 left-[6%] transform -translate-y-1/4">
           <div className="w-60 h-60 bg-[#DDA82A] rounded-full blur-3xl opacity-50" />

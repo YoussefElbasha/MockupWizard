@@ -6,14 +6,14 @@ const createFolder = async (req: Request, res: Response) => {
     const { folderName } = req.body;
     const userId = req.userId;
 
-    await prisma.folder.create({
+    const folder = await prisma.folder.create({
       data: {
         user: { connect: { id: userId } },
         name: String(folderName),
       },
     });
 
-    return res.status(200).json("Folder created.");
+    res.status(200).json(folder);
   } catch (e: any) {
     console.log("Error creating folder:", e);
     return res.status(500).json("An error occurred.");
