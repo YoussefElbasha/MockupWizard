@@ -25,7 +25,7 @@ router.get("/get-folder-contents/:folderId", getFolderContents);
 router.delete("/delete-design/:designId", deleteDesign);
 router.post("/create-project", createProject);
 router.post("/save-editor", saveEditor)
-router.get("/get-all-projects/:folderId", getAllProjects)
+router.get("/get-all-projects", getAllProjects)
 
 
 export default router;
