@@ -23,7 +23,7 @@ export default function Home() {
   }, []);
   return (
     <div>
-      <div className="bg-[#14162E] h-screen flex m-auto relative">
+      <div className="bg-background h-screen flex m-auto relative">
         <div className="absolute top-1/4 left-[6%] transform -translate-y-1/4">
           <div className="w-60 h-60 bg-[#DDA82A] rounded-full blur-3xl opacity-50" />
         </div>

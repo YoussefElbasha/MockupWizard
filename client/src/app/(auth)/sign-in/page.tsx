@@ -91,7 +91,7 @@ const page = () => {
   };
 
   return (
-    <div className="bg-[#14162E] m-auto min-h-screen flex flex-col items-center justify-center relative">
+    <div className="bg-background m-auto min-h-screen flex flex-col items-center justify-center relative">
       <motion.div
         // className="absolute top-1/2 left-1/4 transform translate-y-1/4 -translate-x-3/4"
         initial={{ top: "50%", left: "50%", x: "-50%", y: "-50%", opacity: 1 }}
