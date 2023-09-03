@@ -22,35 +22,24 @@ export default function Home() {
 
     // fetchUserInfo(); // Call the function to fetch user info
   }, []);
-  return (
-    <>
-      <div className="absolute top-1/4 left-[6%] transform -translate-y-1/4">
-        <div className="w-60 h-60 bg-[#DDA82A] rounded-full blur-3xl opacity-50" />
-      </div>
-      <div className="absolute top-1/2 left-1/4 transform translate-y-1/4 -translate-x-3/4">
-        <div className="w-60 h-60 bg-[#4461F2] rounded-full blur-3xl opacity-50" />
-      </div>
 
-      <div className="m-auto items-center z-10">
-        <div className="flex items-center h-screen">
-          <AuthCanvas />
-          <div className="p-10 text-white flex-grow justify-center flex flex-col items-start gap-10">
-            <div>
-              <h1 className="text-4xl font-bold">
-                Unleash your products potential!
-              </h1>
-            </div>
-            <div className="font-semibold">
-              <p>
-                have a design you want to add? you can{" "}
-                <span className="text-blue-700">
-                  <Link href="/signup">Start Now!</Link>
-                </span>
-              </p>
-            </div>
-          </div>
+  return (
+    <div className="flex flex-col h-screen justify-center items-center">
+      <div className="inline-flex p-[32rem 13.5rem 16rem 13.5rem] justify-center items-center flex-col gap-6">
+        <div>
+          <h1 className="text-white font-inter font-semibold text-5xl tracking-tight leading-12 mt-1 relative text-center whitespace-nowrap">
+            Unleash your product's potential!
+          </h1>
         </div>
+        <div className="homepage p-text-black">
+          <p className="flex items-start justify-center relative p-0 px-58 py-18">
+            Have a design you want to see materialized you can see them here
+          </p>
+        </div>
+        <button className="bg-gradient-to-r from-blue-500 to-yellow-300 rounded-full px-8 py-2 flex items-center">
+          <div className="text-white">Get Started</div>
+        </button>
       </div>
-    </>
+    </div>
   );
 }
