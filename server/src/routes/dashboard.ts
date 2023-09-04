@@ -32,7 +32,7 @@ router.post("/create-project", createProject);
 router.get("/get-all-projects", getAllProjects)
 // router.put("/edit-project", editProject)
 router.patch("/edit-profile", editProfile)
-router.get("/get-screenshots/", getScreenshots)
+router.get("/get-screenshots/:projectId", getScreenshots)
 
 
 export default router;
