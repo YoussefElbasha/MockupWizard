@@ -47,9 +47,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   const getFolders = async () => {
     try {
-      const response = await api.get(
-        "http://api.app.localhost:4000/dashboard/"
-      );
+      const response = await api.get(`${process.env.SERVER_URL}dashboard/`);
       return response.data;
     } catch (err: any) {
       if (
@@ -71,7 +69,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const createFolder = async ({ folderName }: any) => {
     try {
       await api
-        .post("http://api.app.localhost:4000/dashboard/create-folder", {
+        .post(`${process.env.SERVER_URL}dashboard/create-folder`, {
           folderName: folderName,
         })
         .then((response) => {
@@ -101,19 +99,18 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       setFolders(data);
     }
   }, [data]);
-  const handleDeleteFolder = async (folderId: string) => {
+  const handleDeleteFolder = async (folderName: string) => {
     try {
       setFolders((prevFolders) => {
-        return prevFolders.filter((f: any) => f.id !== folderId);
+        return prevFolders.filter((f: any) => f.name !== folderName);
       });
       await api.delete(
-        `http://api.app.localhost:4000/dashboard/delete-folder/${folderId}`
+        `${process.env.SERVER_URL}dashboard/delete-folder/${folderName}`
       );
     } catch (e: any) {
       console.log(e);
     }
   };
-  console.log("alo layout");
   return (
     <>
       <Toaster />
@@ -136,7 +133,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             <div>
               {isLoading ? (
                 <FolderLoader />
-              ) : (
+              ) : folders.length !== 0 ? (
                 folders.map((folder: any) => {
                   return (
                     <div className="py-2" key={folder.id}>
@@ -146,20 +143,23 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                           id={folder.id}
                           name={folder.name}
                           onClick={handleFolderContent}
-                          isCurrent={currentFolder === folder.id ? true : false}
+                          isCurrent={
+                            currentFolder === folder.name ? true : false
+                          }
                         />
                         <DeleteFolder
                           onClick={deleteFolderForm.handleSubmit(() =>
-                            handleDeleteFolder(folder.id)
+                            handleDeleteFolder(folder.name)
                           )}
                           errors={deleteFolderForm.formState.errors}
                           register={deleteFolderForm.register}
-                          folderId={folder.id}
                         />
                       </div>
                     </div>
                   );
                 })
+              ) : (
+                <p className="text-sm text-center">No folders yet.</p>
               )}
             </div>
           </div>

@@ -12,7 +12,6 @@ interface deleteFolderProps {
   onClick: any;
   errors: any;
   register: any;
-  folderId: string;
 }
 
 const DeleteFolder = (props: deleteFolderProps) => {
@@ -38,28 +37,27 @@ const DeleteFolder = (props: deleteFolderProps) => {
   };
 
   return (
-    <AnimatePresence mode="wait">
-      <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
-        <Dialog.Trigger asChild>
-          <button className="rounded-full hover:text-red-600 text-gray-500 p-2.5">
-            <Trash className="w-4" />
-          </button>
-        </Dialog.Trigger>
+    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+      <Dialog.Trigger asChild>
+        <button className="rounded-full hover:text-red-600 text-gray-500 p-2.5">
+          <Trash className="w-4" />
+        </button>
+      </Dialog.Trigger>
 
-        <Dialog.Portal>
-          <Modal
-            title="Delete Folder"
-            label="Type 'delete' to remove the folder"
-            placeholder="delete"
-            button="Delete"
-            register={props.register}
-            errors={props.errors}
-            onSubmit={handleFormSubmit}
-            registerName="deleteFolder"
-          />
-        </Dialog.Portal>
-      </Dialog.Root>
-    </AnimatePresence>
+      <Dialog.Portal>
+        <Dialog.Overlay className="bg-black backdrop-blur-md bg-opacity-50 fixed inset-0" />
+        <Modal
+          title="Delete Folder"
+          label="Type 'delete' to remove the folder"
+          placeholder="delete"
+          button="Delete"
+          register={props.register}
+          errors={props.errors}
+          onSubmit={handleFormSubmit}
+          registerName="deleteFolder"
+        />
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 };
 
