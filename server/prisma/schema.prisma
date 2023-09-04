@@ -30,7 +30,7 @@ model Folder {
   id        String    @id @default(cuid()) @map("_id")
   user      User      @relation(fields: [userId], references: [id])
   userId    String
-  name      String    @default("New Folder")
+  name      String    @unique @default("New Folder")
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   projects  Project[]
@@ -38,8 +38,8 @@ model Folder {
 
 model Project {
   id          String   @id @default(cuid()) @map("_id")
-  folder      Folder   @relation(fields: [folderId], references: [id])
-  folderId    String
+  folder      Folder   @relation(fields: [folderName], references: [name])
+  folderName  String
   name        String   @default("New Project")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

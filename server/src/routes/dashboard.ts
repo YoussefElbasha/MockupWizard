@@ -19,11 +19,11 @@ import getAllProjects from "../controller/dashboard/get-all-projects";
 
 router.get("/", getAllFolders);
 router.post("/create-folder", createFolder);
-router.delete("/delete-folder/:folderId", deleteFolder);
+router.delete("/delete-folder/:folderName", deleteFolder);
 router.delete("/delete-screenshot/:projectId/:screenshot", deleteScreenshot);
 router.delete("/delete-project/:projectId", deleteProject);
 router.get("/get-project-contents/:projectId", getProjectContents);
-router.get("/get-folder-contents/:folderId", getFolderContents);
+router.get("/get-folder-contents/:folderName", getFolderContents);
 router.delete("/delete-design/:designId", deleteDesign);
 router.post("/create-project", createProject);
 // router.post("/save-editor", saveEditor)

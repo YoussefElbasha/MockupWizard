@@ -3,10 +3,14 @@ import { Request, Response } from "express";
 const deleteFolder = async (req: Request, res: Response) => {
   try {
     const { prisma } = req.context;
-    const folderId = req.params.folderId;
+    const folderName = req.params.folderName;
+
+    await prisma.project.deleteMany({
+      where: { folderName },
+    });
 
     await prisma.folder.delete({
-      where: { id: folderId },
+      where: { name: folderName },
     });
 
     return res.status(200).json("Folder deleted.");
