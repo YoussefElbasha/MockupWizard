@@ -4,8 +4,9 @@ import { Canvas } from '@react-three/fiber'
 import { Environment, Center, OrbitControls } from '@react-three/drei'
 
 import Mug2 from '../models/mug_2'
+import { forwardRef } from 'react'
 
-const Editor = () => {
+const Editor = forwardRef<HTMLCanvasElement>((_props, ref) => {
   return (
     <Canvas
       shadows
@@ -13,6 +14,7 @@ const Editor = () => {
       gl={{ preserveDrawingBuffer: true }}
       className="w-full max-w-full h-full transition-all ease-in"
       style={{ background: '#ffffff' }}
+      ref={ref}
     >
       <ambientLight intensity={0.5} />
       <Environment preset="city" />
@@ -33,6 +35,8 @@ const Editor = () => {
       </Center>
     </Canvas>
   )
-}
+})
+
+Editor.displayName = 'Editor'
 
 export default Editor
