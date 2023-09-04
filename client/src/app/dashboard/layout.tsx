@@ -86,9 +86,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       }
     }
   };
-  const handleFolderContent = (folderId: string) => {
-    setCurrentFolder(folderId);
-    router.push(`/dashboard/${folderId}`);
+  const handleFolderContent = (folderName: string) => {
+    setCurrentFolder(folderName);
+    router.push(`/dashboard/${folderName}`);
   };
   const getAllProjects = () => {
     router.push("/dashboard/all-projects");

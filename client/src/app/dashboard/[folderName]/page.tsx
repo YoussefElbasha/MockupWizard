@@ -61,7 +61,7 @@ const page = (props: pageProps) => {
   const createProject = async ({ projectName }: any) => {
     try {
       await api.post("http://api.app.localhost:4000/dashboard/create-project", {
-        folderName: props.params.folderName,
+        folderName: decodeURIComponent(props.params.folderName),
         name: projectName,
       });
       mutate(props.params.folderName);
@@ -85,7 +85,7 @@ const page = (props: pageProps) => {
         >
           <BackIcon className="w-8 " />
         </button>
-        <p className="text-lg">{props.params.folderName}</p>
+        <p className="text-lg">{decodeURIComponent(props.params.folderName)}</p>
       </div>
 
       {isLoading ? (
