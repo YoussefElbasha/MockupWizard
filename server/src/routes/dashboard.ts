@@ -15,6 +15,7 @@ import createProject from "../controller/dashboard/create-project";
 import getAllProjects from "../controller/dashboard/get-all-projects";
 // import editProject from "../controller/dashboard/edit-project";
 import editProfile from "../controller/dashboard/edit-profile";
+import getScreenshots from "../controller/dashboard/get-screenshots";
 
 
 
@@ -31,6 +32,7 @@ router.post("/create-project", createProject);
 router.get("/get-all-projects", getAllProjects)
 // router.put("/edit-project", editProject)
 router.patch("/edit-profile", editProfile)
+router.get("/get-screenshots/", getScreenshots)
 
 
 export default router;
