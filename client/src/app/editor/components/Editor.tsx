@@ -4,6 +4,7 @@ import { Canvas } from '@react-three/fiber'
 import { Environment, Center, OrbitControls } from '@react-three/drei'
 
 import Mug2 from '../models/mug_2'
+import Tshirt from '../models/tshirt'
 
 const Editor = () => {
   return (
@@ -29,7 +30,8 @@ const Editor = () => {
 
       {/* <Backdrop /> */}
       <Center>
-        <Mug2 />
+        {/* <Mug2 /> */}
+        <Tshirt />
       </Center>
     </Canvas>
   )
