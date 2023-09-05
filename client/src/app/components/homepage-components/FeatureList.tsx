@@ -26,7 +26,7 @@ const features = [
 
 const FeatureList = () => {
   return (
-    <div>
+    <>
       {features.map((feature, index) => (
         <FeatureItem
           key={index}
@@ -36,7 +36,7 @@ const FeatureList = () => {
           reverse={index % 2 === 1} // Reverse every other item for variation
         />
       ))}
-    </div>
+    </>
   );
 };
 
