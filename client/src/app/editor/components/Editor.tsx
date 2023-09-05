@@ -2,15 +2,19 @@
 
 import { Canvas } from '@react-three/fiber'
 import { Environment, Center, OrbitControls } from '@react-three/drei'
-
-import Mug2 from '../models/mug_2'
+import Mug from '../models/mug'
+import Tshirt from '../models/tshirt'
+import { ModelEnum } from '../contexts/model-enum'
+import { useCanvasContext } from '../contexts/canvas-context'
 import { forwardRef } from 'react'
 
 const Editor = forwardRef<HTMLCanvasElement>((_props, ref) => {
+  const { modelType } = useCanvasContext()
+
   return (
     <Canvas
       shadows
-      camera={{ fov: 45 }}
+      camera={{ fov: 45, position: [0, 0, 2] }}
       gl={{ preserveDrawingBuffer: true }}
       className="w-full max-w-full h-full transition-all ease-in"
       style={{ background: '#ffffff' }}
@@ -31,7 +35,8 @@ const Editor = forwardRef<HTMLCanvasElement>((_props, ref) => {
 
       {/* <Backdrop /> */}
       <Center>
-        <Mug2 />
+        {modelType === ModelEnum.TSHIRT && <Tshirt />}
+        {modelType === ModelEnum.MUG && <Mug />}
       </Center>
     </Canvas>
   )

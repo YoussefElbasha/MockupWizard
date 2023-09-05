@@ -5,7 +5,6 @@ import EditorTabs from './editor tabs/EditorTabs'
 import TestCanvas from './components/testCanvas'
 import { CanvasContextProvider } from './contexts/canvas-context'
 import { useRef } from 'react'
-import { useScreenshot, createFileName } from 'use-react-screenshot'
 
 const Home = () => {
   const screenShotRef = useRef<HTMLCanvasElement>(null)
