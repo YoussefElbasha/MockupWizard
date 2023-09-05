@@ -33,7 +33,8 @@ export default function RootLayout({
       const response = await api.get('http://api.app.localhost:4000/api/me')
       return response.data
     } catch (error) {
-      console.error('Error fetching user info:', error)
+      console.error("Error fetching user info:", error);
+      setUserInfo(null);
     }
   }
   const { data, error, isLoading } = useSWR('user-info', fetchUserInfo)

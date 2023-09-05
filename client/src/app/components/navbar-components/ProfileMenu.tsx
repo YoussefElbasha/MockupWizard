@@ -12,6 +12,7 @@ import { UserCircleIcon, PowerIcon } from "@heroicons/react/24/outline";
 import api from "../../../../util/Axios";
 import { toast, Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { mutate } from "swr";
 
 const profileMenuItems = [
   {
@@ -37,8 +38,9 @@ function ProfileMenu(props: profileMenuProps) {
 
   const handleSignout = async () => {
     await api.get("http://api.app.localhost:4000/auth/logout");
-    // toast.success("Logged out.");
-    router.refresh();
+    toast.success("Logged out.");
+    mutate("user-info");
+    router.replace("/");
   };
 
   return (

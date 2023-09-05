@@ -8,6 +8,9 @@ const nextConfig = {
       },
     ],
   },
+  env: {
+    SERVER_URL: "http://api.app.localhost:4000/"
+  },
   webpack: (config) => {
     config.module.rules.push({
       test: /\.svg$/,

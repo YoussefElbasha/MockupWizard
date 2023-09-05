@@ -1,27 +1,8 @@
 "use client";
-import Image from "next/image";
 import AuthCanvas from "./components/auth-components/AuthCanvas";
-import { useState, useEffect } from "react";
-import api from "../../util/Axios";
 import Link from "next/link";
 
 export default function Home() {
-  const [userInfo, setUserInfo] = useState(null);
-
-  useEffect(() => {
-    // Define your axios call function
-    const fetchUserInfo = async () => {
-      try {
-        const response = await api.get("http://api.app.localhost:4000/api/me");
-        console.log(response.data);
-        setUserInfo(response.data);
-      } catch (error) {
-        console.error("Error fetching user info:", error);
-      }
-    };
-
-    // fetchUserInfo(); // Call the function to fetch user info
-  }, []);
   return (
     <>
       <div className="absolute top-1/4 left-[6%] transform -translate-y-1/4">

@@ -14,6 +14,7 @@ import Link from "next/link";
 import AuthCanvas from "@/app/components/auth-components/AuthCanvas";
 import Navbar from "@/app/components/navbar-components/Navbar";
 import Form from "@/app/components/auth-components/Form";
+import { mutate } from "swr";
 
 interface registerData {
   username: string;
@@ -74,8 +75,8 @@ const page = () => {
       await trigger(userData);
       toast.dismiss(loadingPromise);
       toast.success("Registered successfully.");
+      mutate("user-info");
       router.push("/");
-      router.refresh();
     } catch (err: any) {
       toast.dismiss(loadingPromise);
       if (err.response && err.response.data) {
