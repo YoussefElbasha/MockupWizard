@@ -18,6 +18,7 @@ import FolderLoader from "../components/dashboard-components/FolderLoader";
 import FolderButton from "../components/dashboard-components/FolderButton";
 import AllProjects from "../components/dashboard-components/AllProjects";
 import DeleteFolder from "../components/dashboard-components/DeleteFolder";
+import Home from "@/app/icons/home.svg";
 
 const createFolderSchema = yup.object().shape({
   folderName: yup.string().required("Folder name is required").max(20),
@@ -73,7 +74,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           folderName: folderName,
         })
         .then((response) => {
-          setFolders([...folders, response.data]);
+          setFolders((prevFolders) => [...prevFolders, response.data]);
         });
       // mutate("getFolders");
     } catch (err: any) {
@@ -90,8 +91,17 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     setCurrentFolder(folderName);
     router.push(`/dashboard/${folderName}`);
   };
-  const getAllProjects = () => {
-    router.push("/dashboard/all-projects");
+  const getAllProjects = async () => {
+    try {
+      const projects = await api.get(
+        `${process.env.SERVER_URL}dashboard/get-all-projects`
+      );
+
+      console.log(projects.data);
+    } catch (e) {
+      console.log(e);
+    }
+    // router.push("/dashboard/all-projects");
   };
   const { data, isLoading } = useSWR("getFolders", getFolders);
   useEffect(() => {
@@ -127,7 +137,15 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 errors={createFolderForm.formState.errors}
                 onClick={createFolderForm.handleSubmit(createFolder)}
               />
-              <AllProjects />
+              <button
+                onClick={getAllProjects}
+                className="hover:bg-highlight border border-highlight p-3.5 rounded-lg cursor-pointer"
+              >
+                <div className="flex gap-[10px] items-center">
+                  <Home />
+                  <p className="text-xs w-20 text-left">All Projects</p>
+                </div>
+              </button>
             </div>
 
             <div>
