@@ -1,11 +1,12 @@
 'use client'
 
 import React, { useState } from 'react'
-import { ColorPalette, Images } from 'react-ionicons'
+import { ColorPalette, Images, Rocket } from 'react-ionicons'
 import TabButton from './TabButton'
 import ColorPicker from './ColorPicker'
 import FileUpload from './FileUpload'
 import { useCanvasContext } from '../contexts/canvas-context'
+import ModelPicker from './ModelPicker'
 
 const EditorTabs = () => {
   const [activeTab, setActiveTab] = useState(0)
@@ -41,6 +42,24 @@ const EditorTabs = () => {
       <div className="relative">
         <FileUpload
           onClick={() => (activeTab !== 2 ? setActiveTab(2) : setActiveTab(0))}
+        />
+      </div>
+      <div className="relative">
+        <ModelPicker
+          button={
+            <button
+              className="bg-white p-2 rounded-full w-[3.5em] h-[3.5em] drop-shadow-lg"
+              onClick={() =>
+                activeTab !== 3 ? setActiveTab(3) : setActiveTab(0)
+              }
+            >
+              <div className="translate-x-[0.20em] hover:scale-[1.1] transition-all ease-in-out duration-300">
+                <Rocket
+                  style={{ fill: 'black', height: '2em', width: '2em' }}
+                />
+              </div>
+            </button>
+          }
         />
       </div>
     </div>

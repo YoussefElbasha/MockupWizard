@@ -14,7 +14,7 @@ type GLTFResult2 = GLTF & {
   }
 }
 
-const Mug2 = () => {
+const Mug = () => {
   const { nodes, materials } = useGLTF('/mug.glb') as GLTFResult2
 
   const { canvasUrl } = useCanvasContext()
@@ -45,4 +45,4 @@ const Mug2 = () => {
 
 useGLTF.preload('/plain_mug.glb')
 
-export default Mug2
+export default Mug

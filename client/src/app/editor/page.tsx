@@ -11,9 +11,7 @@ const Home = () => {
       <div className="h-screen w-full relative bg-gray-500 overflow-hidden">
         <Editor />
         <EditorTabs />
-        <div className="">
-          <TestCanvas />
-        </div>
+        <TestCanvas />
       </div>
     </CanvasContextProvider>
   )
