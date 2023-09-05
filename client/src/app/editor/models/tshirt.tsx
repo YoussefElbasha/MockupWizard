@@ -27,7 +27,11 @@ const Tshirt = () => {
         material={materials.lambert1}
       >
         {canvasUrl && (
-          <meshStandardMaterial map={testTexture} side={THREE.DoubleSide} />
+          <meshStandardMaterial
+            map={testTexture}
+            attach="material"
+            side={THREE.DoubleSide}
+          />
         )}
       </mesh>
     </group>
