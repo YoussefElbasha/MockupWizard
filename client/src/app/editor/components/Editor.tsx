@@ -10,7 +10,7 @@ const Editor = () => {
   return (
     <Canvas
       shadows
-      camera={{ fov: 45 }}
+      camera={{ fov: 45, position: [0, 0, 2] }}
       gl={{ preserveDrawingBuffer: true }}
       className="w-full max-w-full h-full transition-all ease-in"
       style={{ background: '#ffffff' }}

@@ -15,7 +15,7 @@ type GLTFResult2 = GLTF & {
 }
 
 const Mug2 = () => {
-  const { nodes, materials } = useGLTF('/ceramic_white_mug.glb') as GLTFResult2
+  const { nodes, materials } = useGLTF('/mug.glb') as GLTFResult2
 
   const { canvasUrl } = useCanvasContext()
 
@@ -28,9 +28,9 @@ const Mug2 = () => {
           <mesh
             geometry={nodes.defaultMaterial.geometry}
             material={materials.Mug_White}
-            position={[0, 8.17, -0.01]}
+            position={[0.182, -0.047, -0.06]}
             rotation={[0, Math.PI / 4, 0]}
-            scale={[7.066, 8.17, 7.066]}
+            scale={[0.272, 0.315, 0.272]}
           >
             <meshStandardMaterial side={THREE.DoubleSide} />
             {canvasUrl && (

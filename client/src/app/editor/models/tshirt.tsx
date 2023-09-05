@@ -14,11 +14,14 @@ type GLTFResult = GLTF & {
 }
 
 const Tshirt = () => {
-  const { nodes, materials } = useGLTF('/shirt_baked_test.glb') as GLTFResult
+  const { nodes, materials } = useGLTF('/tshirt.glb') as GLTFResult
 
   const { canvasUrl } = useCanvasContext()
-
-  const testTexture = useTexture(canvasUrl || '/uv_texture.png')
+  const testTexture = useTexture(canvasUrl || '/uv_texture.png', (t) => {
+    if (!Array.isArray(t)) {
+      t.flipY = false
+    }
+  })
 
   return (
     <group dispose={null}>
@@ -27,11 +30,7 @@ const Tshirt = () => {
         material={materials.lambert1}
       >
         {canvasUrl && (
-          <meshStandardMaterial
-            map={testTexture}
-            attach="material"
-            side={THREE.DoubleSide}
-          />
+          <meshStandardMaterial map={testTexture} side={THREE.DoubleSide} />
         )}
       </mesh>
     </group>
