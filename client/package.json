@@ -39,6 +39,7 @@
         "eslint-config-next": "13.4.12",
         "fabric": "^5.3.0",
         "framer-motion": "^10.15.0",
+        "html2canvas": "^1.4.1",
         "leva": "^0.9.35",
         "lucide-react": "^0.274.0",
         "maath": "^0.7.0",
@@ -59,6 +60,7 @@
         "tailwindcss-animate": "^1.0.7",
         "three": "^0.155.0",
         "typescript": "5.1.6",
+        "use-react-screenshot": "^3.0.0",
         "yup": "^1.2.0",
         "zod": "^3.21.4"
     },

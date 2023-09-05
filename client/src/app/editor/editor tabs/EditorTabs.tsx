@@ -7,8 +7,10 @@ import ColorPicker from './ColorPicker'
 import FileUpload from './FileUpload'
 import { useCanvasContext } from '../contexts/canvas-context'
 import ModelPicker from './ModelPicker'
+import Screenshot from './Screenshot'
+import { forwardRef } from 'react'
 
-const EditorTabs = () => {
+const EditorTabs = forwardRef<HTMLCanvasElement>((_props, ref) => {
   const [activeTab, setActiveTab] = useState(0)
   const { color, setColor } = useCanvasContext()
   const [hexInput, setHexInput] = useState(color)
@@ -62,8 +64,16 @@ const EditorTabs = () => {
           }
         />
       </div>
+      <div className="relative">
+        <Screenshot
+          ref={ref}
+          onClick={() => (activeTab !== 3 ? setActiveTab(3) : setActiveTab(0))}
+        />
+      </div>
     </div>
   )
-}
+})
+
+EditorTabs.displayName = 'EditorTabs'
 
 export default EditorTabs

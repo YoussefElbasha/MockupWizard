@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import OptionsIcon from "@/app/icons/ellipsis-horizontal-outline.svg";
+import { useRouter } from "next/navigation";
 
 interface ProjectCardProps {
   label: string;
@@ -11,11 +12,17 @@ interface ProjectCardProps {
 }
 
 const ProjectCard = (props: ProjectCardProps) => {
+  const router = useRouter();
   const [isHover, setIsHover] = useState(false);
+
+  const handleClick = () => {
+    router.push("/editor");
+  };
 
   return (
     <div className="flex h-full">
       <button
+        onClick={handleClick}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
         className="flex w-full hover:cursor-pointer rounded-2xl"

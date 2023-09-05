@@ -2,19 +2,22 @@
 import React, { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import Add from "@/app/icons/add.svg";
+import FolderIcon from "@/app/icons/create-folder.svg";
 import { motion, AnimatePresence } from "framer-motion";
 import Backdrop from "./Backdrop";
 import { framer_error } from "@/app/dashboard/motion";
 import Modal from "./Modal";
-import Trash from "@/app/icons/trash-outline.svg";
+import AddProject from "./AddProject";
+import api from "../../../../util/Axios";
+import { toast } from "react-hot-toast";
 
-interface deleteFolderProps {
-  onClick: any;
-  errors: any;
+interface createProjectProps {
   register: any;
+  errors: any;
+  onSubmit: any;
 }
 
-const DeleteFolder = (props: deleteFolderProps) => {
+const CreateProject = (props: createProjectProps) => {
   const [isOpen, setIsOpen] = useState(false); // Track whether the dialog is open
 
   const openDialog = () => {
@@ -25,10 +28,10 @@ const DeleteFolder = (props: deleteFolderProps) => {
     setIsOpen(false);
   };
 
-  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    props.onClick();
-    if (props.errors.deleteFolder) {
+    props.onSubmit(event);
+    if (props.errors.projectName) {
       console.log(props.errors);
     } else {
       console.log("no errors");
@@ -39,26 +42,31 @@ const DeleteFolder = (props: deleteFolderProps) => {
   return (
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
-        <button className="rounded-full hover:text-red-600 text-gray-500 p-2.5">
-          <Trash className="w-4" />
-        </button>
+        <div className="flex h-full">
+          <button className="flex justify-center h-full hover:opacity-50 items-center bg-highlight rounded-2xl w-full">
+            <div className="flex flex-col items-center gap-3 ">
+              <Add />
+              <p>New Project</p>
+            </div>
+          </button>
+        </div>
       </Dialog.Trigger>
 
       <Dialog.Portal>
         <Dialog.Overlay className="bg-black backdrop-blur-md bg-opacity-50 fixed inset-0" />
         <Modal
-          title="Delete Folder"
-          label="Type 'delete' to remove the folder"
-          placeholder="delete"
-          button="Delete"
+          title="Create Project"
+          label="Name"
+          placeholder="Enter project name"
+          button="Create"
           register={props.register}
           errors={props.errors}
-          onSubmit={handleFormSubmit}
-          registerName="deleteFolder"
+          onSubmit={handleSubmit}
+          registerName="projectName"
         />
       </Dialog.Portal>
     </Dialog.Root>
   );
 };
 
-export default DeleteFolder;
+export default CreateProject;
