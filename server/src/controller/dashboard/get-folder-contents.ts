@@ -5,6 +5,7 @@ const getFolderContents = async (req: Request, res: Response) => {
     const { prisma } = req.context;
     const folderId = req.params.folderId;
 
+
     const folder = await prisma.folder.findFirst({
       where: { id: folderId }
     })
