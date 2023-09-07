@@ -33,7 +33,7 @@ const ProjectCard = (props: ProjectCardProps) => {
             transition={{
               duration: 0.5,
             }}
-            className="min-h-[20rem]"
+            className="min-h-[10rem] h-full"
           >
             <Image
               src={props.image}

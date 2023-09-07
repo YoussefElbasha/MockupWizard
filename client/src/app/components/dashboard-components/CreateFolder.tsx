@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import Add from "@/app/icons/add.svg";
-import FolderIcon from "@/app/icons/create-folder.svg";
+import FolderIcon from "@/app/icons/folder-outline.svg";
 import { motion, AnimatePresence } from "framer-motion";
 import Backdrop from "./Backdrop";
 import { framer_error } from "@/app/dashboard/motion";
@@ -41,8 +41,8 @@ const CreateFolder = (props: createFolderProps) => {
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
         {props.fromIcon ? (
-          <button className="flex flex-col items-center gap-4 cursor-pointer hover:opacity-50">
-            <FolderIcon />
+          <button className="flex flex-col items-center gap-2 cursor-pointer hover:opacity-50">
+            <FolderIcon className="w-20 lg:w-24" />
             <p>New Folder</p>
           </button>
         ) : (
