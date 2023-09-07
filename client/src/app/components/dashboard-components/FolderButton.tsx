@@ -12,7 +12,7 @@ const FolderButton = (props: folderrProps) => {
   return (
     <motion.button
       whileHover={{ scale: 1.08 }}
-      onClick={() => props.onClick(props.id)}
+      onClick={() => props.onClick(props.name)}
       className="flex flex-col items-center gap-4 cursor-pointer"
     >
       <FolderrIcon />

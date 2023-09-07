@@ -8,7 +8,6 @@ import apiRouter from "./routes/app";
 import cookieParser from "cookie-parser";
 import isAuthenticated from "./middleware/auth.middleware";
 import dashboardRouter from "./routes/dashboard";
-import passport from "passport";
 import session from "express-session";
 
 declare global {

@@ -3,10 +3,10 @@ import { Request, Response } from "express";
 const getFolderContents = async (req: Request, res: Response) => {
   try {
     const { prisma } = req.context;
-    const folderId = req.params.folderId;
+    const folderName = req.params.folderName;
 
     const projects = await prisma.project.findMany({
-      where: { folderId: folderId },
+      where: { folderName: folderName },
     });
 
     if (!projects) return res.status(400).json("No projects found.");

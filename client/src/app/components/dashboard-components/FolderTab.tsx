@@ -23,7 +23,7 @@ const FolderTab = (props: folderProps) => {
     >
       <button
         onClick={() => {
-          props.onClick(props.id);
+          props.onClick(props.name);
         }}
         disabled={props.isCurrent}
         className={`${

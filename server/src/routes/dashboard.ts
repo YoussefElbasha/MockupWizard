@@ -16,16 +16,18 @@ import getAllProjects from "../controller/dashboard/get-all-projects";
 // import editProject from "../controller/dashboard/edit-project";
 import editProfile from "../controller/dashboard/edit-profile";
 import getScreenshots from "../controller/dashboard/get-screenshots";
+import addScreenshot from "../controller/dashboard/add-screenshot";
+
 
 
 
 router.get("/", getAllFolders);
 router.post("/create-folder", createFolder);
-router.delete("/delete-folder/:folderId", deleteFolder);
+router.delete("/delete-folder/:folderName", deleteFolder);
 router.delete("/delete-screenshot/:projectId/:screenshot", deleteScreenshot);
 router.delete("/delete-project/:projectId", deleteProject);
 router.get("/get-project-contents/:projectId", getProjectContents);
-router.get("/get-folder-contents/:folderId", getFolderContents);
+router.get("/get-folder-contents/:folderName", getFolderContents);
 router.delete("/delete-design/:designId", deleteDesign);
 router.post("/create-project", createProject);
 // router.post("/save-editor", saveEditor)
@@ -33,6 +35,7 @@ router.get("/get-all-projects", getAllProjects)
 // router.put("/edit-project", editProject)
 router.patch("/edit-profile", editProfile)
 router.get("/get-screenshots/:projectId", getScreenshots)
+router.post("/add-screenshot", addScreenshot)
 
 
 export default router;

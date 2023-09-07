@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import ProfileLoader from "./ProfileLoader";
 
 const isActiveStyle =
-  "bg-highlight py-[7px] px-[16px] rounded-lg text-secondary";
+  "bg-highlight py-[7px] px-[16px] text-sm rounded-lg text-secondary";
 
 type UserInfo = {
   email: string;
@@ -33,7 +33,7 @@ const Navbar = ({ user, navLinks, isLoading }: navbarProps) => {
   };
 
   const getLinkClassName = (isActive: boolean) => {
-    return isActive ? isActiveStyle : "text-white py-[7px] px-[16px]";
+    return isActive ? isActiveStyle : "text-white text-sm py-[7px] px-[16px]";
   };
 
   return (

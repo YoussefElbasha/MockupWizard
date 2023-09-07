@@ -8,11 +8,14 @@ const nextConfig = {
       },
     ],
   },
+  env: {
+    SERVER_URL: "http://api.app.localhost:4000/"
+  },
   webpack: (config) => {
     config.module.rules.push({
       test: /\.svg$/,
-      use: ['@svgr/webpack'],
-    })
+      use: ["@svgr/webpack"],
+    });
 
     config.externals.push({
       sharp: 'commonjs sharp',
@@ -31,4 +34,4 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig
+module.exports = nextConfig;

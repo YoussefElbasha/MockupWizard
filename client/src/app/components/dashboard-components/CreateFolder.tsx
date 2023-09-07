@@ -38,40 +38,39 @@ const CreateFolder = (props: createFolderProps) => {
   };
 
   return (
-    <AnimatePresence mode="wait">
-      <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
-        <Dialog.Trigger asChild>
-          {props.fromIcon ? (
-            <button className="flex flex-col items-center gap-4 cursor-pointer hover:opacity-50">
-              <FolderIcon />
-              <p>New Folder</p>
-            </button>
-          ) : (
-            <div className="hover:bg-highlight border border-highlight p-2 rounded-lg cursor-pointer">
-              <div className="flex gap-[10px] items-center">
-                <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center">
-                  <Add />
-                </div>
-                <p className="text-xs w-20 text-left">New Folder</p>
+    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+      <Dialog.Trigger asChild>
+        {props.fromIcon ? (
+          <button className="flex flex-col items-center gap-4 cursor-pointer hover:opacity-50">
+            <FolderIcon />
+            <p>New Folder</p>
+          </button>
+        ) : (
+          <div className="hover:bg-highlight border border-highlight p-2 rounded-lg cursor-pointer">
+            <div className="flex gap-[10px] items-center">
+              <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center">
+                <Add />
               </div>
+              <p className="text-xs w-20 text-left">New Folder</p>
             </div>
-          )}
-        </Dialog.Trigger>
+          </div>
+        )}
+      </Dialog.Trigger>
 
-        <Dialog.Portal>
-          <Modal
-            title="Create Folder"
-            label="Folder name"
-            placeholder="Enter folder name"
-            button="Create"
-            register={props.register}
-            errors={props.errors}
-            onSubmit={handleFormSubmit}
-            registerName="folderName"
-          />
-        </Dialog.Portal>
-      </Dialog.Root>
-    </AnimatePresence>
+      <Dialog.Portal>
+        <Dialog.Overlay className="bg-black backdrop-blur-md bg-opacity-50 fixed inset-0" />
+        <Modal
+          title="Create Folder"
+          label="Folder name"
+          placeholder="Enter folder name"
+          button="Create"
+          register={props.register}
+          errors={props.errors}
+          onSubmit={handleFormSubmit}
+          registerName="folderName"
+        />
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 };
 
