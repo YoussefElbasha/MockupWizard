@@ -25,13 +25,6 @@ interface navbarProps {
 const Navbar = ({ user, navLinks, isLoading }: navbarProps) => {
   const pathname = usePathname();
 
-  const getLinkHref = (link: link) => {
-    if (link.href === "/dashboard") {
-      return user ? link.href : "/sign-in";
-    }
-    return link.href;
-  };
-
   const getLinkClassName = (isActive: boolean) => {
     return isActive ? isActiveStyle : "text-white text-sm py-[7px] px-[16px]";
   };
@@ -44,21 +37,18 @@ const Navbar = ({ user, navLinks, isLoading }: navbarProps) => {
         </p>
       </Link>
       <div className="flex gap-4 flex-wrap items-center text-base justify-center">
-        {navLinks.map((link: link) => {
-          const isActive =
-            pathname === link.href ||
-            (link.href !== "/" && pathname.includes(link.href));
-          const linkClassName = getLinkClassName(isActive);
-          return (
-            <Link
-              href={getLinkHref(link)}
-              key={link.name}
-              className={linkClassName}
-            >
-              {link.name}
-            </Link>
-          );
-        })}
+        {user &&
+          navLinks.map((link: link) => {
+            const isActive =
+              pathname === link.href ||
+              (link.href !== "/" && pathname.includes(link.href));
+            const linkClassName = getLinkClassName(isActive);
+            return (
+              <Link href={link.href} key={link.name} className={linkClassName}>
+                {link.name}
+              </Link>
+            );
+          })}
       </div>
       {isLoading ? (
         <ProfileLoader />
