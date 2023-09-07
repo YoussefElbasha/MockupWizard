@@ -5,11 +5,16 @@ const getFolderContents = async (req: Request, res: Response) => {
     const { prisma } = req.context;
     const folderId = req.params.folderId;
 
-    const projects = await prisma.project.findMany({
-      where: { id: folderId },
-    });
 
-    if (!projects) return res.status(400).json("No projects found.");
+    const folder = await prisma.folder.findFirst({
+      where: { id: folderId }
+    })
+
+    if (!folder) return res.status(400).json("No such folder.");
+
+    const projects = await prisma.project.findMany({
+      where: { folderId: folderId },
+    });
 
     const response = projects.map((p: any) => {
       return { id: p.id, name: p.name, thumbnail: p.thumbnail };

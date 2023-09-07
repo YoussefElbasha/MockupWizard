@@ -6,11 +6,10 @@ const deleteFolder = async (req: Request, res: Response) => {
     const folderId = req.params.folderId;
 
     await prisma.project.deleteMany({
-      where: { folderId: folderId },
+      where: { folderId },
     });
-
     await prisma.folder.delete({
-      where: { name: folderId },
+      where: { id: folderId },
     });
 
     return res.status(200).json("Folder deleted.");

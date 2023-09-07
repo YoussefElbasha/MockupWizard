@@ -53,39 +53,13 @@ app.use((req, res, next) => {
 
 app.use("/auth", authRouter)
 app.use("/api", apiRouter)
-app.use("/dashboard", /*isAuthenticated,*/ dashboardRouter)
+app.use("/dashboard", isAuthenticated, dashboardRouter)
 app.use('/editor', EditorRouter)
+
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}: http://localhost:${port}`)
-
-  // try {
-
-  //   const testProject = testFunction()
-
-  //   console.log(testProject)
-  // } catch (error) {
-  //   console.log(error)
-  // }
 })
 
 export default app
 
-const prisma = new PrismaClient()
-
-
-
-const testFunction = async () => {
-  const testProject = await prisma.project.create({
-    data: {
-      folder: {
-        connect: {
-          id: '1'
-        }
-      },
-    }
-
-  })
-
-  return testProject
-}
