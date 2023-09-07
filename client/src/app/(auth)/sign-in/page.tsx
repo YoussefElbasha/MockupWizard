@@ -8,11 +8,12 @@ import { motion } from "framer-motion";
 import api from "../../../../util/Axios";
 import { useRouter } from "next/navigation";
 import useSWRMutation from "swr/mutation";
+import { mutate } from "swr";
 import toast, { Toaster } from "react-hot-toast";
-import Switch from "react-switch";
+import Link from "next/link";
 
 import AuthCanvas from "@/app/components/auth-components/AuthCanvas";
-import Navbar from "@/app/components/auth-components/Navbar";
+import Navbar from "@/app/components/navbar-components/Navbar";
 import Form from "@/app/components/auth-components/Form";
 
 interface loginData {
@@ -75,6 +76,7 @@ const page = () => {
         router.push(`/otp?email=${userData.email}`);
       } else {
         toast.success("Login success.");
+        mutate("user-info");
         router.push("/");
       }
       // router.push("/");
@@ -91,7 +93,7 @@ const page = () => {
   };
 
   return (
-    <div className="bg-background m-auto min-h-screen flex flex-col items-center justify-center relative">
+    <>
       <motion.div
         // className="absolute top-1/2 left-1/4 transform translate-y-1/4 -translate-x-3/4"
         initial={{ top: "50%", left: "50%", x: "-50%", y: "-50%", opacity: 1 }}
@@ -117,7 +119,6 @@ const page = () => {
       {/* <div className="absolute top-1/2 left-1/4 transform translate-y-1/4 -translate-x-3/4">
         <div className="w-60 h-60 bg-[#4461F2] rounded-full blur-3xl opacity-0" />
       </div> */}
-
       <div className="flex flex-grow flex-col items-center justify-center md:flex-row z-10">
         <div className="p-10 text-white flex-grow justify-center flex flex-col items-start gap-10">
           <div>
@@ -129,7 +130,7 @@ const page = () => {
             <p>
               you can{" "}
               <span className="text-[#4461F2] hover:text-indigo-500">
-                <a href="/signup">Register here!</a>
+                <Link href="/signup">Register here!</Link>
               </span>
             </p>
           </div>
@@ -148,7 +149,7 @@ const page = () => {
           setWithOTP={setWithOTP}
         />
       </div>
-    </div>
+    </>
   );
 };
 

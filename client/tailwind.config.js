@@ -17,7 +17,6 @@ module.exports = {
     },
     extend: {
       colors: {
-        colors: {},
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -26,9 +25,15 @@ module.exports = {
         primary: "#4461F2",
         secondary: "#DDA82A",
         background: "#000212",
+        highlight: "#4461F21A",
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
+        },
+        backgroundImage: {
+          "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+          "gradient-conic":
+            "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
