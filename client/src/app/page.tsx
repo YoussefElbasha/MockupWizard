@@ -42,6 +42,7 @@ export default function Home() {
         </button>
       </div>
       {/* <AuthCanvas /> */}
+      {/* <div className="absolute w-10 h-10  bg-red-400 left-1/2 top-1/2"></div> */}
       <div className="relative w-[125%] h-[40vh] overflow-hidden">
         <div className="absolute w-full h-[60rem] bg-background rounded-full flex-shrink-0 z-10 top-[75%] border-t border-secondary/10"></div>
         <div className="absolute w-[65rem] h-[30rem] left-1/2 -translate-x-1/2 top-[18%]">
