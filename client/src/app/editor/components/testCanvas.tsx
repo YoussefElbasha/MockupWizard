@@ -22,7 +22,6 @@ const TestCanvas = () => {
   } = useCanvasContext()
 
   useEffect(() => {
-    console.log(color)
     const canvas = new fabric.Canvas('canvas', {
       backgroundColor: `${color}`,
       width: 200,
@@ -34,7 +33,6 @@ const TestCanvas = () => {
     const visibleDesigns = designs.length ? designs : ['/1x1.png']
 
     visibleDesigns.forEach((design: any, index: any) => {
-      console.log('hello here')
       fabric.Image.fromURL(design.url, function (img) {
         try {
           img.crossOrigin = 'anonymous'
