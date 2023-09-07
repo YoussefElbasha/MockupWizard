@@ -13,8 +13,8 @@ import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
 
 import AuthCanvas from "@/app/components/auth-components/AuthCanvas";
-import Navbar from "@/app/components/navbar-components/Navbar";
 import Form from "@/app/components/auth-components/Form";
+import { handleApiError } from "../../../../util/errorHandling";
 
 interface loginData {
   email: string;
@@ -63,7 +63,7 @@ const page = () => {
   };
 
   const { data, trigger, isMutating, error } = useSWRMutation(
-    "http://api.app.localhost:4000/auth/login",
+    `${process.env.SERVER_URL}auth/login`,
     loginUser
   );
 
@@ -76,19 +76,12 @@ const page = () => {
         router.push(`/otp?email=${userData.email}`);
       } else {
         toast.success("Login success.");
-        mutate("user-info");
         router.push("/");
+        mutate("user-info");
       }
-      // router.push("/");
-    } catch (err: any) {
+    } catch (error: any) {
       toast.dismiss(loadingPromise);
-      if (err.response && err.response.data) {
-        toast.error(err.response.data);
-      } else if (err.code === "ERR_NETWORK") {
-        toast.error("Network error.");
-      } else {
-        toast.error("An error occurred. Please try again.");
-      }
+      handleApiError(error);
     }
   };
 
@@ -101,7 +94,7 @@ const page = () => {
         transition={{ duration: 0.1, delay: 0 }}
         className="absolute"
       >
-        <div className="w-60 h-60 bg-[#DDA82A] rounded-full blur-3xl opacity-50" />
+        <div className="w-60 h-60 bg-secondary rounded-full blur-3xl opacity-50" />
       </motion.div>
       {/* <div className="absolute top-1/8 left-[6%] transform -translate-y-1/4 bg-red-700">
         <div className="w-60 h-60 bg-[#DDA82A] rounded-full blur-3xl opacity-0" />
@@ -114,7 +107,7 @@ const page = () => {
         transition={{ duration: 0.1, delay: 0 }}
         className="absolute"
       >
-        <div className="w-60 h-60 bg-[#4461F2] rounded-full blur-3xl opacity-50" />
+        <div className="w-60 h-60 bg-primary rounded-full blur-3xl opacity-50" />
       </motion.div>
       {/* <div className="absolute top-1/2 left-1/4 transform translate-y-1/4 -translate-x-3/4">
         <div className="w-60 h-60 bg-[#4461F2] rounded-full blur-3xl opacity-0" />
@@ -129,7 +122,7 @@ const page = () => {
             <p>If you don't have an account</p>
             <p>
               you can{" "}
-              <span className="text-[#4461F2] hover:text-indigo-500">
+              <span className="text-primary hover:text-indigo-500">
                 <Link href="/signup">Register here!</Link>
               </span>
             </p>
