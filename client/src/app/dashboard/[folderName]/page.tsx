@@ -100,6 +100,7 @@ const page = (props: pageProps) => {
                 >
                   <ProjectCard
                     key={project.id}
+                    id={project.id}
                     label={project.name}
                     image={project.thumbnail}
                   />
