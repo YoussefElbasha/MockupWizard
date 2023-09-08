@@ -1,5 +1,5 @@
 import express from "express";
-import { generateImage } from "../lib/generate-image";
+import generateImageController from "../controller/editor/generate-image";
 const router = express.Router();
 
 router.get("/me", async (req, res) => {
@@ -13,10 +13,6 @@ router.get("/me", async (req, res) => {
   res.json(user);
 });
 
-router.post("/generate-image", async (req, res) => {
-  const prompt = req.body.prompt;
-  const imageUrl = await generateImage(prompt);
-  res.json(imageUrl);
-});
+router.post("/generate-image", generateImageController);
 
 export default router;

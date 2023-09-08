@@ -2,8 +2,10 @@
 
 import * as THREE from 'three'
 import { useGLTF, useTexture } from '@react-three/drei'
-import { GLTF } from 'three-stdlib'
+import { GLTF, GLTFExporter } from 'three-stdlib'
 import { useCanvasContext } from '../contexts/canvas-context'
+import { forwardRef, useEffect, useRef } from 'react'
+import { Mesh } from 'three'
 
 type GLTFResult2 = GLTF & {
   nodes: {
@@ -14,7 +16,7 @@ type GLTFResult2 = GLTF & {
   }
 }
 
-const Mug = () => {
+const Mug = forwardRef<Mesh>((_props, ref) => {
   const { nodes, materials } = useGLTF('/mug.glb') as GLTFResult2
 
   const { canvasUrl } = useCanvasContext()
@@ -31,6 +33,7 @@ const Mug = () => {
             position={[0.182, -0.047, -0.06]}
             rotation={[0, Math.PI / 4, 0]}
             scale={[0.272, 0.315, 0.272]}
+            ref={ref}
           >
             <meshStandardMaterial side={THREE.DoubleSide} />
             {canvasUrl && (
@@ -41,8 +44,10 @@ const Mug = () => {
       </group>
     </group>
   )
-}
+})
 
-useGLTF.preload('/plain_mug.glb')
+useGLTF.preload('/mug.glb')
+
+Mug.displayName = 'Mug'
 
 export default Mug

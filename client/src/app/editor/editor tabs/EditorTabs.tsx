@@ -1,25 +1,27 @@
-"use client";
+'use client'
 
-import React, { useState } from "react";
-import { ColorPalette, Images, Rocket } from "react-ionicons";
-import TabButton from "./TabButton";
-import ColorPicker from "./ColorPicker";
-import FileUpload from "./FileUpload";
-import { useCanvasContext } from "../contexts/canvas-context";
-import ModelPicker from "./ModelPicker";
-import Screenshot from "./Screenshot";
-import { forwardRef } from "react";
-import SaveButton from "./SaveButton";
+import React, { useState } from 'react'
+import { ColorPalette, Images, Rocket } from 'react-ionicons'
+import TabButton from './TabButton'
+import ColorPicker from './ColorPicker'
+import FileUpload from './FileUpload'
+import { useCanvasContext } from '../contexts/canvas-context'
+import ModelPicker from './ModelPicker'
+// import Screenshot from './Screenshot'
+import { forwardRef } from 'react'
+import SaveButton from './SaveButton'
+import DownloadModelButton from './DownloadModelButton'
 
 interface EditorTabsProps {
-  projectId: string;
+  meshRef: React.MutableRefObject<any>
+  projectId: string
 }
 
 const EditorTabs = forwardRef<HTMLCanvasElement, EditorTabsProps>(
-  ({ projectId }, ref) => {
-    const [activeTab, setActiveTab] = useState(0);
-    const { color, setColor } = useCanvasContext();
-    const [hexInput, setHexInput] = useState(color);
+  (props, ref) => {
+    const [activeTab, setActiveTab] = useState(0)
+    const { color, setColor } = useCanvasContext()
+    const [hexInput, setHexInput] = useState(color)
 
     return (
       <div className="flex flex-col absolute top-[50%] left-6 gap-3">
@@ -34,7 +36,7 @@ const EditorTabs = forwardRef<HTMLCanvasElement, EditorTabsProps>(
             tabButtonIcon={
               <div className="translate-x-[-0.11em] hover:scale-[1.1] transition-all ease-in-out duration-300">
                 <ColorPalette
-                  style={{ fill: "black", height: "2.5em", width: "2.5em" }}
+                  style={{ fill: 'black', height: '2.5em', width: '2.5em' }}
                 />
               </div>
             }
@@ -67,7 +69,7 @@ const EditorTabs = forwardRef<HTMLCanvasElement, EditorTabsProps>(
               >
                 <div className="translate-x-[0.20em] hover:scale-[1.1] transition-all ease-in-out duration-300">
                   <Rocket
-                    style={{ fill: "black", height: "2em", width: "2em" }}
+                    style={{ fill: 'black', height: '2em', width: '2em' }}
                   />
                 </div>
               </button>
@@ -81,13 +83,16 @@ const EditorTabs = forwardRef<HTMLCanvasElement, EditorTabsProps>(
         />
       </div> */}
         <div className="relative">
-          <SaveButton projectId={projectId} />
+          <DownloadModelButton ref={props.meshRef} />
+        </div>
+        <div className="relative">
+          <SaveButton projectId={props.projectId} />
         </div>
       </div>
-    );
+    )
   }
-);
+)
 
-EditorTabs.displayName = "EditorTabs";
+EditorTabs.displayName = 'EditorTabs'
 
-export default EditorTabs;
+export default EditorTabs
