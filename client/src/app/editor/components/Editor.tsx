@@ -8,7 +8,11 @@ import { ModelEnum } from '../contexts/model-enum'
 import { useCanvasContext } from '../contexts/canvas-context'
 import { forwardRef } from 'react'
 
-const Editor = forwardRef<HTMLCanvasElement>((_props, ref) => {
+interface EditorProps {
+  meshRef: React.MutableRefObject<any>
+}
+
+const Editor = forwardRef<HTMLCanvasElement, EditorProps>((props, ref) => {
   const { modelType } = useCanvasContext()
 
   return (
@@ -35,8 +39,8 @@ const Editor = forwardRef<HTMLCanvasElement>((_props, ref) => {
 
       {/* <Backdrop /> */}
       <Center>
-        {modelType === ModelEnum.TSHIRT && <Tshirt />}
-        {modelType === ModelEnum.MUG && <Mug />}
+        {modelType === ModelEnum.TSHIRT && <Tshirt ref={props.meshRef} />}
+        {modelType === ModelEnum.MUG && <Mug ref={props.meshRef} />}
       </Center>
     </Canvas>
   )

@@ -1,8 +1,9 @@
 import * as THREE from 'three'
-import React, { useRef } from 'react'
+import React, { forwardRef, useRef } from 'react'
 import { useGLTF, useTexture } from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import { useCanvasContext } from '../contexts/canvas-context'
+import { Mesh } from 'three'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -13,7 +14,7 @@ type GLTFResult = GLTF & {
   }
 }
 
-const Tshirt = () => {
+const Tshirt = forwardRef<Mesh>((_props, ref) => {
   const { nodes, materials } = useGLTF('/tshirt.glb') as GLTFResult
 
   const { canvasUrl } = useCanvasContext()
@@ -28,6 +29,7 @@ const Tshirt = () => {
       <mesh
         geometry={nodes.T_Shirt_male.geometry}
         material={materials.lambert1}
+        ref={ref}
       >
         {canvasUrl && (
           <meshStandardMaterial map={testTexture} side={THREE.DoubleSide} />
@@ -35,8 +37,10 @@ const Tshirt = () => {
       </mesh>
     </group>
   )
-}
+})
 
-useGLTF.preload('/shirt_baked.glb')
+useGLTF.preload('/tshirt.glb')
+
+Tshirt.displayName = 'Tshirt'
 
 export default Tshirt
