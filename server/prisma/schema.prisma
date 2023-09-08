@@ -37,17 +37,17 @@ model Folder {
 }
 
 model Project {
-  id          String   @id @default(cuid()) @map("_id")
-  folder      Folder   @relation(fields: [folderId], references: [id])
-  folderId    String
-  name        String   @default("New Project")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  thumbnail   String   @default("https://archive.org/download/placeholder-image/placeholder-image.jpg")
-  screenshots String[]
-  color       String   @default("#ffffff")
-  modelType   String   @default("mug_2.glb")
-  designs     Design[]
+  id        String   @id @default(cuid()) @map("_id")
+  folder    Folder   @relation(fields: [folderId], references: [id])
+  folderId  String
+  name      String   @default("New Project")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // thumbnail   String   @default("https://archive.org/download/placeholder-image/placeholder-image.jpg")
+  // screenshots String[]
+  color     String   @default("#ffffff")
+  modelType Model    @default(MUG)
+  designs   Design[]
 }
 
 model Design {
@@ -59,4 +59,9 @@ model Design {
   left      Int     @default(0)
   scale     Int     @default(0)
   rotation  Int     @default(0)
+}
+
+enum Model {
+  MUG
+  TSHIRT
 }

@@ -9,6 +9,7 @@ import { useCanvasContext } from '../contexts/canvas-context'
 import ModelPicker from './ModelPicker'
 import Screenshot from './Screenshot'
 import { forwardRef } from 'react'
+import SaveButton from './SaveButton'
 
 const EditorTabs = forwardRef<HTMLCanvasElement>((_props, ref) => {
   const [activeTab, setActiveTab] = useState(0)
@@ -64,11 +65,14 @@ const EditorTabs = forwardRef<HTMLCanvasElement>((_props, ref) => {
           }
         />
       </div>
-      <div className="relative">
+      {/* <div className="relative">
         <Screenshot
           ref={ref}
           onClick={() => (activeTab !== 3 ? setActiveTab(3) : setActiveTab(0))}
         />
+      </div> */}
+      <div className="relative">
+        <SaveButton />
       </div>
     </div>
   )
