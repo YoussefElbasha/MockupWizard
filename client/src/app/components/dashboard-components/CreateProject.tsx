@@ -43,7 +43,7 @@ const CreateProject = (props: createProjectProps) => {
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
         <div className="flex h-full">
-          <button className="flex justify-center h-full hover:opacity-50 items-center bg-highlight rounded-2xl w-full">
+          <button className="flex justify-center h-48 hover:opacity-50 items-center bg-highlight rounded-2xl w-full">
             <div className="flex flex-col items-center gap-3 ">
               <Add />
               <p>New Project</p>

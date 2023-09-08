@@ -1,7 +1,6 @@
 import React from "react";
 import EyeIcon from "@/app/icons/eye-outline.svg";
 import EyeOffIcon from "@/app/icons/eye-off-outline.svg";
-import CloseCircle from "@/app/icons/close-circle-outline.svg";
 import { motion } from "framer-motion";
 
 const framer_error = {
@@ -31,9 +30,9 @@ const Input = (props: inputProps) => {
           placeholder={props.placeholder}
           type={props.passwordType}
           {...props.register(props.registerName)}
-          className="focus:outline-none p-3 w-full h-full bg-white rounded text-xs text-[#667085]"
+          className="focus:outline-none p-3 pr-10 w-full h-full bg-white rounded text-xs text-[#667085]"
         />
-        {props.eyeIcon ? (
+        {props.eyeIcon && (
           <button
             type="button"
             className="p-2 right-2 top-1/2 -translate-y-1/2 cursor-pointer absolute"
@@ -45,15 +44,6 @@ const Input = (props: inputProps) => {
               <EyeIcon className="w-3.5 text-[#667085]" />
             )}
           </button>
-        ) : (
-          <span
-            className="p-2 right-2 top-1/2 -translate-y-1/2 cursor-pointer absolute"
-            onClick={() => {
-              props.onClick();
-            }}
-          >
-            <CloseCircle className="w-3.5 text-[#667085]" />
-          </span>
         )}
       </div>
       {props.errors[props.registerName] && (
