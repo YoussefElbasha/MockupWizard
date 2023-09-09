@@ -43,7 +43,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   const getFolders = async () => {
     try {
-      const response = await api.get(`${process.env.SERVER_URL}dashboard/`);
+      const response = await api.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/dashboard/`
+      );
       return response.data;
     } catch (error: any) {
       if (error.response.data && error.response.data === "Login first.") {
@@ -55,7 +57,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const createFolder = async ({ folderName }: any) => {
     try {
       await api
-        .post(`${process.env.SERVER_URL}dashboard/create-folder`, {
+        .post(`${process.env.NEXT_PUBLIC_API_URL}/dashboard/create-folder`, {
           folderName: folderName,
         })
         .then((response) => {
@@ -73,7 +75,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const getAllProjects = async () => {
     try {
       const projects = await api.get(
-        `${process.env.SERVER_URL}dashboard/get-all-projects`
+        `${process.env.NEXT_PUBLIC_API_URL}/dashboard/get-all-projects`
       );
 
       console.log(projects.data);
@@ -99,7 +101,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       });
       router.push("/dashboard");
       await api.delete(
-        `${process.env.SERVER_URL}dashboard/delete-folder/${folderId}`
+        `${process.env.NEXT_PUBLIC_API_URL}/dashboard/delete-folder/${folderId}`
       );
     } catch (e: any) {
       console.log(e);

@@ -11,7 +11,7 @@ const SaveButton = ({ projectId }: saveButtonProps) => {
   const { color, canvasObjects, modelType } = useCanvasContext()
 
   const { trigger } = useSWRMutation(
-    `${process.env.SERVER_URL}editor/${projectId}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/editor/${projectId}`,
     (url: string) => {
       return axios.post(url, { color, canvasObjects, modelType })
     }

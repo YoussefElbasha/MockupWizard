@@ -14,7 +14,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-const PAGE_API_ENDPOINT = "http://api.app.localhost:4000/api/generate-image";
+const PAGE_API_ENDPOINT = `${process.env.NEXT_PUBLIC_API_URL}/api/generate-image`;
 
 const Page = () => {
   const [urls, setUrls] = useState<string[]>([]);

@@ -43,7 +43,7 @@ const CanvasContextProvider = ({
   const [modelData, setModelData] = useState<any>(null)
 
   const { data, error } = useSWR(
-    `${process.env.SERVER_URL}editor/${projectId}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/editor/${projectId}`,
     (url: string) => {
       return axios
         .get(url)

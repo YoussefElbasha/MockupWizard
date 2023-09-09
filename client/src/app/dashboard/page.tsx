@@ -1,91 +1,94 @@
-"use client";
+'use client'
 
-import React, { useEffect, useState } from "react";
-import Add from "@/app/icons/add.svg";
-import HomeIcon from "@/app/icons/home.svg";
-import FolderIcon from "@/app/icons/folder-outline.svg";
-import FolderrIcon from "@/app/icons/folderr.svg";
-import ProjectCard from "../components/dashboard-components/ProjectCard";
-import { AnimatePresence, motion } from "framer-motion";
-import AddProject from "../components/dashboard-components/AddProject";
-import Home from "../page";
-import { fadeAnimation, slideAnimation } from "./motion";
-import axios from "axios";
-import api from "../../../util/Axios";
-import Navbar from "../components/navbar-components/Navbar";
-import Folder from "../components/dashboard-components/FolderTab";
-import useSWR from "swr";
-import toast, { Toaster } from "react-hot-toast";
-import { useRouter } from "next/navigation";
-import CreateFolder from "../components/dashboard-components/CreateFolder";
+import React, { useEffect, useState } from 'react'
+import Add from '@/app/icons/add.svg'
+import HomeIcon from '@/app/icons/home.svg'
+import FolderIcon from '@/app/icons/folder-outline.svg'
+import FolderrIcon from '@/app/icons/folderr.svg'
+import ProjectCard from '../components/dashboard-components/ProjectCard'
+import { AnimatePresence, motion } from 'framer-motion'
+import AddProject from '../components/dashboard-components/AddProject'
+import Home from '../page'
+import { fadeAnimation, slideAnimation } from './motion'
+import axios from 'axios'
+import api from '../../../util/Axios'
+import Navbar from '../components/navbar-components/Navbar'
+import Folder from '../components/dashboard-components/FolderTab'
+import useSWR from 'swr'
+import toast, { Toaster } from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
+import CreateFolder from '../components/dashboard-components/CreateFolder'
 
 const Page = () => {
-  const router = useRouter();
-  const [inCustomizer, setInCustomizer] = useState(true);
-  const [folders, setFolders] = useState([]);
-  const [isLogged, setIsLogged] = useState(false);
-  const [currentFolderContents, setCurrentFolderContents] = useState([]);
-  const [isLoadingContent, setIsLoadingContent] = useState(false);
-  const [currentFolder, setCurrentFolder] = useState("");
+  const router = useRouter()
+  const [inCustomizer, setInCustomizer] = useState(true)
+  const [folders, setFolders] = useState([])
+  const [isLogged, setIsLogged] = useState(false)
+  const [currentFolderContents, setCurrentFolderContents] = useState([])
+  const [isLoadingContent, setIsLoadingContent] = useState(false)
+  const [currentFolder, setCurrentFolder] = useState('')
 
   const getFolders = async () => {
     try {
       const response = await api.get(
-        "http://api.app.localhost:4000/dashboard/"
-      );
-      return response.data;
+        `${process.env.NEXT_PUBLIC_API_URL}/dashboard/`
+      )
+      return response.data
     } catch (err: any) {
       if (
         err.response &&
         err.response.data &&
-        err.response.data === "Login first."
+        err.response.data === 'Login first.'
       ) {
-        router.push("/sign-in");
+        router.push('/sign-in')
       }
       if (err.response && err.response.data) {
-        toast.error(err.response.data);
-      } else if (err.code === "ERR_NETWORK") {
-        toast.error("Network error.");
+        toast.error(err.response.data)
+      } else if (err.code === 'ERR_NETWORK') {
+        toast.error('Network error.')
       } else {
-        toast.error("An error occurred. Please try again.");
+        toast.error('An error occurred. Please try again.')
       }
     }
-  };
+  }
   const createFolder = async (folderName: string) => {
     try {
-      await api.post("http://api.app.localhost:4000/dashboard/create-folder", {
-        folderName: folderName,
-      });
+      await api.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/dashboard/create-folder`,
+        {
+          folderName: folderName,
+        }
+      )
     } catch (err: any) {
       if (err.response && err.response.data) {
-        toast.error(err.response.data);
-      } else if (err.code === "ERR_NETWORK") {
-        toast.error("Network error.");
+        toast.error(err.response.data)
+      } else if (err.code === 'ERR_NETWORK') {
+        toast.error('Network error.')
       } else {
-        toast.error("An error occurred. Please try again.");
+        toast.error('An error occurred. Please try again.')
       }
     }
-  };
+  }
   const getFolderContent = async (folderId: string) => {
     try {
-      setCurrentFolder(folderId);
-      setIsLoadingContent(true);
+      setCurrentFolder(folderId)
+      setIsLoadingContent(true)
       const response = await api.get(
-        `http://api.app.localhost:4000/dashboard/get-folder-contents/${folderId}`
-      );
-      console.log(response.data);
-      setCurrentFolderContents(response.data);
-      setIsLoadingContent(false);
+        `${process.env.NEXT_PUBLIC_API_URL}/dashboard/get-folder-contents/${folderId}`
+      )
+      console.log(response.data)
+      setCurrentFolderContents(response.data)
+      setIsLoadingContent(false)
     } catch (err: any) {
       if (err.response && err.response.data) {
-        toast.error(err.response.data);
-      } else if (err.code === "ERR_NETWORK") {
-        toast.error("Network error.");
+        toast.error(err.response.data)
+      } else if (err.code === 'ERR_NETWORK') {
+        toast.error('Network error.')
       } else {
-        toast.error("An error occurred. Please try again.");
+        toast.error('An error occurred. Please try again.')
       }
     }
-  };
+  }
   // const { data, error, isLoading } = useSWR("getFolders", getFolders);
   // useEffect(() => {
   //   if (data) {
@@ -95,12 +98,12 @@ const Page = () => {
   const handleDeleteFolder = async () => {
     try {
       await api.delete(
-        `http://api.app.localhost:4000/dashboard/delete-folder/cllma7q690000trck231h3f5g`
-      );
+        `${process.env.NEXT_PUBLIC_API_URL}/dashboard/delete-folder/cllma7q690000trck231h3f5g`
+      )
     } catch (e: any) {
-      console.log(e);
+      console.log(e)
     }
-  };
+  }
   return (
     <></>
     // <div className="relative bg-[#14162E] min-h-screen text-white">
@@ -174,7 +177,7 @@ const Page = () => {
     //     )}
     //   </AnimatePresence>
     // </div>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page
