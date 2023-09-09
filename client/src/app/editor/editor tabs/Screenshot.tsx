@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { MutableRefObject, forwardRef, useRef } from 'react'
 import { Camera } from 'react-ionicons'
-import { useScreenshot, createFileName } from 'use-react-screenshot'
+// import { useScreenshot, createFileName } from 'use-react-screenshot'
 
 interface ScreenshotProps {
   onClick(): void
@@ -10,12 +10,12 @@ interface ScreenshotProps {
 const Screenshot = forwardRef<HTMLCanvasElement, ScreenshotProps>(
   (props, ref) => {
     const screenShotRef = ref as MutableRefObject<HTMLCanvasElement>
-    const [image, takeScreenshot] = useScreenshot()
+    // const [image, takeScreenshot] = useScreenshot()
 
     const download = (image: any, { name = 'img', extension = 'jpg' } = {}) => {
       const a = document.createElement('a')
       a.href = image
-      a.download = createFileName(extension, name)
+      // a.download = createFileName(extension, name)
       a.click()
     }
 
@@ -39,7 +39,7 @@ const Screenshot = forwardRef<HTMLCanvasElement, ScreenshotProps>(
     const handleClick = () => {
       props.onClick()
       if (screenShotRef !== null) {
-        takeScreenshot(screenShotRef.current).then(uploadScreenshot)
+        // takeScreenshot(screenShotRef.current).then(uploadScreenshot)
       }
     }
 
@@ -49,6 +49,7 @@ const Screenshot = forwardRef<HTMLCanvasElement, ScreenshotProps>(
           onClick={handleClick}
           className="bg-white p-2 rounded-full w-[3.5em] h-[3.5em] drop-shadow-lg"
         >
+          <p className="sr-only">Screenshot</p>
           <div className="translate-x-[0.20em] hover:scale-[1.1] transition-all ease-in-out duration-300">
             <Camera style={{ fill: 'black', height: '2em', width: '2em' }} />
           </div>
