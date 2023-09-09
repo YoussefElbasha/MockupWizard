@@ -65,7 +65,7 @@ const Page = () => {
   }
 
   const { data, trigger, isMutating } = useSWRMutation(
-    `${process.env.SERVER_URL}auth/register`,
+    `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
     registerUser
   )
 
@@ -91,7 +91,7 @@ const Page = () => {
         transition={{ duration: 0.1, delay: 0 }}
         className="absolute"
       >
-        <div className="w-60 h-60 bg-[#DDA82A] rounded-full blur-3xl opacity-50" />
+        <div className="w-60 h-60 bg-secondary rounded-full blur-3xl opacity-50" />
       </motion.div>
       <motion.div
         initial={{ top: '50%', left: '50%', x: '-50%', y: '-50%', opacity: 1 }}
@@ -99,7 +99,7 @@ const Page = () => {
         transition={{ duration: 0.1, delay: 0 }}
         className="absolute"
       >
-        <div className="w-60 h-60 bg-[#4461F2] rounded-full blur-3xl opacity-50" />
+        <div className="w-60 h-60 bg-primary rounded-full blur-3xl opacity-50" />
       </motion.div>
 
       <div className="flex flex-col items-center justify-center md:flex-row z-10">
@@ -125,8 +125,9 @@ const Page = () => {
           <div className="font-semibold">
             <p>already have an account?</p>
             <p>
-              you can{' '}
-              <span className="text-[#4461F2] hover:text-indigo-500">
+              you can{" "}
+              <span className="text-primary hover:text-indigo-500">
+
                 <Link href="/sign-in">sign in here!</Link>
               </span>
             </p>

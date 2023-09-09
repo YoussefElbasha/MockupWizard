@@ -30,8 +30,11 @@ const Page = () => {
 
   const getFolders = async () => {
     try {
-      const response = await api.get('http://api.app.localhost:4000/dashboard/')
-      return response.data
+      const response = await api.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/dashboard/`
+      );
+      return response.data;
+
     } catch (err: any) {
       if (
         err.response &&
@@ -51,9 +54,14 @@ const Page = () => {
   }
   const createFolder = async (folderName: string) => {
     try {
-      await api.post('http://api.app.localhost:4000/dashboard/create-folder', {
-        folderName: folderName,
-      })
+
+      await api.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/dashboard/create-folder`,
+        {
+          folderName: folderName,
+        }
+      );
+
     } catch (err: any) {
       if (err.response && err.response.data) {
         toast.error(err.response.data)
@@ -69,11 +77,13 @@ const Page = () => {
       setCurrentFolder(folderId)
       setIsLoadingContent(true)
       const response = await api.get(
-        `http://api.app.localhost:4000/dashboard/get-folder-contents/${folderId}`
-      )
-      console.log(response.data)
-      setCurrentFolderContents(response.data)
-      setIsLoadingContent(false)
+
+        `${process.env.NEXT_PUBLIC_API_URL}/dashboard/get-folder-contents/${folderId}`
+      );
+      console.log(response.data);
+      setCurrentFolderContents(response.data);
+      setIsLoadingContent(false);
+
     } catch (err: any) {
       if (err.response && err.response.data) {
         toast.error(err.response.data)
@@ -93,8 +103,10 @@ const Page = () => {
   const handleDeleteFolder = async () => {
     try {
       await api.delete(
-        `http://api.app.localhost:4000/dashboard/delete-folder/cllma7q690000trck231h3f5g`
-      )
+
+        `${process.env.NEXT_PUBLIC_API_URL}/dashboard/delete-folder/cllma7q690000trck231h3f5g`
+      );
+
     } catch (e: any) {
       console.log(e)
     }

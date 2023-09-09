@@ -6,10 +6,10 @@ export default function Home() {
   return (
     <>
       <div className="absolute top-1/4 left-[6%] transform -translate-y-1/4">
-        <div className="w-60 h-60 bg-[#DDA82A] rounded-full blur-3xl opacity-50" />
+        <div className="w-60 h-60 bg-secondary rounded-full blur-3xl opacity-50" />
       </div>
       <div className="absolute top-1/2 left-1/4 transform translate-y-1/4 -translate-x-3/4">
-        <div className="w-60 h-60 bg-[#4461F2] rounded-full blur-3xl opacity-50" />
+        <div className="w-60 h-60 bg-primary rounded-full blur-3xl opacity-50" />
       </div>
 
       <div className="m-auto items-center z-10">

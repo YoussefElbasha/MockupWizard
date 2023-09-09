@@ -36,10 +36,10 @@ const Page = (props: pageProps) => {
 
   const getFolderContent = async (folderId: string) => {
     const response = await api.get(
-      `${process.env.SERVER_URL}dashboard/get-folder-contents/${folderId}`
-    )
-    return response.data
-  }
+      `${process.env.NEXT_PUBLIC_API_URL}/dashboard/get-folder-contents/${folderId}`
+    );
+    return response.data;
+  };
   const { data, error, isLoading } = useSWR(folderId, () =>
     getFolderContent(folderId)
   )
@@ -51,11 +51,16 @@ const Page = (props: pageProps) => {
 
   const createProject = async ({ projectName }: any) => {
     try {
-      await api.post(`${process.env.SERVER_URL}dashboard/create-project`, {
-        folderId: folderId,
-        name: projectName,
-      })
-      mutate(props.params.folderName)
+
+      await api.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/dashboard/create-project`,
+        {
+          folderId: folderId,
+          name: projectName,
+        }
+      );
+      mutate(props.params.folderName);
+
     } catch (err: any) {
       if (err.response && err.response.data) {
         toast.error(err.response.data)
