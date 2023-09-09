@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/dialog'
 import useSWRMutation from 'swr/mutation'
 
-const PAGE_API_ENDPOINT = 'http://api.app.localhost:4000/editor/generate-image'
+const PAGE_API_ENDPOINT = `${process.env.NEXT_PUBLIC_API_URL}/api/generate-image`
 
 const Page = () => {
   const [urls, setUrls] = useState<string[]>([])

@@ -1,81 +1,81 @@
-"use client";
+'use client'
 
-import { createContext, useContext, useEffect, useState } from "react";
-import { ModelEnum } from "./model-enum";
-import useSWR from "swr";
-import axios from "axios";
-import { set } from "react-hook-form";
-import { clsx } from "clsx";
+import { createContext, useContext, useEffect, useState } from 'react'
+import { ModelEnum } from './model-enum'
+import useSWR from 'swr'
+import axios from 'axios'
+import { set } from 'react-hook-form'
+import { clsx } from 'clsx'
 
 type CanvasContextProviderProps = {
-  children: React.ReactNode;
-  projectId: string;
-};
+  children: React.ReactNode
+  projectId: string
+}
 
 type CanvasContext = {
-  canvas: fabric.Canvas | null;
-  setCanvas: React.Dispatch<React.SetStateAction<fabric.Canvas | null>>;
-  canvasUrl: string;
-  setCanvasUrl: React.Dispatch<React.SetStateAction<string>>;
-  canvasObjects: any;
-  setCanvasObjects: any;
-  designs: any;
-  setDesigns: any;
-  color: string;
-  setColor: React.Dispatch<React.SetStateAction<string>>;
-  modelType: ModelEnum;
-  setModelType: React.Dispatch<React.SetStateAction<ModelEnum>>;
-};
+  canvas: fabric.Canvas | null
+  setCanvas: React.Dispatch<React.SetStateAction<fabric.Canvas | null>>
+  canvasUrl: string
+  setCanvasUrl: React.Dispatch<React.SetStateAction<string>>
+  canvasObjects: any
+  setCanvasObjects: any
+  designs: any
+  setDesigns: any
+  color: string
+  setColor: React.Dispatch<React.SetStateAction<string>>
+  modelType: ModelEnum
+  setModelType: React.Dispatch<React.SetStateAction<ModelEnum>>
+}
 
-const CanvasContext = createContext<CanvasContext | null>(null);
+const CanvasContext = createContext<CanvasContext | null>(null)
 
 const CanvasContextProvider = ({
   children,
   projectId,
 }: CanvasContextProviderProps) => {
-  const [canvasUrl, setCanvasUrl] = useState<string>("");
-  const [canvas, setCanvas] = useState<fabric.Canvas | null>(null);
-  const [designs, setDesigns] = useState<any>([]);
-  const [canvasObjects, setCanvasObjects] = useState<any>([]);
-  const [color, setColor] = useState("#fff");
-  const [modelType, setModelType] = useState<ModelEnum>(ModelEnum.TSHIRT);
+  const [canvasUrl, setCanvasUrl] = useState<string>('')
+  const [canvas, setCanvas] = useState<fabric.Canvas | null>(null)
+  const [designs, setDesigns] = useState<any>([])
+  const [canvasObjects, setCanvasObjects] = useState<any>([])
+  const [color, setColor] = useState('#fff')
+  const [modelType, setModelType] = useState<ModelEnum>(ModelEnum.TSHIRT)
 
-  const [modelData, setModelData] = useState<any>(null);
+  const [modelData, setModelData] = useState<any>(null)
 
   const { data, error } = useSWR(
-    `${process.env.SERVER_URL}editor/${projectId}`,
-    (url) => {
-      axios
+    `${process.env.NEXT_PUBLIC_API_URL}/editor/${projectId}`,
+    (url: string) => {
+      return axios
         .get(url)
         .then((res) => {
-          setModelData(res.data);
+          setModelData(res.data)
         })
         .catch((err) => {
-          console.log(err);
-        });
+          console.log(err)
+        })
     }
-  );
+  )
 
   useEffect(() => {
     if (modelData) {
-      setModelType(modelData.modelType);
-      setColor(modelData.color);
+      setModelType(modelData.modelType)
+      setColor(modelData.color)
       const modelDesigns = modelData.designs.map((design: any) => {
         return {
           url: design.designUrl.replace(
-            "https://res.cloudinary.com/",
-            "/image/"
+            'https://res.cloudinary.com/',
+            '/image/'
           ),
           top: design.top,
           left: design.left,
           scale: design.scale,
           rotation: design.rotation,
-        };
-      });
-      setCanvasObjects(modelDesigns);
-      setDesigns(modelDesigns);
+        }
+      })
+      setCanvasObjects(modelDesigns)
+      setDesigns(modelDesigns)
     }
-  }, [modelData]);
+  }, [modelData])
 
   useEffect(() => {
     if (canvasObjects.length > 0) {
@@ -87,9 +87,9 @@ const CanvasContextProvider = ({
             left: 100,
             scale: 100,
             rotation: 0,
-          };
+          }
         })
-      );
+      )
     }
 
     if (designs.length > 0) {
@@ -101,11 +101,11 @@ const CanvasContextProvider = ({
             left: 100,
             scale: 100,
             rotation: 0,
-          };
+          }
         })
-      );
+      )
     }
-  }, [modelType]);
+  }, [modelType])
 
   return (
     <CanvasContext.Provider
@@ -126,17 +126,17 @@ const CanvasContextProvider = ({
     >
       {children}
     </CanvasContext.Provider>
-  );
-};
+  )
+}
 
 const useCanvasContext = () => {
-  const context = useContext(CanvasContext);
+  const context = useContext(CanvasContext)
   if (!context) {
     throw new Error(
-      "useCanvasContext must be used within a CanvasContextProvider"
-    );
+      'useCanvasContext must be used within a CanvasContextProvider'
+    )
   }
-  return context;
-};
+  return context
+}
 
-export { CanvasContext, CanvasContextProvider, useCanvasContext };
+export { CanvasContext, CanvasContextProvider, useCanvasContext }

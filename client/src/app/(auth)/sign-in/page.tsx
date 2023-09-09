@@ -21,7 +21,7 @@ interface loginData {
   password?: string;
 }
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const [passwordType, setPasswordType] = useState("password");
   const [withOTP, setWithOTP] = useState(false);
@@ -63,7 +63,7 @@ const page = () => {
   };
 
   const { data, trigger, isMutating, error } = useSWRMutation(
-    `${process.env.SERVER_URL}auth/login`,
+    `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
     loginUser
   );
 
@@ -119,7 +119,7 @@ const page = () => {
             <h1 className="text-4xl font-bold">you own product</h1>
           </div>
           <div className="font-semibold">
-            <p>If you don't have an account</p>
+            <p>{"If you don't have an account"}</p>
             <p>
               you can{" "}
               <span className="text-primary hover:text-indigo-500">
@@ -146,4 +146,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
