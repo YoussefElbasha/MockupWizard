@@ -36,7 +36,7 @@ const page = (props: pageProps) => {
 
   const getFolderContent = async (folderId: string) => {
     const response = await api.get(
-      `${process.env.SERVER_URL}dashboard/get-folder-contents/${folderId}`
+      `${process.env.NEXT_PUBLIC_API_URL}/dashboard/get-folder-contents/${folderId}`
     );
     return response.data;
   };
@@ -51,10 +51,13 @@ const page = (props: pageProps) => {
 
   const createProject = async ({ projectName }: any) => {
     try {
-      await api.post(`${process.env.SERVER_URL}dashboard/create-project`, {
-        folderId: folderId,
-        name: projectName,
-      });
+      await api.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/dashboard/create-project`,
+        {
+          folderId: folderId,
+          name: projectName,
+        }
+      );
       mutate(props.params.folderName);
     } catch (err: any) {
       if (err.response && err.response.data) {

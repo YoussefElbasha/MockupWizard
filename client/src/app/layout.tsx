@@ -22,10 +22,12 @@ export default function RootLayout({
 }) {
   const router = useRouter();
   const pathName = usePathname();
-  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  // const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const fetchUserInfo = async () => {
     try {
-      const response = await api.get("http://api.app.localhost:4000/api/me");
+      const response = await api.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/me`
+      );
       return response.data;
     } catch (e) {
       return null;

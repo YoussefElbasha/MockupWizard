@@ -21,7 +21,7 @@ const OtpInput = ({ email }: OtpInputProps) => {
     try {
       console.log("otp", otp);
       setIsSubmitting(true);
-      await api.post("http://api.app.localhost:4000/auth/otpverify", {
+      await api.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/otpverify`, {
         code: otp,
         email: email,
       });

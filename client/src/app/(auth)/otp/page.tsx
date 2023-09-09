@@ -17,14 +17,16 @@ const page = () => {
   const handleResubmission = async () => {
     try {
       console.log("resend otp");
-      await api.post("auth/login/otp", { email });
+      await api.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login/otp`, {
+        email,
+      });
     } catch (errors) {
       toast.error("somethingWentWrong");
     }
   };
 
   return (
-    <div className="bg-[#14162E] m-auto min-h-screen flex flex-col items-center justify-center relative">
+    <div className="bg-background m-auto min-h-screen flex flex-col items-center justify-center relative">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -58,7 +60,7 @@ const page = () => {
           transition={{ duration: 0.2, delay: 0 }}
           className="absolute z-0"
         >
-          <div className="w-60 h-60 bg-[#DDA82A] rounded-full blur-3xl opacity-50" />
+          <div className="w-60 h-60 bg-secondary rounded-full blur-3xl opacity-50" />
         </motion.div>
         <motion.div
           initial={{ top: "57%", left: "13%", x: "0%", y: "0%", opacity: 1 }}
@@ -66,7 +68,7 @@ const page = () => {
           transition={{ duration: 0.2, delay: 0 }}
           className="absolute z-0"
         >
-          <div className="w-60 h-60 bg-[#4461F2] rounded-full blur-3xl opacity-50" />
+          <div className="w-60 h-60 bg-primary rounded-full blur-3xl opacity-50" />
         </motion.div>
       </motion.div>
     </div>
