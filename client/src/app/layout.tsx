@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   const router = useRouter();
   const pathName = usePathname();
-  const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  // const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const fetchUserInfo = async () => {
     try {
       const response = await api.get("http://api.app.localhost:4000/api/me");
@@ -40,7 +40,7 @@ export default function RootLayout({
     if (data && (pathName === "/sign-in" || pathName === "/signup")) {
       router.replace("/");
     }
-  }, [pathName]);
+  }, [data, pathName, router]);
   return (
     <html lang="en">
       <body className={inter.className}>
