@@ -19,10 +19,9 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
-}) 
-
-  const router = useRouter();
-  const pathName = usePathname();
+}) {
+  const router = useRouter()
+  const pathName = usePathname()
   const fetchUserInfo = async () => {
     try {
       const response = await api.get('http://api.app.localhost:4000/api/me')
