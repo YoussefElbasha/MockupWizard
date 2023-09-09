@@ -165,8 +165,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
         {pathname === "/dashboard" && !isLoading ? (
-          <div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-16 md:gap-20">
               {folders.map((folder: any) => {
                 return (
                   <FolderButton

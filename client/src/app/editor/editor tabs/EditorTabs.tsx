@@ -15,6 +15,7 @@ import Dalle from './dalle/Dalle'
 
 interface EditorTabsProps {
   meshRef: React.MutableRefObject<any>
+  projectId: string
 }
 
 const EditorTabs = forwardRef<HTMLCanvasElement, EditorTabsProps>(
@@ -89,7 +90,7 @@ const EditorTabs = forwardRef<HTMLCanvasElement, EditorTabsProps>(
           <DownloadModelButton ref={props.meshRef} />
         </div>
         <div className="relative">
-          <SaveButton />
+          <SaveButton projectId={props.projectId} />
         </div>
       </div>
     )

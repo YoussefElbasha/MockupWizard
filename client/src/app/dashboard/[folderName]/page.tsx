@@ -90,7 +90,7 @@ const page = (props: pageProps) => {
           </div>
         ) : content.length !== 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            {content.map((c: any, idx: number) => (
+            {content.map((project: any, idx: number) => (
               <>
                 <motion.div
                   onClick={() => {}}
@@ -98,7 +98,12 @@ const page = (props: pageProps) => {
                   animate={{ opacity: 1, x: 0, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.1 * idx }}
                 >
-                  <ProjectCard key={c.id} label={c.name} image={c.thumbnail} />
+                  <ProjectCard
+                    key={project.id}
+                    id={project.id}
+                    label={project.name}
+                    image={project.thumbnail}
+                  />
                 </motion.div>
                 {idx === content.length - 1 && (
                   <motion.div
