@@ -30,11 +30,12 @@ export default function RootLayout({
       return null;
     }
   };
-  const { data, isLoading } = useSWR("user-info", fetchUserInfo, {
+  const { data, isValidating } = useSWR("user-info", fetchUserInfo, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
   });
+
   useEffect(() => {
     if (data && (pathName === "/sign-in" || pathName === "/signup")) {
       router.replace("/");
@@ -46,7 +47,7 @@ export default function RootLayout({
         <div className="relative bg-background flex flex-col min-h-screen text-white">
           <Navbar
             user={data}
-            isLoading={isLoading}
+            isLoading={isValidating}
             navLinks={[
               { href: "/dashboard", name: "Dashboard" },
               { href: "/", name: "Home" },
