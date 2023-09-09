@@ -3,7 +3,7 @@ import React from "react";
 interface ImageCardProps {
   imageUrl: string;
   onClick: () => void;
-  isSelected: boolean; // Add the isSelected prop
+  isSelected?: boolean; // Add the isSelected prop
 }
 
 const ImageCard: React.FC<ImageCardProps> = ({

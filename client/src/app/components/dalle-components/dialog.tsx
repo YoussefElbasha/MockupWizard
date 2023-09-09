@@ -23,7 +23,7 @@ export function DialogDemo({ urls }: any) {
         </DialogHeader>
         <div className="flex flex-row gap-2">
           {urls.map((url: string) => (
-            <ImageCard imageUrl={url} onClick={() => {}} />
+            <ImageCard key={url} imageUrl={url} onClick={() => {}} />
           ))}
         </div>
         <DialogFooter>

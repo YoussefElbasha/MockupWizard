@@ -25,7 +25,7 @@ const createProjectSchema = yup.object().shape({
   projectName: yup.string().required("Project name is required").max(20),
 });
 
-const page = (props: pageProps) => {
+const Page = (props: pageProps) => {
   const folderId = String(useSearchParams().get("id"));
   const router = useRouter();
   const [content, setContent] = useState([]);
@@ -150,4 +150,4 @@ const page = (props: pageProps) => {
   }
 };
 
-export default page;
+export default Page;

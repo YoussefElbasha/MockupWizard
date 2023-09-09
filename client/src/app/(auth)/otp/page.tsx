@@ -1,19 +1,17 @@
 "use client";
 import toast from "react-hot-toast";
 import OtpInput from "@/app/components/auth-components/otp";
-import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import api from "../../../../util/Axios";
-import { use } from "react";
 
-interface OtpProps {
-  email: string | null;
+interface PageProps {
+  searchParams: {
+    email: string;
+  };
 }
 
-const page = () => {
-  const router = useRouter();
-  const SearchParams = useSearchParams();
-  const email = SearchParams.get("email");
+const Page = ({ searchParams }: PageProps) => {
+  const { email } = searchParams;
   const handleResubmission = async () => {
     try {
       console.log("resend otp");
@@ -73,4 +71,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

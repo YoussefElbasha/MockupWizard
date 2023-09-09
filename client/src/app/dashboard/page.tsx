@@ -19,7 +19,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import CreateFolder from "../components/dashboard-components/CreateFolder";
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const [inCustomizer, setInCustomizer] = useState(true);
   const [folders, setFolders] = useState([]);
@@ -177,4 +177,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

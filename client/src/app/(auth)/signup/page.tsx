@@ -35,7 +35,7 @@ const schema = yup.object().shape({
     .oneOf([yup.ref("password")], "Passwords do not match"),
 });
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const [passwordType, setPasswordType] = useState("password");
 
@@ -120,7 +120,7 @@ const page = () => {
         <div className="p-10 text-white flex-grow justify-center flex flex-col items-start gap-10">
           <div>
             <h1 className="text-4xl font-bold">Unleash your</h1>
-            <h1 className="text-4xl font-bold">product's potential!</h1>
+            <h1 className="text-4xl font-bold">{"product's potential!"}</h1>
           </div>
           <div className="font-semibold">
             <p>already have an account?</p>
@@ -137,4 +137,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
