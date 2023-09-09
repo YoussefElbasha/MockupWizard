@@ -8,8 +8,8 @@ import apiRouter from "./routes/app";
 import cookieParser from "cookie-parser";
 import isAuthenticated from "./middleware/auth.middleware";
 import dashboardRouter from "./routes/dashboard";
-import passport from "passport";
 import session from "express-session";
+import EditorRouter from "./routes/editor";
 
 declare global {
   namespace Express {
@@ -50,11 +50,16 @@ app.use((req, res, next) => {
   };
   next();
 });
-app.use("/auth", authRouter);
-app.use("/api", apiRouter);
-app.use("/dashboard", isAuthenticated, dashboardRouter);
+
+app.use("/auth", authRouter)
+app.use("/api", apiRouter)
+app.use("/dashboard", isAuthenticated, dashboardRouter)
+app.use('/editor', EditorRouter)
+
 
 app.listen(port, () => {
-  console.log(`Listening on port ${port}: http://localhost:${port}`);
-});
-export default app;
+  console.log(`Listening on port ${port}: http://localhost:${port}`)
+})
+
+export default app
+

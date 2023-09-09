@@ -3,14 +3,12 @@ import { Request, Response } from "express";
 const createProject = async (req: Request, res: Response) => {
   try {
     const { prisma } = req.context;
-    const { name, modelId, folderId, thumbnail, screenshots } = req.body;
+    const { name, folderId } = req.body;
 
     await prisma.project.create({
       data: {
-        folder: { connect: { id: String(folderId) } },
+        folder: { connect: { id: folderId } },
         name: String(name),
-        thumbnail: thumbnail,
-        screenshots: screenshots,
       },
     });
 

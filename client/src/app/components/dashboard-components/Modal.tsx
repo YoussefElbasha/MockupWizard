@@ -16,41 +16,40 @@ interface modalProps {
 
 const Modal = (props: modalProps) => {
   return (
-    <Backdrop>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3 }}
-        exit={{ opacity: 0 }}
-      >
-        <Dialog.Content className="bg-background font-semibold text-white w-[500px] rounded-md shadow-md fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-10 animate-contentShow focus:outline-none">
-          <form onSubmit={props.onSubmit}>
-            <Dialog.Title className="text-xl">{props.title}</Dialog.Title>
-            <fieldset className="flex flex-col gap-3 mt-5">
-              <label className="text-sm">{props.label}</label>
-              <input
-                {...props.register(props.registerName)}
-                className="w-full font-normal text-sm focus:outline-none rounded-md shadow-sm px-3 py-2 text-gray-600 border"
-                placeholder={props.placeholder}
-              />
-              {props.errors[props.registerName] && (
-                <p className="text-red-400">
-                  {props.errors[props.registerName].message}
-                </p>
-              )}
-            </fieldset>
-            <div className="flex mt-6 justify-end space-x-2">
-              <button
-                type="submit"
-                className="text-sm p-2 rounded-md hover:bg-secondary hover:text-white transition duration-300 ease-in-out"
-              >
-                {props.button}
-              </button>
-            </div>
-          </form>
-        </Dialog.Content>
-      </motion.div>
-    </Backdrop>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+    >
+      <Dialog.Content className="data-[state=open]:animate-contentShow text-white fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-background p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
+        <form onSubmit={props.onSubmit}>
+          <Dialog.Title className="text-xl text-center">
+            {props.title}
+          </Dialog.Title>
+          <fieldset className="flex flex-col gap-3 mt-5">
+            <label className="text-sm">{props.label}</label>
+            <input
+              {...props.register(props.registerName)}
+              className="w-full font-normal text-sm focus:outline-none rounded-md shadow-sm px-3 py-2 text-gray-600 border"
+              placeholder={props.placeholder}
+            />
+            {props.errors[props.registerName] && (
+              <p className="text-red-400">
+                {props.errors[props.registerName].message}
+              </p>
+            )}
+          </fieldset>
+          <div className="flex mt-6 justify-end space-x-2">
+            <button
+              type="submit"
+              className="text-sm p-2 rounded-md bg-secondary hover:bg-background border border-secondary transition duration-300 ease-in-out"
+            >
+              {props.button}
+            </button>
+          </div>
+        </form>
+      </Dialog.Content>
+    </motion.div>
   );
 };
 

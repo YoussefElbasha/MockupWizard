@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import AuthCanvas from "./components/auth-components/AuthCanvas";
 import { useState, useEffect } from "react";
 import api from "../../util/Axios";

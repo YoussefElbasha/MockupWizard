@@ -1,23 +1,21 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { fadeAnimation } from "./motion";
-import api from "../../../util/Axios";
-import Navbar from "../components/navbar-components/Navbar";
-import FolderTab from "../components/dashboard-components/FolderTab";
 import useSWR, { mutate } from "swr";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import { usePathname, useRouter } from "next/navigation";
-import CreateFolder from "../components/dashboard-components/CreateFolder";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Trash from "@/app/icons/trash-outline.svg";
+
 import FolderLoader from "../components/dashboard-components/FolderLoader";
 import FolderButton from "../components/dashboard-components/FolderButton";
-import AllProjects from "../components/dashboard-components/AllProjects";
 import DeleteFolder from "../components/dashboard-components/DeleteFolder";
+import CreateFolder from "../components/dashboard-components/CreateFolder";
+import api from "../../../util/Axios";
+import FolderTab from "../components/dashboard-components/FolderTab";
+import Home from "@/app/icons/home.svg";
+import { handleApiError } from "../../../util/errorHandling";
 
 const createFolderSchema = yup.object().shape({
   folderName: yup.string().required("Folder name is required").max(20),
@@ -36,8 +34,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const [folders, setFolders] = useState<any[]>([]);
   const [currentFolder, setCurrentFolder] = useState(pathname.split("/")[2]);
 
-  const folderId = pathname.split("/")[2];
-
   const createFolderForm = useForm({
     resolver: yupResolver(createFolderSchema),
   });
@@ -47,150 +43,153 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   const getFolders = async () => {
     try {
-      const response = await api.get(
-        "http://api.app.localhost:4000/dashboard/"
-      );
+      const response = await api.get(`${process.env.SERVER_URL}dashboard/`);
       return response.data;
-    } catch (err: any) {
-      if (
-        err.response &&
-        err.response.data &&
-        err.response.data === "Login first."
-      ) {
+    } catch (error: any) {
+      if (error.response.data && error.response.data === "Login first.") {
         router.push("/sign-in");
       }
-      if (err.response && err.response.data) {
-        toast.error(err.response.data);
-      } else if (err.code === "ERR_NETWORK") {
-        toast.error("Network error.");
-      } else {
-        toast.error("An error occurred. Please try again.");
-      }
+      handleApiError(error);
     }
   };
   const createFolder = async ({ folderName }: any) => {
     try {
       await api
-        .post("http://api.app.localhost:4000/dashboard/create-folder", {
+        .post(`${process.env.SERVER_URL}dashboard/create-folder`, {
           folderName: folderName,
         })
         .then((response) => {
-          setFolders([...folders, response.data]);
+          setFolders((prevFolders) => [...prevFolders, response.data]);
         });
-      // mutate("getFolders");
-    } catch (err: any) {
-      if (err.response && err.response.data) {
-        toast.error(err.response.data);
-      } else if (err.code === "ERR_NETWORK") {
-        toast.error("Network error.");
-      } else {
-        toast.error("An error occurred. Please try again.");
-      }
+      mutate("getFolders");
+    } catch (error: any) {
+      handleApiError(error);
     }
   };
-  const handleFolderContent = (folderId: string) => {
-    setCurrentFolder(folderId);
-    router.push(`/dashboard/${folderId}`);
+  const handleFolderContent = (folderId: string, folderName: string) => {
+    setCurrentFolder(folderName);
+    router.push(`/dashboard/${folderName}?id=${folderId}`);
   };
-  const getAllProjects = () => {
-    router.push("/dashboard/all-projects");
+  const getAllProjects = async () => {
+    try {
+      const projects = await api.get(
+        `${process.env.SERVER_URL}dashboard/get-all-projects`
+      );
+
+      console.log(projects.data);
+    } catch (e) {
+      console.log(e);
+    }
+    // router.push("/dashboard/all-projects");
   };
   const { data, isLoading } = useSWR("getFolders", getFolders);
+
   useEffect(() => {
     if (data) {
       setFolders(data);
     }
-  }, [data]);
-  const handleDeleteFolder = async (folderId: string) => {
+    const newFolder = pathname.split("/")[2];
+    setCurrentFolder(newFolder);
+  }, [data, pathname]);
+
+  console.log(folders);
+
+  const deleteFolder = async (folderId: string) => {
     try {
       setFolders((prevFolders) => {
         return prevFolders.filter((f: any) => f.id !== folderId);
       });
+      router.push("/dashboard");
       await api.delete(
-        `http://api.app.localhost:4000/dashboard/delete-folder/${folderId}`
+        `${process.env.SERVER_URL}dashboard/delete-folder/${folderId}`
       );
     } catch (e: any) {
       console.log(e);
     }
   };
-  console.log("alo layout");
   return (
     <>
       <Toaster />
-      <AnimatePresence mode="wait">
-        <motion.div
-          key="customizer"
-          // {...fadeAnimation}
-          className="flex gap-16 p-4 sm:p-10 md:px-40 md:py-14"
-        >
-          <div className="flex flex-col gap-8">
-            <div className="flex flex-col gap-4">
-              <CreateFolder
-                register={createFolderForm.register}
-                errors={createFolderForm.formState.errors}
-                onClick={createFolderForm.handleSubmit(createFolder)}
-              />
-              <AllProjects />
-            </div>
-
-            <div>
-              {isLoading ? (
-                <FolderLoader />
-              ) : (
-                folders.map((folder: any) => {
-                  return (
-                    <div className="py-2" key={folder.id}>
-                      <div className="flex items-center gap-2">
-                        <FolderTab
-                          key={folder.id}
-                          id={folder.id}
-                          name={folder.name}
-                          onClick={handleFolderContent}
-                          isCurrent={currentFolder === folder.id ? true : false}
-                        />
-                        <DeleteFolder
-                          onClick={deleteFolderForm.handleSubmit(() =>
-                            handleDeleteFolder(folder.id)
-                          )}
-                          errors={deleteFolderForm.formState.errors}
-                          register={deleteFolderForm.register}
-                          folderId={folder.id}
-                        />
-                      </div>
-                    </div>
-                  );
-                })
-              )}
-            </div>
+      <div
+        key="customizer"
+        className="flex gap-16 p-4 sm:p-10 md:px-40 md:py-14"
+      >
+        <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-4">
+            <CreateFolder
+              register={createFolderForm.register}
+              errors={createFolderForm.formState.errors}
+              onClick={createFolderForm.handleSubmit(createFolder)}
+            />
+            <button
+              onClick={getAllProjects}
+              className="hover:bg-highlight border border-highlight p-3.5 rounded-lg cursor-pointer"
+            >
+              <div className="flex gap-[10px] items-center">
+                <Home />
+                <p className="text-xs w-20 text-left">All Projects</p>
+              </div>
+            </button>
           </div>
-          {pathname === "/dashboard" && !isLoading ? (
-            <div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-                {folders.map((folder: any) => {
-                  return (
-                    <FolderButton
-                      key={folder.id}
-                      id={folder.id}
-                      name={folder.name}
-                      onClick={handleFolderContent}
-                    />
-                  );
-                })}
-                <div className="grid-start">
-                  <CreateFolder
-                    register={createFolderForm.register}
-                    errors={createFolderForm.formState.errors}
-                    onClick={createFolderForm.handleSubmit(createFolder)}
-                    fromIcon={true}
+
+          <div>
+            {isLoading ? (
+              <FolderLoader />
+            ) : folders.length !== 0 ? (
+              folders.map((folder: any) => {
+                return (
+                  <div className="py-2" key={folder.id}>
+                    <div className="flex items-center gap-2">
+                      <FolderTab
+                        key={folder.id}
+                        name={folder.name}
+                        onClick={() =>
+                          handleFolderContent(folder.id, folder.name)
+                        }
+                        isCurrent={currentFolder === folder.name ? true : false}
+                      />
+                      <DeleteFolder
+                        onClick={deleteFolderForm.handleSubmit(() =>
+                          deleteFolder(folder.id)
+                        )}
+                        errors={deleteFolderForm.formState.errors}
+                        register={deleteFolderForm.register}
+                      />
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <p className="text-sm text-center">No folders yet.</p>
+            )}
+          </div>
+        </div>
+        {pathname === "/dashboard" && !isLoading ? (
+          <div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+              {folders.map((folder: any) => {
+                return (
+                  <FolderButton
+                    key={folder.id}
+                    name={folder.name}
+                    onClick={() => handleFolderContent(folder.id, folder.name)}
                   />
-                </div>
+                );
+              })}
+              <div className="grid-start">
+                <CreateFolder
+                  register={createFolderForm.register}
+                  errors={createFolderForm.formState.errors}
+                  onClick={createFolderForm.handleSubmit(createFolder)}
+                  fromIcon={true}
+                />
               </div>
             </div>
-          ) : (
-            children
-          )}
-        </motion.div>
-      </AnimatePresence>
+          </div>
+        ) : (
+          children
+        )}
+      </div>
     </>
   );
 };

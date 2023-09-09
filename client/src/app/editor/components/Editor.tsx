@@ -2,17 +2,27 @@
 
 import { Canvas } from '@react-three/fiber'
 import { Environment, Center, OrbitControls } from '@react-three/drei'
+import Mug from '../models/mug'
+import Tshirt from '../models/tshirt'
+import { ModelEnum } from '../contexts/model-enum'
+import { useCanvasContext } from '../contexts/canvas-context'
+import { forwardRef } from 'react'
 
-import Mug2 from '../models/mug_2'
+interface EditorProps {
+  meshRef: React.MutableRefObject<any>
+}
 
-const Editor = () => {
+const Editor = forwardRef<HTMLCanvasElement, EditorProps>((props, ref) => {
+  const { modelType } = useCanvasContext()
+
   return (
     <Canvas
       shadows
-      camera={{ fov: 45 }}
+      camera={{ fov: 45, position: [0, 0, 2] }}
       gl={{ preserveDrawingBuffer: true }}
       className="w-full max-w-full h-full transition-all ease-in"
       style={{ background: '#ffffff' }}
+      ref={ref}
     >
       <ambientLight intensity={0.5} />
       <Environment preset="city" />
@@ -29,10 +39,13 @@ const Editor = () => {
 
       {/* <Backdrop /> */}
       <Center>
-        <Mug2 />
+        {modelType === ModelEnum.TSHIRT && <Tshirt ref={props.meshRef} />}
+        {modelType === ModelEnum.MUG && <Mug ref={props.meshRef} />}
       </Center>
     </Canvas>
   )
-}
+})
+
+Editor.displayName = 'Editor'
 
 export default Editor

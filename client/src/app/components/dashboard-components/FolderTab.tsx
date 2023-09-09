@@ -5,7 +5,6 @@ import FolderOpenIcon from "@/app/icons/folder-open.svg";
 import { motion } from "framer-motion";
 
 interface folderProps {
-  id: string;
   name: string;
   onClick: any;
   isCurrent: boolean;
@@ -22,9 +21,7 @@ const FolderTab = (props: folderProps) => {
       transition={{ duration: 0.2 }}
     >
       <button
-        onClick={() => {
-          props.onClick(props.id);
-        }}
+        onClick={props.onClick}
         disabled={props.isCurrent}
         className={`${
           props.isCurrent

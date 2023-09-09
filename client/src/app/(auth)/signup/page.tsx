@@ -10,10 +10,11 @@ import useSWRMutation from "swr/mutation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
+import { mutate } from "swr";
 
 import AuthCanvas from "@/app/components/auth-components/AuthCanvas";
-import Navbar from "@/app/components/navbar-components/Navbar";
 import Form from "@/app/components/auth-components/Form";
+import { handleApiError } from "../../../../util/errorHandling";
 
 interface registerData {
   username: string;
@@ -64,7 +65,7 @@ const page = () => {
   };
 
   const { data, trigger, isMutating } = useSWRMutation(
-    "http://api.app.localhost:4000/auth/register",
+    `${process.env.SERVER_URL}auth/register`,
     registerUser
   );
 
@@ -74,31 +75,17 @@ const page = () => {
       await trigger(userData);
       toast.dismiss(loadingPromise);
       toast.success("Registered successfully.");
+      mutate("user-info");
       router.push("/");
-      router.refresh();
-    } catch (err: any) {
+    } catch (error: any) {
       toast.dismiss(loadingPromise);
-      if (err.response && err.response.data) {
-        toast.error(err.response.data);
-      } else if (err.request) {
-        toast.error("Network error");
-      } else {
-        toast.error("An error occurred. Please try again.");
-      }
+      handleApiError(error);
     }
   };
 
   return (
     <>
-      {/* <Navbar
-        navLinks={[
-          { href: "/dashboard", name: "Dashboard" },
-          { href: "/", name: "Home" },
-          { href: "/account", name: "Account" },
-        ]}
-      /> */}
       <motion.div
-        // className="absolute top-1/8 left-2/3 transform -translate-y-1/2"
         initial={{ top: "50%", left: "50%", x: "-50%", y: "-50%", opacity: 1 }}
         animate={{ top: "17%", left: "67%", x: "0%", y: "0%", opacity: 1 }}
         transition={{ duration: 0.1, delay: 0 }}
@@ -107,7 +94,6 @@ const page = () => {
         <div className="w-60 h-60 bg-[#DDA82A] rounded-full blur-3xl opacity-50" />
       </motion.div>
       <motion.div
-        // className="absolute top-1/2 left-3/4 transform "
         initial={{ top: "50%", left: "50%", x: "-50%", y: "-50%", opacity: 1 }}
         animate={{ top: "50%", left: "75%", x: "0%", y: "0%", opacity: 1 }}
         transition={{ duration: 0.1, delay: 0 }}
@@ -116,9 +102,6 @@ const page = () => {
         <div className="w-60 h-60 bg-[#4461F2] rounded-full blur-3xl opacity-50" />
       </motion.div>
 
-      {/* <div className="absolute top-1/2 left-3/4 transform ">
-        <div className="w-60 h-60 bg-[#4461F2] rounded-full blur-3xl opacity-50" />
-      </div> */}
       <div className="flex flex-col items-center justify-center md:flex-row z-10">
         <Form
           label="Create Account"

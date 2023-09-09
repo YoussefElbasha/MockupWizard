@@ -5,6 +5,9 @@ const deleteFolder = async (req: Request, res: Response) => {
     const { prisma } = req.context;
     const folderId = req.params.folderId;
 
+    await prisma.project.deleteMany({
+      where: { folderId },
+    });
     await prisma.folder.delete({
       where: { id: folderId },
     });
