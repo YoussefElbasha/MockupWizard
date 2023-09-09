@@ -4,7 +4,7 @@ import ImageCard from './components/imagecard'
 import TextInput from './components/TextInput'
 import { motion } from 'framer-motion'
 import React, { useState } from 'react'
-import api from '../../../util/Axios'
+import api from '../../../../../util/Axios'
 import {
   Dialog,
   DialogContent,
@@ -15,9 +15,7 @@ import {
 } from '@/components/ui/dialog'
 import useSWRMutation from 'swr/mutation'
 
-const PAGE_API_ENDPOINT = 'http://api.app.localhost:4000/editor/generate-image'
-
-const Page = () => {
+const Dalle = () => {
   const [urls, setUrls] = useState<string[]>([])
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
@@ -39,24 +37,10 @@ const Page = () => {
     }
   )
 
-  // const handleSubmission = async (prompt: string) => {
-  //   try {
-  //     setIsLoading(true)
-  //     setIsDialogOpen(true)
-  //     const response = await api.post(PAGE_API_ENDPOINT, { prompt })
-  //     const images = response.data
-  //     setUrls(images)
-  //   } catch (error) {
-  //     toast.error('Something went wrong')
-  //     console.error(error)
-  //   } finally {
-  //     setIsLoading(false)
-  //   }
-  // }
-
   const handleDialogClose = () => {
     setIsDialogOpen(false)
   }
+
   const handleConfirm = () => {
     // Perform actions when the user confirms their choice
     if (selectedImage) {
@@ -72,6 +56,7 @@ const Page = () => {
     setSelectedImage(imageUrl)
     console.log('Selected image:', selectedImage)
   }
+
   return (
     <div className="bg-background m-auto min-h-screen flex flex-col items-center justify-center relative">
       <motion.div
@@ -91,14 +76,10 @@ const Page = () => {
         <div className="w-60 h-60 bg-primary rounded-full blur-3xl opacity-50" />
       </motion.div>
       <TextInput
-        onSubmit={
-          // handleSubmission
-
-          (prompt) => {
-            setIsDialogOpen(true)
-            trigger(prompt)
-          }
-        }
+        onSubmit={(prompt) => {
+          setIsDialogOpen(true)
+          trigger(prompt)
+        }}
       />
       {isDialogOpen && (
         <Dialog open={isDialogOpen} onOpenChange={handleDialogClose}>
@@ -137,4 +118,4 @@ const Page = () => {
   )
 }
 
-export default Page
+export default Dalle

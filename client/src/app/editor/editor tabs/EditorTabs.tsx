@@ -11,6 +11,7 @@ import ModelPicker from './ModelPicker'
 import { forwardRef } from 'react'
 import SaveButton from './SaveButton'
 import DownloadModelButton from './DownloadModelButton'
+import Dalle from './dalle/Dalle'
 
 interface EditorTabsProps {
   meshRef: React.MutableRefObject<any>
@@ -56,6 +57,9 @@ const EditorTabs = forwardRef<HTMLCanvasElement, EditorTabsProps>(
               activeTab !== 2 ? setActiveTab(2) : setActiveTab(0)
             }
           />
+        </div>
+        <div className="relative">
+          <Dalle />
         </div>
         <div className="relative">
           <ModelPicker

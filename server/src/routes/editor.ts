@@ -9,8 +9,8 @@ import generateImageController from "../controller/editor/generate-image"
 const router = express.Router()
 
 router.get("/:projectId", loadProject)
+router.post("/generate-image", generateImageController)
 router.post('/:projectId', saveProject)
-router.post("/generate-image", generateImageController);
 // router.delete("/delete-design/:designId", deleteDesign)
 // router.put("/edit-project", editProject)
 
