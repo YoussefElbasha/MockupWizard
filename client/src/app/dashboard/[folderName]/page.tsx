@@ -51,11 +51,11 @@ const page = (props: pageProps) => {
 
   const createProject = async ({ projectName }: any) => {
     try {
-      mutate(folderId);
       await api.post(`${process.env.SERVER_URL}dashboard/create-project`, {
         folderId: folderId,
         name: projectName,
       });
+      mutate(folderId);
     } catch (err: any) {
       if (err.response && err.response.data) {
         toast.error(err.response.data);
