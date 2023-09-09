@@ -125,9 +125,8 @@ const Page = () => {
           <div className="font-semibold">
             <p>already have an account?</p>
             <p>
-              you can{" "}
+              you can{' '}
               <span className="text-primary hover:text-indigo-500">
-
                 <Link href="/sign-in">sign in here!</Link>
               </span>
             </p>

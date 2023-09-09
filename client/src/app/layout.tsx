@@ -20,20 +20,19 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-
   const router = useRouter()
   const pathName = usePathname()
   const fetchUserInfo = async () => {
     try {
       const response = await api.get(
         `${process.env.NEXT_PUBLIC_API_URL}/api/me`
-      );
+      )
       return response.data
     } catch (e) {
       return null
     }
   }
-  const { data, isLoading } = useSWR('user-info', fetchUserInfo, {
+  const { data, isValidating } = useSWR('user-info', fetchUserInfo, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
@@ -49,7 +48,7 @@ export default function RootLayout({
         <div className="relative bg-background flex flex-col min-h-screen text-white">
           <Navbar
             user={data}
-            isLoading={isLoading}
+            isLoading={isValidating}
             navLinks={[
               { href: '/dashboard', name: 'Dashboard' },
               { href: '/', name: 'Home' },

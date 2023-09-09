@@ -20,11 +20,9 @@ const OtpInput = ({ email }: OtpInputProps) => {
     if (!otp || isSubmitting) return
 
     try {
-
-      console.log("otp", otp);
-      setIsSubmitting(true);
+      console.log('otp', otp)
+      setIsSubmitting(true)
       await api.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/otpverify`, {
-
         code: otp,
         email: email,
       })
@@ -91,49 +89,61 @@ const OtpInput = ({ email }: OtpInputProps) => {
     <div className="flex flex-col items-center justify-center gap-4">
       <div className="flex items-center justify-center">
         <div className="flex space-x-2">
+          <label htmlFor="otp-1" className="sr-only">
+            OTP First Digit
+          </label>
           <input
             ref={(el) => (inputRefs.current[0] = el!)}
             type="text"
             maxLength={1}
-            className="w-12 h-12 text-center border border-neutral-300 rounded-md disabled:animate-pulse"
+            className="w-12 h-12 text-center border border-neutral-300 text-black rounded-md disabled:animate-pulse"
             value={otp.charAt(0) || ''}
             disabled={isSubmitting}
             onChange={(e) => handleInputChange(0, e)}
             onKeyDown={(e) => handleKeyDown(0, e)}
-            style={{ color: 'black' }}
+            id="otp-1"
           />
+          <label htmlFor="otp-2" className="sr-only">
+            OTP Second Digit
+          </label>
           <input
             ref={(el) => (inputRefs.current[1] = el!)}
             type="text"
             maxLength={1}
-            className="w-12 h-12 text-center border border-neutral-300 rounded-md disabled:animate-pulse"
+            className="w-12 h-12 text-center border border-neutral-300 text-black rounded-md disabled:animate-pulse"
             value={otp.charAt(1) || ''}
             disabled={isSubmitting}
             onChange={(e) => handleInputChange(1, e)}
             onKeyDown={(e) => handleKeyDown(1, e)}
-            style={{ color: 'black' }}
+            id="otp-2"
           />
+          <label htmlFor="otp-3" className="sr-only">
+            OTP Third Digit
+          </label>
           <input
             ref={(el) => (inputRefs.current[2] = el!)}
             type="text"
             maxLength={1}
-            className="w-12 h-12 text-center border border-neutral-300 rounded-md disabled:animate-pulse"
+            className="w-12 h-12 text-center border border-neutral-300 text-black rounded-md disabled:animate-pulse"
             value={otp.charAt(2) || ''}
             disabled={isSubmitting}
             onChange={(e) => handleInputChange(2, e)}
             onKeyDown={(e) => handleKeyDown(2, e)}
-            style={{ color: 'black' }}
+            id="otp-3"
           />
+          <label htmlFor="otp-4" className="sr-only">
+            OTP Fourth Digit
+          </label>
           <input
             ref={(el) => (inputRefs.current[3] = el!)}
             type="text"
             maxLength={1}
-            className="w-12 h-12 text-center border border-neutral-300 rounded-md disabled:animate-pulse"
+            className="w-12 h-12 text-center border border-neutral-300 text-black rounded-md disabled:animate-pulse"
             value={otp.charAt(3) || ''}
             disabled={isSubmitting}
             onChange={(e) => handleInputChange(3, e)}
             onKeyDown={(e) => handleKeyDown(3, e)}
-            style={{ color: 'black' }}
+            id="otp-4"
           />
         </div>
       </div>

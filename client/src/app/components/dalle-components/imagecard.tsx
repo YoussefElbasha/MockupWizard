@@ -1,9 +1,9 @@
-import React from 'react'
+import React from "react";
 
 interface ImageCardProps {
-  imageUrl: string
-  onClick: () => void
-  isSelected?: boolean // Add the isSelected prop
+  imageUrl: string;
+  onClick: () => void;
+  isSelected?: boolean; // Add the isSelected prop
 }
 
 const ImageCard: React.FC<ImageCardProps> = ({
@@ -12,8 +12,8 @@ const ImageCard: React.FC<ImageCardProps> = ({
   isSelected,
 }) => {
   const cardClassName = isSelected
-    ? 'border border-secondary p-2 m-2 cursor-pointer w-48 h-48'
-    : 'border border-gray-300 p-2 m-2 cursor-pointer w-48 h-48'
+    ? "border border-secondary p-2 m-2 cursor-pointer w-48 h-48"
+    : "border border-gray-300 p-2 m-2 cursor-pointer w-48 h-48";
 
   return (
     <div className={cardClassName} onClick={onClick}>
@@ -23,7 +23,7 @@ const ImageCard: React.FC<ImageCardProps> = ({
         className="w-full h-full object-cover"
       />
     </div>
-  )
-}
+  );
+};
 
-export default ImageCard
+export default ImageCard;

@@ -14,6 +14,7 @@ import DownloadModelButton from './DownloadModelButton'
 
 interface EditorTabsProps {
   meshRef: React.MutableRefObject<any>
+  projectId: string
 }
 
 const EditorTabs = forwardRef<HTMLCanvasElement, EditorTabsProps>(
@@ -66,6 +67,7 @@ const EditorTabs = forwardRef<HTMLCanvasElement, EditorTabsProps>(
                   activeTab !== 3 ? setActiveTab(3) : setActiveTab(0)
                 }
               >
+                <p className="sr-only">Model Picker</p>
                 <div className="translate-x-[0.20em] hover:scale-[1.1] transition-all ease-in-out duration-300">
                   <Rocket
                     style={{ fill: 'black', height: '2em', width: '2em' }}
@@ -85,7 +87,7 @@ const EditorTabs = forwardRef<HTMLCanvasElement, EditorTabsProps>(
           <DownloadModelButton ref={props.meshRef} />
         </div>
         <div className="relative">
-          <SaveButton />
+          <SaveButton projectId={props.projectId} />
         </div>
       </div>
     )

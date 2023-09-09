@@ -16,8 +16,7 @@ const Page = ({ searchParams }: PageProps) => {
     try {
       await api.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/login/otp`, {
         email,
-      });
-
+      })
     } catch (errors) {
       toast.error('somethingWentWrong')
     }

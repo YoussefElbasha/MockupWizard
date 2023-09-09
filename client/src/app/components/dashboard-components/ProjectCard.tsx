@@ -7,6 +7,7 @@ import OptionsIcon from "@/app/icons/ellipsis-horizontal-outline.svg";
 import { useRouter } from "next/navigation";
 
 interface ProjectCardProps {
+  id: string;
   label: string;
   image: string;
 }
@@ -16,7 +17,7 @@ const ProjectCard = (props: ProjectCardProps) => {
   const [isHover, setIsHover] = useState(false);
 
   const handleClick = () => {
-    router.push("/editor");
+    router.push(`/editor/${props.id}`);
   };
 
   return (
@@ -33,7 +34,7 @@ const ProjectCard = (props: ProjectCardProps) => {
             transition={{
               duration: 0.5,
             }}
-            className="min-h-[20rem]"
+            className="min-h-[10rem] h-full"
           >
             <Image
               src={props.image}

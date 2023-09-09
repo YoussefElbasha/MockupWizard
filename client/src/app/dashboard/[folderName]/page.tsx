@@ -37,10 +37,10 @@ const Page = (props: pageProps) => {
   const getFolderContent = async (folderId: string) => {
     const response = await api.get(
       `${process.env.NEXT_PUBLIC_API_URL}/dashboard/get-folder-contents/${folderId}`
-    );
-    return response.data;
-  };
-  const { data, error, isLoading } = useSWR(folderId, () =>
+    )
+    return response.data
+  }
+  const { data, error, isLoading, isValidating } = useSWR(folderId, () =>
     getFolderContent(folderId)
   )
   useEffect(() => {
@@ -51,16 +51,14 @@ const Page = (props: pageProps) => {
 
   const createProject = async ({ projectName }: any) => {
     try {
-
       await api.post(
         `${process.env.NEXT_PUBLIC_API_URL}/dashboard/create-project`,
         {
           folderId: folderId,
           name: projectName,
         }
-      );
-      mutate(props.params.folderName);
-
+      )
+      mutate(props.params.folderName)
     } catch (err: any) {
       if (err.response && err.response.data) {
         toast.error(err.response.data)
@@ -82,6 +80,7 @@ const Page = (props: pageProps) => {
             onClick={() => router.push('/dashboard')}
             className="hover:bg-[#4461F21A] p-2 rounded-lg"
           >
+            <p className="sr-only">Back button</p>
             <BackIcon className="w-8 " />
           </button>
           <p className="text-lg">
@@ -95,7 +94,7 @@ const Page = (props: pageProps) => {
           </div>
         ) : content.length !== 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            {content.map((c: any, idx: number) => (
+            {content.map((project: any, idx: number) => (
               <>
                 <motion.div
                   onClick={() => {}}
@@ -103,37 +102,51 @@ const Page = (props: pageProps) => {
                   animate={{ opacity: 1, x: 0, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.1 * idx }}
                 >
-                  <ProjectCard key={c.id} label={c.name} image={c.thumbnail} />
+                  <ProjectCard
+                    key={project.id}
+                    id={project.id}
+                    label={project.name}
+                    image={project.thumbnail}
+                  />
                 </motion.div>
                 {idx === content.length - 1 && (
-                  <motion.div
-                    onClick={() => {}}
-                    initial={{ opacity: 0, x: -10, y: 20 }}
-                    animate={{ opacity: 1, x: 0, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.1 * idx }}
-                  >
-                    <CreateProject
-                      register={createProjectForm.register}
-                      errors={createProjectForm.formState.errors}
-                      onSubmit={createProjectForm.handleSubmit(createProject)}
-                    />
-                  </motion.div>
+                  <>
+                    {isValidating && !isLoading && (
+                      <p className="text-white">Loading....</p>
+                    )}
+                    <motion.div
+                      onClick={() => {}}
+                      initial={{ opacity: 0, x: -10, y: 20 }}
+                      animate={{ opacity: 1, x: 0, y: 0 }}
+                      transition={{ duration: 0.5, delay: 0.1 * idx }}
+                    >
+                      <CreateProject
+                        register={createProjectForm.register}
+                        errors={createProjectForm.formState.errors}
+                        onSubmit={createProjectForm.handleSubmit(createProject)}
+                      />
+                    </motion.div>
+                  </>
                 )}
               </>
             ))}
           </div>
         ) : (
           <div className="flex w-full items-center justify-center">
-            <div className="flex flex-col gap-6">
-              <h1 className="text-lg md:text-xl lg:text-3xl text-center font-semibold tracking-wide">
-                Create your first project.
-              </h1>
-              <CreateProject
-                register={createProjectForm.register}
-                errors={createProjectForm.formState.errors}
-                onSubmit={createProjectForm.handleSubmit(createProject)}
-              />
-            </div>
+            {isValidating ? (
+              <BeatLoader color="white" />
+            ) : (
+              <div className="flex flex-col gap-6">
+                <h1 className="text-lg md:text-xl lg:text-3xl text-center font-semibold tracking-wide">
+                  Create your first project.
+                </h1>
+                <CreateProject
+                  register={createProjectForm.register}
+                  errors={createProjectForm.formState.errors}
+                  onSubmit={createProjectForm.handleSubmit(createProject)}
+                />
+              </div>
+            )}
           </div>
         )}
       </div>
