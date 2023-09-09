@@ -13,6 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
+import useSWRMutation from 'swr/mutation'
 
 const PAGE_API_ENDPOINT = 'http://api.app.localhost:4000/editor/generate-image'
 
@@ -21,6 +22,23 @@ const Page = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
+
+  const { trigger, isMutating } = useSWRMutation(
+    'http://api.app.localhost:4000/editor/generate-image',
+    async (url, { arg }: { arg: string }) => {
+      await api.post(url, { arg })
+    },
+    {
+      onSuccess: (data) => {
+        console.log(data)
+        // setUrls(data)
+      },
+      onError: (error) => {
+        toast.error('Something went wrong')
+        console.error(error)
+      },
+    }
+  )
 
   const handleSubmission = async (prompt: string) => {
     try {

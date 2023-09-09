@@ -2,6 +2,9 @@ import { Request, Response } from "express";
 
 const saveProject = async (req: Request, res: Response) => {
   try {
+
+    console.log("saveProject: ", req)
+
     const { prisma } = req.context;
     const { projectId } = req.params;
     const { color, modelType, designs } = req.body;
