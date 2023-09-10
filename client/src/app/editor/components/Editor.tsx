@@ -2,11 +2,12 @@
 
 import { Canvas } from '@react-three/fiber'
 import { Environment, Center, OrbitControls } from '@react-three/drei'
-import Mug from '../models/mug'
-import Tshirt from '../models/tshirt'
+import Mug from '../models/Mug'
+import Tshirt from '../models/Tshirt'
 import { ModelEnum } from '../contexts/model-enum'
 import { useCanvasContext } from '../contexts/canvas-context'
 import { forwardRef } from 'react'
+import PosterFrame from '../models/PosterFrame'
 
 interface EditorProps {
   meshRef: React.MutableRefObject<any>
@@ -41,6 +42,9 @@ const Editor = forwardRef<HTMLCanvasElement, EditorProps>((props, ref) => {
       <Center>
         {modelType === ModelEnum.TSHIRT && <Tshirt ref={props.meshRef} />}
         {modelType === ModelEnum.MUG && <Mug ref={props.meshRef} />}
+        {modelType === ModelEnum.POSTERFRAME && (
+          <PosterFrame ref={props.meshRef} />
+        )}
       </Center>
     </Canvas>
   )
