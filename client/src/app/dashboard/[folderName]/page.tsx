@@ -14,6 +14,7 @@ import CreateProject from "@/app/components/dashboard-components/CreateProject";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { handleApiError } from "../../../../util/errorHandling";
 
 interface pageProps {
   params: {
@@ -29,6 +30,7 @@ const Page = (props: pageProps) => {
   const folderId = String(useSearchParams().get("id"));
   const router = useRouter();
   const [content, setContent] = useState([]);
+  const [isCreatingProject, setIsCreatingProject] = useState(false);
 
   const createProjectForm = useForm({
     resolver: yupResolver(createProjectSchema),
@@ -60,6 +62,7 @@ const Page = (props: pageProps) => {
 
   const createProject = async ({ projectName }: any) => {
     try {
+      setIsCreatingProject(true);
       await api.post(
         `${process.env.NEXT_PUBLIC_API_URL}/dashboard/create-project`,
         {
@@ -67,15 +70,10 @@ const Page = (props: pageProps) => {
           name: projectName,
         }
       );
-      mutate(props.params.folderName);
-    } catch (err: any) {
-      if (err.response && err.response.data) {
-        toast.error(err.response.data);
-      } else if (err.code === "ERR_NETWORK") {
-        toast.error("Network error.");
-      } else {
-        toast.error("An error occurred. Please try again.");
-      }
+      await mutate(folderId);
+      setIsCreatingProject(false);
+    } catch (error: any) {
+      handleApiError(error);
     }
   };
 
@@ -87,7 +85,7 @@ const Page = (props: pageProps) => {
         <div className="flex gap-2 items-center">
           <button
             onClick={() => router.push("/dashboard")}
-            className="hover:bg-[#4461F21A] p-2 rounded-lg"
+            className="hover:bg-highlight p-2 rounded-lg"
           >
             <p className="sr-only">Back button</p>
             <BackIcon className="w-8 " />
@@ -106,7 +104,6 @@ const Page = (props: pageProps) => {
             {content.map((project: any, idx: number) => (
               <>
                 <motion.div
-                  onClick={() => {}}
                   initial={{ opacity: 0, x: -10, y: 20 }}
                   animate={{ opacity: 1, x: 0, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.1 * idx }}
@@ -123,8 +120,10 @@ const Page = (props: pageProps) => {
                 </motion.div>
                 {idx === content.length - 1 && (
                   <>
-                    {isValidating && !isLoading && (
-                      <p className="text-white">Loading....</p>
+                    {isCreatingProject && (
+                      <div className="flex items-center justify-center bg-highlight min-h-[10rem] rounded-2xl animate-pulse">
+                        <p className="text-secondary">Creating...</p>
+                      </div>
                     )}
                     <motion.div
                       onClick={() => {}}
@@ -145,7 +144,7 @@ const Page = (props: pageProps) => {
           </div>
         ) : (
           <div className="flex w-full items-center justify-center">
-            {isValidating ? (
+            {isCreatingProject ? (
               <BeatLoader color="white" />
             ) : (
               <div className="flex flex-col gap-6">

@@ -16,6 +16,7 @@ import api from "../../../util/Axios";
 import FolderTab from "../components/dashboard-components/FolderTab";
 import Home from "@/app/icons/home.svg";
 import { handleApiError } from "../../../util/errorHandling";
+import FolderPulse from "../components/dashboard-components/FolderPulse";
 
 const createFolderSchema = yup.object().shape({
   folderName: yup.string().required("Folder name is required").max(20),
@@ -33,6 +34,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const [folders, setFolders] = useState<any[]>([]);
   const [currentFolder, setCurrentFolder] = useState(pathname.split("/")[2]);
+  const [isCreatingFolder, setIsCreatingFolder] = useState(false);
 
   const createFolderForm = useForm({
     resolver: yupResolver(createFolderSchema),
@@ -56,6 +58,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   };
   const createFolder = async ({ folderName }: any) => {
     try {
+      setIsCreatingFolder(true);
       await api
         .post(`${process.env.NEXT_PUBLIC_API_URL}/dashboard/create-folder`, {
           folderName: folderName,
@@ -63,13 +66,14 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         .then((response) => {
           setFolders((prevFolders) => [...prevFolders, response.data]);
         });
+      setIsCreatingFolder(false);
       mutate("getFolders");
     } catch (error: any) {
       handleApiError(error);
     }
   };
   const handleFolderContent = (folderId: string, folderName: string) => {
-    setCurrentFolder(folderName);
+    setCurrentFolder(folderId);
     router.push(`/dashboard/${folderName}?id=${folderId}`);
   };
   const getAllProjects = async () => {
@@ -84,7 +88,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     }
     // router.push("/dashboard/all-projects");
   };
-  const { data, isLoading } = useSWR("getFolders", getFolders);
+  const { data, isLoading, isValidating } = useSWR("getFolders", getFolders);
 
   useEffect(() => {
     if (data) {
@@ -99,12 +103,12 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       setFolders((prevFolders) => {
         return prevFolders.filter((folder: any) => folder.id !== folderId);
       });
-      router.push("/dashboard");
       await api.delete(
         `${process.env.NEXT_PUBLIC_API_URL}/dashboard/delete-folder/${folderId}`
       );
-    } catch (e: any) {
-      console.log(e);
+      router.push("/dashboard");
+    } catch (error: any) {
+      handleApiError(error);
     }
   };
   return (
@@ -132,29 +136,32 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           {isLoading ? (
             <FolderLoader />
           ) : folders.length !== 0 ? (
-            folders.map((folder: any) => {
-              return (
-                <div className="py-2" key={folder.id}>
-                  <div className="flex items-center gap-2">
-                    <FolderTab
-                      key={folder.id}
-                      name={folder.name}
-                      onClick={() =>
-                        handleFolderContent(folder.id, folder.name)
-                      }
-                      isCurrent={currentFolder === folder.name ? true : false}
-                    />
-                    <DeleteFolder
-                      onClick={deleteFolderForm.handleSubmit(() =>
-                        deleteFolder(folder.id)
-                      )}
-                      errors={deleteFolderForm.formState.errors}
-                      register={deleteFolderForm.register}
-                    />
+            <>
+              {folders.map((folder: any) => {
+                return (
+                  <div className="py-2" key={folder.id}>
+                    <div className="flex items-center gap-2">
+                      <FolderTab
+                        key={folder.id}
+                        name={folder.name}
+                        onClick={() =>
+                          handleFolderContent(folder.id, folder.name)
+                        }
+                        isCurrent={currentFolder === folder.id ? true : false}
+                      />
+                      <DeleteFolder
+                        onClick={deleteFolderForm.handleSubmit(() =>
+                          deleteFolder(folder.id)
+                        )}
+                        errors={deleteFolderForm.formState.errors}
+                        register={deleteFolderForm.register}
+                      />
+                    </div>
                   </div>
-                </div>
-              );
-            })
+                );
+              })}
+              {isCreatingFolder && <FolderPulse text="Creating..." />}
+            </>
           ) : (
             <p className="text-sm text-center">No folders yet.</p>
           )}

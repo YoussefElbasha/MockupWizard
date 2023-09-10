@@ -19,7 +19,7 @@ const ProjectCard = (props: ProjectCardProps) => {
   const [isHover, setIsHover] = useState(false);
 
   const handleClick = () => {
-    // router.push(`/editor/${props.id}`);
+    router.push(`/editor/${props.id}`);
   };
 
   const deleteProject = async (projectId: string) => {};
