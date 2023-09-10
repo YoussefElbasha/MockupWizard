@@ -75,7 +75,7 @@ const Page = () => {
       toast.dismiss(loadingPromise);
       toast.success("Registered successfully.");
       mutate("user-info");
-      router.push("/");
+      router.push("/dashboard");
     } catch (error: any) {
       toast.dismiss(loadingPromise);
       handleApiError(error);

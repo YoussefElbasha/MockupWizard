@@ -75,7 +75,7 @@ const Page = () => {
         router.push(`/otp?email=${userData.email}`);
       } else {
         toast.success("Login success.");
-        router.push("/");
+        router.push("/dashboard");
         mutate("user-info");
       }
     } catch (error: any) {
