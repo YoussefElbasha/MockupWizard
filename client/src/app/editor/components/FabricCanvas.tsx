@@ -28,24 +28,14 @@ const FabricCanvas = () => {
       height: 300,
     })
 
-    setCanvasObjects(designs)
-
-    const visibleDesigns = designs.length ? designs : ['/1x1.png']
+    const visibleDesigns = canvasObjects.length ? canvasObjects : ['/1x1.png']
 
     visibleDesigns.forEach((design: any, index: any) => {
       fabric.Image.fromURL(design.url, function (img) {
         try {
           img.crossOrigin = 'anonymous'
-          // img.scaleToWidth(design.scale)
+          img.scaleToWidth(design.scale)
           img.rotate(design.rotation)
-          // console.log(img)
-          if (img.width !== undefined && img.height !== undefined) {
-            const scaleWidth = canvas.getWidth() / img.width
-            const scaleHeight = canvas.getHeight() / img.height
-            const scale = Math.min(scaleWidth, scaleHeight)
-            img.scaleX = scale
-            img.scaleY = scale
-          }
           img.set({
             left: design.left,
             top: design.top,
@@ -54,7 +44,7 @@ const FabricCanvas = () => {
           })
           canvas.add(img)
           canvas.renderAll()
-          setCanvasUrl(canvas.toDataURL())
+          setCanvasUrl(canvas.toDataURL({ multiplier: 4 }))
         } catch (error) {
           console.log(error)
         }
@@ -64,7 +54,7 @@ const FabricCanvas = () => {
     canvas.on('object:modified', function (e) {
       console.log('modified')
       canvas.getActiveObject()?.bringToFront()
-      setCanvasUrl(canvas.toDataURL())
+      setCanvasUrl(canvas.toDataURL({ multiplier: 4 }))
       setCanvasObjects(
         designs.map((design: any, index: any) => {
           return {
@@ -125,8 +115,8 @@ const FabricCanvas = () => {
   const [isSelected, setIsSelected] = useState(false)
 
   return (
-    <div className="absolute z-10 right-6 top-1/2 translate-y-[-50%]">
-      <div className="flex flex-row-reverse gap-6 items-center justify-center">
+    <div className="absolute z-10 -translate-y-1/2 right-6 top-1/2">
+      <div className="flex flex-row-reverse items-center justify-center gap-6">
         <div className="flex flex-col gap-4">
           <button
             className="bg-white p-2 rounded-full w-[3.5em] h-[3.5em] drop-shadow-lg "
@@ -174,28 +164,24 @@ const FabricCanvas = () => {
               )}
             </AnimatePresence>
           </button>
-          {isSelected && (
+          {isSelected && isVisible && (
             <button
               className="bg-white p-2 rounded-full w-[3.5em] h-[3.5em] drop-shadow-lg "
               onClick={() => {
                 deleteHandler()
               }}
             >
-              <p className="sr-only">Delete Button</p>
+              <p className="sr-only">Delete selected design</p>
               <TrashOutline cssClasses="!fill-black !h-[2em] !w-[2em]" />
             </button>
           )}
         </div>
         <div
-          className={`height-full border-black border-4 
-        ${isVisible ? '' : 'hidden'}
-        `}
+          className={`height-full border-black border-4 ${
+            isVisible ? '' : 'hidden'
+          }`}
         >
-          {/* <div className={`height-full border-black border-4 `}> */}
-          <canvas
-            id="canvas"
-            className={` ${isVisible ? '' : 'hidden'}`}
-          ></canvas>
+          <canvas id="canvas" />
         </div>
       </div>
     </div>

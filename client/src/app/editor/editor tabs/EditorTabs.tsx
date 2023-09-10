@@ -11,6 +11,7 @@ import ModelPicker from './ModelPicker'
 import { forwardRef } from 'react'
 import SaveButton from './SaveButton'
 import DownloadModelButton from './DownloadModelButton'
+import Dalle from './dalle/Dalle'
 
 interface EditorTabsProps {
   meshRef: React.MutableRefObject<any>
@@ -24,7 +25,7 @@ const EditorTabs = forwardRef<HTMLCanvasElement, EditorTabsProps>(
     const [hexInput, setHexInput] = useState(color)
 
     return (
-      <div className="flex flex-col absolute top-[50%] left-6 gap-3">
+      <div className="absolute z-10 flex flex-col gap-3 -translate-y-1/2 top-1/2 left-6">
         <div className="relative">
           <TabButton
             // make isVisible a boolean
@@ -57,6 +58,9 @@ const EditorTabs = forwardRef<HTMLCanvasElement, EditorTabsProps>(
               activeTab !== 2 ? setActiveTab(2) : setActiveTab(0)
             }
           />
+        </div>
+        <div className="relative">
+          <Dalle />
         </div>
         <div className="relative">
           <ModelPicker

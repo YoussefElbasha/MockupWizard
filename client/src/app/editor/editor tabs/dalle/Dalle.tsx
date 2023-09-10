@@ -4,7 +4,7 @@ import ImageCard from './components/imagecard'
 import TextInput from './components/TextInput'
 import { motion } from 'framer-motion'
 import React, { useState } from 'react'
-import api from '../../../util/Axios'
+import api from '../../../../../util/Axios'
 import {
   Dialog,
   DialogContent,
@@ -14,16 +14,18 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import useSWRMutation from 'swr/mutation'
+import { Save } from 'react-ionicons'
+import { useCanvasContext } from '../../contexts/canvas-context'
+import axios from 'axios'
 
-const PAGE_API_ENDPOINT = `${process.env.NEXT_PUBLIC_API_URL}/api/generate-image`
-
-const Page = () => {
+const Dalle = () => {
   const [urls, setUrls] = useState<string[]>([])
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
+  const { setDesigns, canvasObjects, setCanvasObjects } = useCanvasContext()
 
   const { trigger, isMutating } = useSWRMutation(
-    'http://api.app.localhost:4000/editor/generate-image',
+    `${process.env.NEXT_PUBLIC_API_URL}/editor/generate-image`,
     async (url, { arg }: { arg: string }) => {
       const res = await api.post(url, { prompt: arg })
       return res.data
@@ -39,30 +41,56 @@ const Page = () => {
     }
   )
 
-  // const handleSubmission = async (prompt: string) => {
-  //   try {
-  //     setIsLoading(true)
-  //     setIsDialogOpen(true)
-  //     const response = await api.post(PAGE_API_ENDPOINT, { prompt })
-  //     const images = response.data
-  //     setUrls(images)
-  //   } catch (error) {
-  //     toast.error('Something went wrong')
-  //     console.error(error)
-  //   } finally {
-  //     setIsLoading(false)
-  //   }
-  // }
-
   const handleDialogClose = () => {
     setIsDialogOpen(false)
   }
-  const handleConfirm = () => {
+
+  const handleConfirm = async () => {
     // Perform actions when the user confirms their choice
-    if (selectedImage) {
-      console.log('Selected image:', selectedImage)
-    } else {
-      console.log('No image selected')
+    try {
+      if (selectedImage) {
+        const formData = new FormData()
+        console.log(selectedImage)
+        formData.append('file', selectedImage)
+        formData.append('upload_preset', 'model_designs')
+
+        const res = await axios.post(
+          'https://api.cloudinary.com/v1_1/dfbid2goy/image/upload',
+          formData
+        )
+
+        const path = res.data.url.replace(
+          'http://res.cloudinary.com/',
+          '/image/'
+        )
+
+        setDesigns((prev: any) => [
+          ...canvasObjects,
+          {
+            url: path,
+            top: 250,
+            left: 250,
+            scale: 100,
+            rotation: 0,
+          },
+        ])
+
+        setCanvasObjects((prev: any) => [
+          ...canvasObjects,
+          {
+            url: path,
+            top: 250,
+            left: 250,
+            scale: 100,
+            rotation: 0,
+          },
+        ])
+      } else {
+        console.log('No image selected')
+      }
+    } catch (error) {
+      toast.error('Something went wrong')
+      console.error(error)
     }
     setIsDialogOpen(false) // Close the dialog
   }
@@ -70,35 +98,16 @@ const Page = () => {
   const handleImageClick = (imageUrl: string) => {
     // Update the selected image when the user clicks on an image
     setSelectedImage(imageUrl)
-    console.log('Selected image:', selectedImage)
+    console.log('Selected image:', imageUrl)
   }
-  return (
-    <div className="bg-background m-auto min-h-screen flex flex-col items-center justify-center relative">
-      <motion.div
-        initial={{ top: '21%', left: '6%', x: '0%', y: '0%', opacity: 1 }}
-        animate={{ top: '20%', left: '36%', x: '0%', y: '0%', opacity: 1 }}
-        transition={{ duration: 0.2, delay: 0 }}
-        className="absolute z-0"
-      >
-        <div className="w-60 h-60 bg-secondary rounded-full blur-3xl opacity-50" />
-      </motion.div>
-      <motion.div
-        initial={{ top: '57%', left: '13%', x: '0%', y: '0%', opacity: 1 }}
-        animate={{ top: '57%', left: '47%', x: '0%', y: '0%', opacity: 1 }}
-        transition={{ duration: 0.2, delay: 0 }}
-        className="absolute z-0"
-      >
-        <div className="w-60 h-60 bg-primary rounded-full blur-3xl opacity-50" />
-      </motion.div>
-      <TextInput
-        onSubmit={
-          // handleSubmission
 
-          (prompt) => {
-            setIsDialogOpen(true)
-            trigger(prompt)
-          }
-        }
+  return (
+    <div>
+      <TextInput
+        onSubmit={(prompt) => {
+          setIsDialogOpen(true)
+          trigger(prompt)
+        }}
       />
       {isDialogOpen && (
         <Dialog open={isDialogOpen} onOpenChange={handleDialogClose}>
@@ -137,4 +146,4 @@ const Page = () => {
   )
 }
 
-export default Page
+export default Dalle

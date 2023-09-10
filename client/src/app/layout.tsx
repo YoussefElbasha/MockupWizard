@@ -45,7 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="relative bg-background flex flex-col min-h-screen text-white">
+        <div className="relative flex flex-col min-h-screen text-white bg-background">
           <Navbar
             user={data}
             isLoading={isValidating}
