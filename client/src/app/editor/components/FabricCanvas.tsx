@@ -7,7 +7,7 @@ import MagicWand from '../../icons/magic-line.svg'
 import { AnimatePresence, motion } from 'framer-motion'
 import { CloseOutline, TrashOutline } from 'react-ionicons'
 
-const TestCanvas = () => {
+const FabricCanvas = () => {
   const {
     canvasUrl,
     setCanvasUrl,
@@ -24,8 +24,8 @@ const TestCanvas = () => {
   useEffect(() => {
     const canvas = new fabric.Canvas('canvas', {
       backgroundColor: `${color}`,
-      width: 200,
-      height: 200,
+      width: 300,
+      height: 300,
     })
 
     setCanvasObjects(designs)
@@ -36,8 +36,16 @@ const TestCanvas = () => {
       fabric.Image.fromURL(design.url, function (img) {
         try {
           img.crossOrigin = 'anonymous'
-          img.scaleToWidth(design.scale)
+          // img.scaleToWidth(design.scale)
           img.rotate(design.rotation)
+          // console.log(img)
+          if (img.width !== undefined && img.height !== undefined) {
+            const scaleWidth = canvas.getWidth() / img.width
+            const scaleHeight = canvas.getHeight() / img.height
+            const scale = Math.min(scaleWidth, scaleHeight)
+            img.scaleX = scale
+            img.scaleY = scale
+          }
           img.set({
             left: design.left,
             top: design.top,
@@ -117,7 +125,7 @@ const TestCanvas = () => {
   const [isSelected, setIsSelected] = useState(false)
 
   return (
-    <div className="absolute z-10 right-6 top-1/2">
+    <div className="absolute z-10 right-6 top-1/2 translate-y-[-50%]">
       <div className="flex flex-row-reverse gap-6 items-center justify-center">
         <div className="flex flex-col gap-4">
           <button
@@ -173,19 +181,19 @@ const TestCanvas = () => {
                 deleteHandler()
               }}
             >
+              <p className="sr-only">Delete Button</p>
               <TrashOutline cssClasses="!fill-black !h-[2em] !w-[2em]" />
             </button>
           )}
         </div>
         <div
-          className={`height-full border-black border-4 ${
-            isVisible ? '' : 'hidden'
-          }`}
+          className={`height-full border-black border-4 
+        ${isVisible ? '' : 'hidden'}
+        `}
         >
+          {/* <div className={`height-full border-black border-4 `}> */}
           <canvas
             id="canvas"
-            width="500"
-            height="500"
             className={` ${isVisible ? '' : 'hidden'}`}
           ></canvas>
         </div>
@@ -194,4 +202,4 @@ const TestCanvas = () => {
   )
 }
 
-export default TestCanvas
+export default FabricCanvas

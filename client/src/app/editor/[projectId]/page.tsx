@@ -2,7 +2,7 @@
 
 import Editor from '../components/Editor'
 import EditorTabs from '../editor tabs/EditorTabs'
-import TestCanvas from '../components/testCanvas'
+import FabricCanvas from '../components/FabricCanvas'
 import { CanvasContextProvider } from '../contexts/canvas-context'
 import { useRef } from 'react'
 import { Mesh } from 'three'
@@ -26,7 +26,7 @@ const Home = ({ params }: pageProps) => {
           projectId={params.projectId}
           meshRef={meshRef}
         />
-        <TestCanvas />
+        <FabricCanvas />
       </div>
     </CanvasContextProvider>
   )
