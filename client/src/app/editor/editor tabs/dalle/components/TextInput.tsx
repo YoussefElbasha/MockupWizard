@@ -54,6 +54,7 @@ const TextInput: React.FC<TextInputProps> = ({ onSubmit }) => {
           className="bg-white p-2 rounded-full w-[3.5em] h-[3.5em] drop-shadow-lg"
           onClick={toggleTextInput}
         >
+          <p className="sr-only">Open text input</p>
           <div className="translate-x-[0.20em] hover:scale-[1.1] transition-all ease-in-out duration-300">
             <Planet style={{ fill: 'black', height: '2em', width: '2em' }} />
           </div>

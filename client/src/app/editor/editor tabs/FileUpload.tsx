@@ -54,7 +54,7 @@ const FileUpload = ({ onClick }: FileUploadProps) => {
         url: path,
         top: 100,
         left: 100,
-        scale: 100,
+        scale: 10,
         rotation: 0,
       },
     ])

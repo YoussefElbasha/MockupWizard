@@ -22,7 +22,7 @@ const Dalle = () => {
   const [urls, setUrls] = useState<string[]>([])
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
-  const { setDesigns, canvasObjects } = useCanvasContext()
+  const { setDesigns, canvasObjects, setCanvasObjects } = useCanvasContext()
 
   const { trigger, isMutating } = useSWRMutation(
     `${process.env.NEXT_PUBLIC_API_URL}/editor/generate-image`,
@@ -50,10 +50,8 @@ const Dalle = () => {
     try {
       if (selectedImage) {
         const formData = new FormData()
-        formData.append(
-          'file',
-          'https://dalleproduse.blob.core.windows.net/private/images/dc435ca2-7d52-4793-8d48-61064cd5f370/generated_00.png?se=2023-09-10T16%3A08%3A04Z&sig=Pulj%2BWt9K0ZpPrrCuSqKJos64ZnG86SSpqBrBJxltAY%3D&ske=2023-09-16T12%3A43%3A34Z&skoid=09ba021e-c417-441c-b203-c81e5dcd7b7f&sks=b&skt=2023-09-09T12%3A43%3A34Z&sktid=33e01921-4d64-4f8c-a055-5bdaffd5e33d&skv=2020-10-02&sp=r&spr=https&sr=b&sv=2020-10-02'
-        )
+        console.log(selectedImage)
+        formData.append('file', selectedImage)
         formData.append('upload_preset', 'model_designs')
 
         const res = await axios.post(
@@ -72,7 +70,18 @@ const Dalle = () => {
             url: path,
             top: 100,
             left: 100,
-            scale: 100,
+            scale: 10,
+            rotation: 0,
+          },
+        ])
+
+        setCanvasObjects((prev: any) => [
+          ...canvasObjects,
+          {
+            url: path,
+            top: 100,
+            left: 100,
+            scale: 10,
             rotation: 0,
           },
         ])

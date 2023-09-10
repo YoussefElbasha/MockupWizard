@@ -28,8 +28,6 @@ const FabricCanvas = () => {
       height: 300,
     })
 
-    setCanvasObjects(designs)
-
     const visibleDesigns = canvasObjects.length ? canvasObjects : ['/1x1.png']
 
     visibleDesigns.forEach((design: any, index: any) => {
@@ -173,6 +171,7 @@ const FabricCanvas = () => {
                 deleteHandler()
               }}
             >
+              <p className="sr-only">Delete selected design</p>
               <TrashOutline cssClasses="!fill-black !h-[2em] !w-[2em]" />
             </button>
           )}
