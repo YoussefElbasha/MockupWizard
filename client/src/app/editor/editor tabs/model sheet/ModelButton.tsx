@@ -35,9 +35,20 @@ const ModelButton = ({ newModel }: ModelButtonProps) => {
         }
       }}>
       <AlertDialogTrigger asChild>
-        <button className="relative w-full rounded-lg bg-black h-[10em] overflow-hidden">
-          Show Dialog
-          <Image src="/pepeWizard.png" fill alt="model picture" />
+        <button
+          className={`relative w-full rounded-lg bg-black h-[10em] overflow-hidden group after:absolute after:inset-0 after:bg-gradient-to-t after:from-black/50 after:to-black/0 after:opacity-0 hover:after:opacity-100 after:transition-all after:ease-in-out after:duration-300 ${
+            newModel === modelType ? 'border-4 border-secondary' : ''
+          }`}
+        >
+          <p className="absolute top-1/2 translate-y-[calc(-50%+2.5rem)] left-0 right-0 text-center z-10 opacity-0 group-hover:opacity-100 transition-all ease-in-out duration-300 text-white font-semibold text-lg">
+            {ModelEnum[newModel].charAt(0).toUpperCase() +
+              ModelEnum[newModel].slice(1).toLowerCase()}
+          </p>
+          <Image
+            src={`/model screenshots/${newModel}.jpeg`}
+            fill
+            alt={ModelEnum[newModel]}
+          />
         </button>
       </AlertDialogTrigger>
       <AlertDialogContent>

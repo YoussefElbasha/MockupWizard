@@ -27,7 +27,7 @@ const googleOAuthCallback = async (req: any, res: any) => {
         maxAge: 3600000,
         httpOnly: true,
       });
-      return res.redirect("http://localhost:3000/dashboard");
+      return res.redirect(`${process.env.FRONTEND_URL}/dashboard`);
     } else {
       const newUser = await req.context.prisma.user.create({
         data: {
@@ -41,7 +41,7 @@ const googleOAuthCallback = async (req: any, res: any) => {
         maxAge: 3600000,
         httpOnly: true,
       });
-      return res.redirect("http://localhost:3000/dashboard");
+      return res.redirect(`${process.env.FRONTEND_URL}/dashboard`);
     }
   } catch (error) {
     console.log(error);

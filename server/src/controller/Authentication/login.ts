@@ -19,18 +19,14 @@ const login = async (req: any, res: any) => {
     }
     const token = createAuthToken(user.id);
     res.cookie("accessToken", token.accessToken, {
-      maxAge: 3600000,
-      httpOnly: true,
-      domain: accessTokenCookieDomain,
-    });
-    res.cookie("refreshToken", token.refreshToken, {
       maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true,
+      domain: accessTokenCookieDomain,
     });
     res.status(200).json({ token });
   } catch (err) {
     res.status(500).json(err);
   }
-}
+};
 
-export default login
+export default login;

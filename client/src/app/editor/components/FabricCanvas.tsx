@@ -7,7 +7,7 @@ import MagicWand from '../../icons/magic-line.svg'
 import { AnimatePresence, motion } from 'framer-motion'
 import { CloseOutline, TrashOutline } from 'react-ionicons'
 
-const TestCanvas = () => {
+const FabricCanvas = () => {
   const {
     canvasUrl,
     setCanvasUrl,
@@ -189,4 +189,4 @@ const TestCanvas = () => {
   )
 }
 
-export default TestCanvas
+export default FabricCanvas

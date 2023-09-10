@@ -2,12 +2,13 @@
 
 import { Canvas } from '@react-three/fiber'
 import { Environment, Center, OrbitControls } from '@react-three/drei'
-import Mug from '../models/mug'
-import Tshirt from '../models/tshirt'
 import { ModelEnum } from '../contexts/model-enum'
 import { useCanvasContext } from '../contexts/canvas-context'
 import { forwardRef } from 'react'
 import Loader from '@/components/loader'
+import PosterFrame from '../models/PosterFrame'
+import Tshirt from '../models/tshirt'
+import Mug from '../models/mug'
 
 interface EditorProps {
   meshRef: React.MutableRefObject<any>
@@ -37,7 +38,8 @@ const Editor = forwardRef<HTMLCanvasElement, EditorProps>((props, ref) => {
       gl={{ preserveDrawingBuffer: true }}
       className="w-full h-full max-w-full transition-all ease-in"
       style={{ background: '#ffffff' }}
-      ref={ref}>
+      ref={ref}
+    >
       <ambientLight intensity={0.5} />
       <Environment preset="city" />
       {/* <directionalLight
@@ -55,6 +57,9 @@ const Editor = forwardRef<HTMLCanvasElement, EditorProps>((props, ref) => {
       <Center>
         {modelType === ModelEnum.TSHIRT && <Tshirt ref={props.meshRef} />}
         {modelType === ModelEnum.MUG && <Mug ref={props.meshRef} />}
+        {modelType === ModelEnum.POSTERFRAME && (
+          <PosterFrame ref={props.meshRef} />
+        )}
       </Center>
     </Canvas>
   )
