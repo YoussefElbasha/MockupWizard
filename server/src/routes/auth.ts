@@ -13,12 +13,10 @@ const router = express.Router();
 
 router.post("/login", login);
 router.post("/register", register);
-// router.get('/login/google', loginGoogle);
 router.get("/google", loginGoogle);
 router.get("/google/callback", loginGoogleCallback);
-// router.post('/facebook',loginFacebook);
 router.post("/login/otp", otplogin);
 router.post("/otpverify", otpverify);
-router.get("/logout", logout);
+router.post("/logout", logout);
 
 export default router;
