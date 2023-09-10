@@ -11,7 +11,7 @@ interface ProjectCardProps {
   id: string;
   label: string;
   image: string;
-  onSubnmit: any;
+  onSubmit: any;
 }
 
 const ProjectCard = (props: ProjectCardProps) => {
@@ -54,7 +54,7 @@ const ProjectCard = (props: ProjectCardProps) => {
             transition={{ duration: 0.3 }}
           >
             <p className="">{props.label}</p>
-            <DeleteProject onSubmit={props.onSubnmit} />
+            <DeleteProject onSubmit={props.onSubmit} />
           </motion.div>
         </div>
       </button>

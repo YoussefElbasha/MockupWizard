@@ -53,9 +53,9 @@ const Page = (props: pageProps) => {
     setContent((prevContent) => {
       return prevContent.filter((project: any) => project.id !== projectId);
     });
-    await api.delete(
-      `${process.env.NEXT_PUBLIC_API_URL}/dashboard/delete-project/${projectId}}`
-    );
+    // await api.delete(
+    //   `${process.env.NEXT_PUBLIC_API_URL}/dashboard/delete-project/${projectId}}`
+    // );
   };
 
   const createProject = async ({ projectName }: any) => {
@@ -116,9 +116,7 @@ const Page = (props: pageProps) => {
                     id={project.id}
                     label={project.name}
                     image={project.thumbnail}
-                    onSubnmit={(event: any) => {
-                      event.preventDefault();
-                      event.stopPropagation();
+                    onSubmit={() => {
                       deleteProject(project.id);
                     }}
                   />
