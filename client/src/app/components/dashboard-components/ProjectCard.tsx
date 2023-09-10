@@ -5,11 +5,13 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import OptionsIcon from "@/app/icons/ellipsis-horizontal-outline.svg";
 import { useRouter } from "next/navigation";
+import DeleteProject from "./DeleteProject";
 
 interface ProjectCardProps {
   id: string;
   label: string;
   image: string;
+  onSubnmit: any;
 }
 
 const ProjectCard = (props: ProjectCardProps) => {
@@ -17,8 +19,10 @@ const ProjectCard = (props: ProjectCardProps) => {
   const [isHover, setIsHover] = useState(false);
 
   const handleClick = () => {
-    router.push(`/editor/${props.id}`);
+    // router.push(`/editor/${props.id}`);
   };
+
+  const deleteProject = async (projectId: string) => {};
 
   return (
     <div className="flex h-full">
@@ -50,9 +54,7 @@ const ProjectCard = (props: ProjectCardProps) => {
             transition={{ duration: 0.3 }}
           >
             <p className="">{props.label}</p>
-            <div className="absolute hover:opacity-50 right-[10px] top-1/2 transform -translate-y-1/2">
-              <OptionsIcon className="w-8" />
-            </div>
+            <DeleteProject onSubmit={props.onSubnmit} />
           </motion.div>
         </div>
       </button>
