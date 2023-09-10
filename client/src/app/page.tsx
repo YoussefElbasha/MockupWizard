@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import api from "../../util/Axios";
 import FeatureList from "./components/homepage-components/FeatureList";
 import StarIcon from "./icons/stars.svg";
+import "./globals.css";
 
 export default function Home() {
   const [userInfo, setUserInfo] = useState(null);

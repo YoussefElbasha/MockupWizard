@@ -102,3 +102,7 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.custom-cursor {
+  cursor: url("/elder_wand.png"), auto;
+}
