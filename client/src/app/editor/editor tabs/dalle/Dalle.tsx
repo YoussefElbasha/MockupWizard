@@ -16,6 +16,7 @@ import {
 import useSWRMutation from 'swr/mutation'
 import { Save } from 'react-ionicons'
 import { useCanvasContext } from '../../contexts/canvas-context'
+import axios from 'axios'
 
 const Dalle = () => {
   const [urls, setUrls] = useState<string[]>([])
@@ -24,7 +25,7 @@ const Dalle = () => {
   const { setDesigns, canvasObjects } = useCanvasContext()
 
   const { trigger, isMutating } = useSWRMutation(
-    'http://api.app.localhost:4000/editor/generate-image',
+    `${process.env.NEXT_PUBLIC_API_URL}/editor/generate-image`,
     async (url, { arg }: { arg: string }) => {
       const res = await api.post(url, { prompt: arg })
       return res.data
@@ -55,7 +56,7 @@ const Dalle = () => {
         )
         formData.append('upload_preset', 'model_designs')
 
-        const res = await api.post(
+        const res = await axios.post(
           'https://api.cloudinary.com/v1_1/dfbid2goy/image/upload',
           formData
         )

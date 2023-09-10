@@ -7,23 +7,37 @@ import Tshirt from '../models/tshirt'
 import { ModelEnum } from '../contexts/model-enum'
 import { useCanvasContext } from '../contexts/canvas-context'
 import { forwardRef } from 'react'
+import Loader from '@/components/loader'
 
 interface EditorProps {
   meshRef: React.MutableRefObject<any>
 }
 
 const Editor = forwardRef<HTMLCanvasElement, EditorProps>((props, ref) => {
-  const { modelType } = useCanvasContext()
+  const { modelType, modelLoading } = useCanvasContext()
+
+  if (modelLoading)
+    return (
+      <div className="fixed inset-0 z-[100] flex items-center justify-center w-screen h-screen bg-black">
+        <Loader />
+      </div>
+    )
+
+  if (!modelType)
+    return (
+      <div className="fixed inset-0 z-[100] flex items-center justify-center w-screen h-screen bg-black">
+        <p className="text-white">Failed to load model</p>
+      </div>
+    )
 
   return (
     <Canvas
       shadows
       camera={{ fov: 45, position: [0, 0, 2] }}
       gl={{ preserveDrawingBuffer: true }}
-      className="w-full max-w-full h-full transition-all ease-in"
+      className="w-full h-full max-w-full transition-all ease-in"
       style={{ background: '#ffffff' }}
-      ref={ref}
-    >
+      ref={ref}>
       <ambientLight intensity={0.5} />
       <Environment preset="city" />
       {/* <directionalLight

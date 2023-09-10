@@ -24,13 +24,13 @@ const TestCanvas = () => {
   useEffect(() => {
     const canvas = new fabric.Canvas('canvas', {
       backgroundColor: `${color}`,
-      width: 200,
-      height: 200,
+      width: 300,
+      height: 300,
     })
 
     setCanvasObjects(designs)
 
-    const visibleDesigns = designs.length ? designs : ['/1x1.png']
+    const visibleDesigns = canvasObjects.length ? canvasObjects : ['/1x1.png']
 
     visibleDesigns.forEach((design: any, index: any) => {
       fabric.Image.fromURL(design.url, function (img) {
@@ -46,7 +46,7 @@ const TestCanvas = () => {
           })
           canvas.add(img)
           canvas.renderAll()
-          setCanvasUrl(canvas.toDataURL())
+          setCanvasUrl(canvas.toDataURL({ multiplier: 4 }))
         } catch (error) {
           console.log(error)
         }
@@ -56,7 +56,7 @@ const TestCanvas = () => {
     canvas.on('object:modified', function (e) {
       console.log('modified')
       canvas.getActiveObject()?.bringToFront()
-      setCanvasUrl(canvas.toDataURL())
+      setCanvasUrl(canvas.toDataURL({ multiplier: 4 }))
       setCanvasObjects(
         designs.map((design: any, index: any) => {
           return {
@@ -117,8 +117,8 @@ const TestCanvas = () => {
   const [isSelected, setIsSelected] = useState(false)
 
   return (
-    <div className="absolute z-10 right-6 top-1/2">
-      <div className="flex flex-row-reverse gap-6 items-center justify-center">
+    <div className="absolute z-10 -translate-y-1/2 right-6 top-1/2">
+      <div className="flex flex-row-reverse items-center justify-center gap-6">
         <div className="flex flex-col gap-4">
           <button
             className="bg-white p-2 rounded-full w-[3.5em] h-[3.5em] drop-shadow-lg "
@@ -182,12 +182,7 @@ const TestCanvas = () => {
             isVisible ? '' : 'hidden'
           }`}
         >
-          <canvas
-            id="canvas"
-            width="500"
-            height="500"
-            className={` ${isVisible ? '' : 'hidden'}`}
-          ></canvas>
+          <canvas id="canvas" />
         </div>
       </div>
     </div>

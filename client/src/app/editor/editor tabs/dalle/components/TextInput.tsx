@@ -60,7 +60,7 @@ const TextInput: React.FC<TextInputProps> = ({ onSubmit }) => {
         </button>
       </div>
       {isVisible && (
-        <div className="absolute bg-background rounded-lg shadow-md top-10 right-0 z-10 w-72 p-2">
+        <div className="absolute z-10 p-2 translate-x-4 -translate-y-1/2 rounded-lg shadow-md bg-background left-full top-1/2 w-72">
           <Textarea
             ref={textareaRef}
             placeholder="Enter your prompt..."

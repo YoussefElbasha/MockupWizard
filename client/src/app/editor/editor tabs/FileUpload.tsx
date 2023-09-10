@@ -8,7 +8,7 @@ interface FileUploadProps {
 }
 
 const FileUpload = ({ onClick }: FileUploadProps) => {
-  const { setDesigns, canvasObjects } = useCanvasContext()
+  const { setDesigns, canvasObjects, setCanvasObjects } = useCanvasContext()
 
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -38,6 +38,17 @@ const FileUpload = ({ onClick }: FileUploadProps) => {
     const path = res.data.url.replace('http://res.cloudinary.com/', '/image/')
 
     setDesigns((prev: any) => [
+      ...canvasObjects,
+      {
+        url: path,
+        top: 100,
+        left: 100,
+        scale: 100,
+        rotation: 0,
+      },
+    ])
+
+    setCanvasObjects((prev: any) => [
       ...canvasObjects,
       {
         url: path,
