@@ -125,10 +125,10 @@ const FabricCanvas = () => {
   const [isSelected, setIsSelected] = useState(false)
 
   return (
-    <div className="absolute z-10 right-6 top-1/2">
-      {/* <div className="flex flex-row-reverse gap-6 items-center justify-center"> */}
-      {/* <div className="flex flex-col gap-4"> */}
-      {/* <button
+    <div className="absolute z-10 right-6 top-1/2 translate-y-[-50%]">
+      <div className="flex flex-row-reverse gap-6 items-center justify-center">
+        <div className="flex flex-col gap-4">
+          <button
             className="bg-white p-2 rounded-full w-[3.5em] h-[3.5em] drop-shadow-lg "
             onClick={() => {
               setIsVisible(!isVisible)
@@ -173,31 +173,31 @@ const FabricCanvas = () => {
                 </motion.div>
               )}
             </AnimatePresence>
-          </button> */}
-      {isSelected && (
-        <button
-          className="bg-white p-2 rounded-full w-[3.5em] h-[3.5em] drop-shadow-lg "
-          onClick={() => {
-            deleteHandler()
-          }}
-        >
-          <p className="sr-only">Delete Button</p>
-          <TrashOutline cssClasses="!fill-black !h-[2em] !w-[2em]" />
-        </button>
-      )}
-      {/* </div> */}
-      {/* <div
-        className={`height-full border-black border-4 
+          </button>
+          {isSelected && (
+            <button
+              className="bg-white p-2 rounded-full w-[3.5em] h-[3.5em] drop-shadow-lg "
+              onClick={() => {
+                deleteHandler()
+              }}
+            >
+              <p className="sr-only">Delete Button</p>
+              <TrashOutline cssClasses="!fill-black !h-[2em] !w-[2em]" />
+            </button>
+          )}
+        </div>
+        <div
+          className={`height-full border-black border-4 
         ${isVisible ? '' : 'hidden'}
         `}
-      > */}
-      <div className={`height-full border-black border-4 `}>
-        <canvas
-          id="canvas"
-          // className={` ${isVisible ? '' : 'hidden'}`}
-        ></canvas>
+        >
+          {/* <div className={`height-full border-black border-4 `}> */}
+          <canvas
+            id="canvas"
+            className={` ${isVisible ? '' : 'hidden'}`}
+          ></canvas>
+        </div>
       </div>
-      {/* </div> */}
     </div>
   )
 }
