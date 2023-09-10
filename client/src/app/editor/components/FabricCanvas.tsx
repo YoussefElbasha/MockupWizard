@@ -164,7 +164,7 @@ const FabricCanvas = () => {
               )}
             </AnimatePresence>
           </button>
-          {isSelected && (
+          {isSelected && isVisible && (
             <button
               className="bg-white p-2 rounded-full w-[3.5em] h-[3.5em] drop-shadow-lg "
               onClick={() => {

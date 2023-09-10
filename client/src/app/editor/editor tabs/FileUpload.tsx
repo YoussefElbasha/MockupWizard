@@ -41,9 +41,9 @@ const FileUpload = ({ onClick }: FileUploadProps) => {
       ...canvasObjects,
       {
         url: path,
-        top: 100,
-        left: 100,
-        scale: 10,
+        top: 250,
+        left: 250,
+        scale: 100,
         rotation: 0,
       },
     ])
@@ -52,9 +52,9 @@ const FileUpload = ({ onClick }: FileUploadProps) => {
       ...canvasObjects,
       {
         url: path,
-        top: 100,
-        left: 100,
-        scale: 10,
+        top: 250,
+        left: 250,
+        scale: 100,
         rotation: 0,
       },
     ])
