@@ -43,8 +43,7 @@ model Project {
   name      String   @default("New Project")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  // thumbnail   String   @default("https://archive.org/download/placeholder-image/placeholder-image.jpg")
-  // screenshots String[]
+  thumbnail String?
   color     String   @default("#ffffff")
   modelType Model    @default(MUG)
   designs   Design[]
@@ -64,4 +63,5 @@ model Design {
 enum Model {
   MUG
   TSHIRT
+  POSTERFRAME
 }

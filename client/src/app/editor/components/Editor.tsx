@@ -11,7 +11,7 @@ import Tshirt from '../models/tshirt'
 import Mug from '../models/mug'
 
 interface EditorProps {
-  meshRef: React.MutableRefObject<any>
+  id?: string
 }
 
 const Editor = forwardRef<HTMLCanvasElement, EditorProps>((props, ref) => {
@@ -33,33 +33,20 @@ const Editor = forwardRef<HTMLCanvasElement, EditorProps>((props, ref) => {
 
   return (
     <Canvas
+      id={props.id ?? 'editor-canvas'}
       shadows
       camera={{ fov: 45, position: [0, 0, 2] }}
       gl={{ preserveDrawingBuffer: true }}
       className="w-full h-full max-w-full transition-all ease-in"
       style={{ background: '#ffffff' }}
-      ref={ref}
-    >
+      ref={ref}>
       <ambientLight intensity={0.5} />
       <Environment preset="city" />
-      {/* <directionalLight
-        position={[5, 10, -10]}
-        intensity={1}
-        color={'green'}
-      /> */}
-      {/* <spotLight position={[-10, 10, 10]} intensity={10} color={'green'} /> */}
-      {/* <directionalLight position={[5, 10, 10]} intensity={1} /> */}
-
-      {/* <OrbitControls minDistance={1} maxDistance={6} zoomSpeed={2} /> */}
       <OrbitControls zoomSpeed={2} />
-
-      {/* <Backdrop /> */}
       <Center>
-        {modelType === ModelEnum.TSHIRT && <Tshirt ref={props.meshRef} />}
-        {modelType === ModelEnum.MUG && <Mug ref={props.meshRef} />}
-        {modelType === ModelEnum.POSTERFRAME && (
-          <PosterFrame ref={props.meshRef} />
-        )}
+        {modelType === ModelEnum.TSHIRT && <Tshirt />}
+        {modelType === ModelEnum.MUG && <Mug />}
+        {modelType === ModelEnum.POSTERFRAME && <PosterFrame />}
       </Center>
     </Canvas>
   )

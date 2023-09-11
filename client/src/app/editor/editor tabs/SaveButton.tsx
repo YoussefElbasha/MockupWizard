@@ -3,6 +3,12 @@ import { Save } from 'react-ionicons'
 import useSWRMutation from 'swr/mutation'
 import { useCanvasContext } from '../contexts/canvas-context'
 import Loader from '@/components/loader'
+import { useEffect, useRef, useState } from 'react'
+import Editor from '../components/Editor'
+// @ts-ignore
+import { useScreenshot } from 'use-react-screenshot'
+import toast from 'react-hot-toast'
+import api from '../../../../util/Axios'
 
 interface saveButtonProps {
   projectId: string
@@ -10,23 +16,65 @@ interface saveButtonProps {
 
 const SaveButton = ({ projectId }: saveButtonProps) => {
   const { color, canvasObjects, modelType } = useCanvasContext()
+  const [isSaving, setIsSaving] = useState<boolean>(false)
+  const [_, takeScreenshot] = useScreenshot()
+  const screenshotContainerRef = useRef<HTMLDivElement>(null)
 
-  const { trigger, isMutating } = useSWRMutation(
-    `${process.env.NEXT_PUBLIC_API_URL}/editor/${projectId}`,
-    (url: string) => {
-      return axios.post(url, { color, designs: canvasObjects, modelType })
-    }
-  )
+  const handleSave = () => {
+    setIsSaving(true)
+  }
+
+  useEffect(() => {
+    if (!isSaving) return
+    if (!screenshotContainerRef.current) return
+
+    console.log('saving')
+
+    const timeout = setTimeout(async () => {
+      const image = await takeScreenshot(screenshotContainerRef.current)
+
+      const formData = new FormData()
+      formData.append('file', image)
+      formData.append('upload_preset', 'model_designs')
+
+      try {
+        const {
+          data: { secure_url: url },
+        } = await axios.post(
+          'https://api.cloudinary.com/v1_1/dfbid2goy/image/upload',
+          formData
+        )
+
+        await api.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/editor/${projectId}`,
+          {
+            color,
+            designs: canvasObjects,
+            modelType,
+            thumbnail: url,
+          }
+        )
+
+        toast.success('Design saved')
+      } catch (error) {
+        toast.error('Failed to save design')
+      } finally {
+        setIsSaving(false)
+      }
+    }, 1000)
+
+    return () => clearTimeout(timeout)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSaving, screenshotContainerRef])
 
   return (
     <div>
       <button
         className="bg-white p-2 rounded-full w-[3.5em] h-[3.5em] drop-shadow-lg"
-        onClick={() => trigger()}
-      >
+        onClick={() => handleSave()}>
         <p className="sr-only">Save Button</p>
         <div className="translate-x-[0.20em] hover:scale-[1.1] transition-all ease-in-out duration-300 ">
-          {isMutating === false ? (
+          {!isSaving ? (
             <Save style={{ fill: 'black', height: '2em', width: '2em' }} />
           ) : (
             <div className="w-full -translate-x-1.5 h-full flex items-center justify-center">
@@ -35,6 +83,13 @@ const SaveButton = ({ projectId }: saveButtonProps) => {
           )}
         </div>
       </button>
+      {isSaving && (
+        <div
+          ref={screenshotContainerRef}
+          className="fixed left-[100vw] w-[1000px] h-[1000px] bg-red-400 -top-52">
+          <Editor id="save-canvas-editor" />
+        </div>
+      )}
     </div>
   )
 }
