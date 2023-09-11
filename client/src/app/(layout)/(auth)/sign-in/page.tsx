@@ -61,8 +61,7 @@ const Page = () => {
     }
   };
 
-  const { data, trigger, isMutating, error } = useSWRMutation(
-
+  const { trigger, isMutating } = useSWRMutation(
     `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
     loginUser
   );

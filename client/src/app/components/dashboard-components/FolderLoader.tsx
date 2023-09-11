@@ -2,40 +2,14 @@ import React from "react";
 import FolderPulse from "./FolderPulse";
 
 const FolderLoader = () => {
-  return (
-    <>
-      <div className="py-2">
-        <div className="flex items-center gap-2">
-          <FolderPulse />
-        </div>
-      </div>
-      <div className="py-2">
-        <div className="flex items-center gap-2">
-          <FolderPulse />
-        </div>
-      </div>
-      <div className="py-2">
-        <div className="flex items-center gap-2">
-          <FolderPulse />
-        </div>
-      </div>
-      <div className="py-2">
-        <div className="flex items-center gap-2">
-          <FolderPulse />
-        </div>
-      </div>
-      <div className="py-2">
-        <div className="flex items-center gap-2">
-          <FolderPulse />
-        </div>
-      </div>
-      <div className="py-2">
-        <div className="flex items-center gap-2">
-          <FolderPulse />
-        </div>
-      </div>
-    </>
-  );
+  const numberOfPulses = 8;
+  const pulseElements = Array.from({ length: numberOfPulses }, (_, index) => (
+    <div className="py-2" key={index}>
+      <FolderPulse />
+    </div>
+  ));
+
+  return <>{pulseElements}</>;
 };
 
 export default FolderLoader;

@@ -1,15 +1,17 @@
-'use client'
-import './globals.css'
-import { Inter } from 'next/font/google'
-import { Toaster } from 'react-hot-toast'
+"use client";
+import "./globals.css";
+import { Inter } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 
-const inter = Inter({ subsets: ['latin'] })
+import Navbar from "./components/navbar-components/Navbar";
+import api from "../../util/Axios";
 
+const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -20,5 +22,5 @@ export default function RootLayout({
         </div>
       </body>
     </html>
-  )
+  );
 }

@@ -1,10 +1,14 @@
 import React from "react";
 import Home from "@/app/icons/home.svg";
 
-const AllProjects = (getP: any) => {
+interface allFoldersProps {
+  onClick: any;
+}
+
+const AllFolders = ({ onClick }: allFoldersProps) => {
   return (
     <button
-      onClick={getP}
+      onClick={onClick}
       className="hover:bg-highlight border border-highlight p-3.5 rounded-lg cursor-pointer"
     >
       <div className="flex gap-[10px] items-center">
@@ -15,4 +19,4 @@ const AllProjects = (getP: any) => {
   );
 };
 
-export default AllProjects;
+export default AllFolders;
