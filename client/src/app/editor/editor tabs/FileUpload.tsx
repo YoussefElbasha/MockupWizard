@@ -48,27 +48,30 @@ const FileUpload = ({ onClick }: FileUploadProps) => {
         '/image/'
       )
 
-    setDesigns((prev: any) => [
-      ...canvasObjects,
-      {
-        url: path,
-        top: 150,
-        left: 150,
-        scale: 100,
-        rotation: 0,
-      },
-    ])
+      setDesigns((prev: any) => [
+        ...canvasObjects,
+        {
+          url: path,
+          top: 150,
+          left: 150,
+          scale: 100,
+          rotation: 0,
+        },
+      ])
 
-    setCanvasObjects((prev: any) => [
-      ...canvasObjects,
-      {
-        url: path,
-        top: 150,
-        left: 150,
-        scale: 100,
-        rotation: 0,
-      },
-    ])
+      setCanvasObjects((prev: any) => [
+        ...canvasObjects,
+        {
+          url: path,
+          top: 150,
+          left: 150,
+          scale: 100,
+          rotation: 0,
+        },
+      ])
+    } catch (error) {
+      toast.error('Failed to upload image')
+    }
   }
 
   return (
@@ -86,7 +89,8 @@ const FileUpload = ({ onClick }: FileUploadProps) => {
             />
             <button
               className="bg-white p-2 rounded-full w-[3.5em] h-[3.5em] drop-shadow-lg"
-              onClick={handleClick}>
+              onClick={handleClick}
+            >
               <p className="sr-only">File Upload</p>
               <div className="translate-x-[0.20em] hover:scale-[1.1] transition-all ease-in-out duration-300">
                 <Images
@@ -100,7 +104,8 @@ const FileUpload = ({ onClick }: FileUploadProps) => {
           sideOffset={-45}
           alignOffset={75}
           align="start"
-          avoidCollisions={false}>
+          avoidCollisions={false}
+        >
           <p>Upload Image</p>
         </TooltipContent>
       </Tooltip>
