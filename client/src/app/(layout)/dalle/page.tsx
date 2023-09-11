@@ -4,7 +4,7 @@ import ImageCard from './components/imagecard'
 import TextInput from './components/TextInput'
 import { motion } from 'framer-motion'
 import React, { useState } from 'react'
-import api from '../../../util/Axios'
+import api from '../../../../util/Axios'
 import {
   Dialog,
   DialogContent,
@@ -73,14 +73,14 @@ const Page = () => {
     console.log('Selected image:', selectedImage)
   }
   return (
-    <div className="bg-background m-auto min-h-screen flex flex-col items-center justify-center relative">
+    <div className="relative flex flex-col items-center justify-center min-h-screen m-auto bg-background">
       <motion.div
         initial={{ top: '21%', left: '6%', x: '0%', y: '0%', opacity: 1 }}
         animate={{ top: '20%', left: '36%', x: '0%', y: '0%', opacity: 1 }}
         transition={{ duration: 0.2, delay: 0 }}
         className="absolute z-0"
       >
-        <div className="w-60 h-60 bg-secondary rounded-full blur-3xl opacity-50" />
+        <div className="rounded-full opacity-50 w-60 h-60 bg-secondary blur-3xl" />
       </motion.div>
       <motion.div
         initial={{ top: '57%', left: '13%', x: '0%', y: '0%', opacity: 1 }}
@@ -88,7 +88,7 @@ const Page = () => {
         transition={{ duration: 0.2, delay: 0 }}
         className="absolute z-0"
       >
-        <div className="w-60 h-60 bg-primary rounded-full blur-3xl opacity-50" />
+        <div className="rounded-full opacity-50 w-60 h-60 bg-primary blur-3xl" />
       </motion.div>
       <TextInput
         onSubmit={
@@ -124,7 +124,7 @@ const Page = () => {
             )}
             <DialogFooter>
               <button
-                className="bg-secondary text-white px-4 py-2 rounded-lg"
+                className="px-4 py-2 text-white rounded-lg bg-secondary"
                 onClick={handleConfirm}
               >
                 Confirm

@@ -4,7 +4,7 @@ const saveProject = async (req: Request, res: Response) => {
   try {
     const { prisma } = req.context
     const { projectId } = req.params
-    const { color, modelType, designs } = req.body
+    const { color, modelType, designs, thumbnail } = req.body
 
     const projectDesigns = await prisma.design.findMany({
       where: {
@@ -67,6 +67,7 @@ const saveProject = async (req: Request, res: Response) => {
         designs: {
           connect: designsResults.map((design) => ({ id: design.id })),
         },
+        thumbnail,
       },
       include: {
         designs: true,

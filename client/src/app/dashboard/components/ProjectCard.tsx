@@ -29,7 +29,7 @@ const ProjectCard = (props: ProjectCardProps) => {
         onMouseLeave={() => setIsHover(false)}
         className="flex w-full hover:cursor-pointer rounded-2xl"
       >
-        <div className="relative h-full w-full rounded-2xl overflow-hidden">
+        <div className="relative w-full h-full overflow-hidden rounded-2xl">
           <motion.div
             onClick={handleClick}
             animate={{ scale: isHover ? 1.08 : 1 }}
@@ -46,7 +46,7 @@ const ProjectCard = (props: ProjectCardProps) => {
             />
           </motion.div>
           <motion.div
-            className="flex items-center justify-center absolute rounded-b-2xl w-full bottom-0 p-4 bg-black bg-opacity-20"
+            className="absolute bottom-0 flex items-center justify-center w-full p-4 bg-black rounded-b-2xl bg-opacity-20"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: isHover ? 1 : 0, y: isHover ? 0 : 10 }}
             transition={{ duration: 0.3 }}

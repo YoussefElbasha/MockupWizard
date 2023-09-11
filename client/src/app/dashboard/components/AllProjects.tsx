@@ -13,7 +13,7 @@ const AllFolders = ({ onClick }: allFoldersProps) => {
     >
       <div className="flex gap-[10px] items-center">
         <Home />
-        <p className="text-xs w-20 text-left">All Folders</p>
+        <p className="w-20 text-xs text-left">All Projects</p>
       </div>
     </button>
   );

@@ -60,7 +60,7 @@ const Dalle = () => {
         )
 
         const path = res.data.url.replace(
-          'http://res.cloudinary.com/',
+          'https://res.cloudinary.com/',
           '/image/'
         )
 
@@ -68,8 +68,8 @@ const Dalle = () => {
           ...canvasObjects,
           {
             url: path,
-            top: 250,
-            left: 250,
+            top: 150,
+            left: 150,
             scale: 100,
             rotation: 0,
           },
@@ -79,8 +79,8 @@ const Dalle = () => {
           ...canvasObjects,
           {
             url: path,
-            top: 250,
-            left: 250,
+            top: 150,
+            left: 150,
             scale: 100,
             rotation: 0,
           },
@@ -133,7 +133,7 @@ const Dalle = () => {
             )}
             <DialogFooter>
               <button
-                className="bg-secondary text-white px-4 py-2 rounded-lg"
+                className="px-4 py-2 text-white rounded-lg bg-secondary"
                 onClick={handleConfirm}
               >
                 Confirm

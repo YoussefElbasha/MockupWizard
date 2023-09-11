@@ -36,7 +36,7 @@ const Input = (props: inputProps) => {
         {props.eyeIcon && (
           <button
             type="button"
-            className="p-2 right-2 top-1/2 -translate-y-1/2 cursor-pointer absolute"
+            className="absolute p-2 -translate-y-1/2 cursor-pointer right-2 top-1/2"
             onClick={() => props.onClick()}
           >
             {props.passwordType === "password" ? (
@@ -49,7 +49,7 @@ const Input = (props: inputProps) => {
       </div>
       {props.errors[props.registerName] && (
         <motion.p
-          className="text-xs text-red-500 font-medium"
+          className="text-xs font-medium text-red-500"
           {...framer_error}
         >
           {props.errors[props.registerName]?.message}

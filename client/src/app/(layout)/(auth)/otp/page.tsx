@@ -2,8 +2,8 @@
 import toast from "react-hot-toast";
 import OtpInput from "@/app/components/auth-components/otp";
 import { motion } from "framer-motion";
-import api from "../../../../util/Axios";
-import { handleApiError } from "../../../../util/errorHandling";
+import api from "../../../../../util/Axios";
+import { handleApiError } from "../../../../../util/errorHandling";
 
 interface PageProps {
   searchParams: {

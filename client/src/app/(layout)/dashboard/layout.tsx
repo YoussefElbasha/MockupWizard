@@ -1,17 +1,25 @@
 "use client";
+import React, { useEffect, useState } from "react";
+import useSWR, { mutate } from "swr";
+import { Toaster } from "react-hot-toast";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
+import FolderLoader from "../../components/dashboard-components/FolderLoader";
+import FolderButton from "../../components/dashboard-components/FolderButton";
+import DeleteFolder from "../../components/dashboard-components/DeleteFolder";
+import CreateFolder from "../../components/dashboard-components/CreateFolder";
+import api from "../../../../util/Axios";
+import FolderTab from "../../components/dashboard-components/FolderTab";
+import Home from "@/app/icons/home.svg";
+import { handleApiError } from "../../../../util/errorHandling";
 import React, { useEffect, useState } from "react";
 import useSWR, { mutate } from "swr";
 import { Toaster } from "react-hot-toast";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import FolderLoader from "./components/FolderLoader";
-import FolderButton from "./components/FolderButton";
-import DeleteFolder from "./components/DeleteFolder";
-import CreateFolder from "./components/CreateFolder";
-import api from "../../../util/Axios";
-import FolderTab from "./components/FolderTab";
-import { handleApiError } from "../../../util/errorHandling";
 import FolderPulse from "./components/FolderPulse";
 import AllProjects from "./components/AllProjects";
 
@@ -36,7 +44,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       handleApiError(error);
     }
   };
-  const createFolder = async (folderName: string) => {
+  const createFolder = async ({ folderName }: any) => {
     try {
       setIsCreatingFolder(true);
       await api.post(
@@ -85,7 +93,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   };
   return (
     <div className="flex gap-16 p-4 sm:p-10 md:px-40 md:py-14">
-      <Toaster />
       <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           <CreateFolder onSubmit={createFolder} />
@@ -123,7 +130,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       </div>
       {pathname === "/dashboard" && !isLoading ? (
         <div className="">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-16 md:gap-20">
+          <div className="grid grid-cols-1 gap-16 sm:grid-cols-2 md:grid-cols-4 md:gap-20">
             {folders.map((folder: any) => {
               return (
                 <FolderButton

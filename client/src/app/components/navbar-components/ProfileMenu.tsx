@@ -45,14 +45,13 @@ function ProfileMenu(props: profileMenuProps) {
 
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen}>
-      <Toaster />
       <MenuHandler>
         <Button
           variant="text"
-          className="flex p-2 items-center gap-4 rounded-full"
+          className="flex items-center gap-4 p-2 rounded-full"
         >
           <div>
-            <img className="rounded-full w-10" src="/pepeWizard.png" />
+            <img className="w-10 rounded-full" src="/pepeWizard.png" />
           </div>
           <div className="flex flex-col font-[500] text-sm text-left">
             <p className="text-white">{props.username}</p>
