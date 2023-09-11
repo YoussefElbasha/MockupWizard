@@ -55,8 +55,7 @@ const Page = () => {
   const loginUser = async (url: string, { arg }: { arg: loginData }) => {
     try {
       if (withOTP) url += "/otp";
-      const response = await api.post(url, arg);
-      return response.data;
+      await api.post(url, arg);
     } catch (err: any) {
       throw err;
     }
@@ -76,7 +75,7 @@ const Page = () => {
         router.push(`/otp?email=${userData.email}`);
       } else {
         toast.success("Login success.");
-        router.push("/");
+        router.push("/dashboard");
         mutate("user-info");
       }
     } catch (error: any) {
@@ -104,9 +103,8 @@ const Page = () => {
       >
         <div className="w-60 h-60 bg-primary rounded-full blur-3xl opacity-50" />
       </motion.div>
-
-      <div className="flex flex-grow flex-col items-center justify-center md:flex-row z-10">
-        <div className="p-10 text-white flex-grow justify-center flex flex-col items-start gap-10">
+      <div className="flex  flex-col items-center justify-center md:flex-row z-10">
+        <div className="p-10 text-white  justify-center flex flex-col items-start gap-10">
           <div>
             <h1 className="text-4xl font-bold">Sign in to design</h1>
             <h1 className="text-4xl font-bold">you own product</h1>

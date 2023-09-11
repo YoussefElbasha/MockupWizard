@@ -95,6 +95,7 @@ const Form = (props: formProps) => {
                 checked={props.withOTP}
                 checkedIcon={false}
                 uncheckedIcon={false}
+                onColor="#4461F2"
               />
               <p>Sign in with OTP</p>
             </div>

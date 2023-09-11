@@ -57,8 +57,7 @@ const Page = () => {
 
   const registerUser = async (url: string, { arg }: { arg: registerData }) => {
     try {
-      const response = await api.post(url, arg);
-      return response.data;
+      await api.post(url, arg);
     } catch (err: any) {
       throw err;
     }
@@ -76,7 +75,7 @@ const Page = () => {
       toast.dismiss(loadingPromise);
       toast.success("Registered successfully.");
       mutate("user-info");
-      router.push("/");
+      router.push("/dashboard");
     } catch (error: any) {
       toast.dismiss(loadingPromise);
       handleApiError(error);

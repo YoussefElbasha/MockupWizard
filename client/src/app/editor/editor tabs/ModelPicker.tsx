@@ -17,7 +17,11 @@ interface ModelPickerProps {
 }
 
 const ModelPicker = ({ button }: ModelPickerProps) => {
-  const Models: ModelEnum[] = [ModelEnum.MUG, ModelEnum.TSHIRT]
+  const Models: ModelEnum[] = [
+    ModelEnum.MUG,
+    ModelEnum.TSHIRT,
+    ModelEnum.POSTERFRAME,
+  ]
 
   return (
     <Sheet>

@@ -40,13 +40,14 @@ export default function RootLayout({
   });
   useEffect(() => {
     if (data && (pathName === "/sign-in" || pathName === "/signup")) {
-      router.replace("/");
+      router.replace("/dashboard");
     }
-  }, [pathName]);
+  }, [data, pathName, router]);
+
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="relative bg-background flex flex-col min-h-screen text-white">
+        <div className="relative flex flex-col min-h-screen text-white bg-background">
           <Navbar
             user={data}
             isLoading={isValidating}
