@@ -6,27 +6,35 @@ import "../../globals.css";
 
 function Model(props: any) {
   const { scene } = useGLTF("/shirt_baked.glb");
+  const { color } = props;
+
+  // Traverse the scene and modify the existing material properties
+  scene.traverse((child) => {
+    if (child instanceof Mesh) {
+      if (child.material instanceof MeshStandardMaterial) {
+        child.material.color.set(color);
+      }
+    }
+  });
+
   return <primitive object={scene} {...props} />;
 }
 
 const MyMesh = () => {
   const mesh = useRef<Mesh>(null);
   const [color, setColor] = useState<string>("#DDA82A");
+  const material = new MeshStandardMaterial({ color: color }); // Create material outside render function
 
   const handleClick = () => {
-    console.log("Clicked!");
     // Generate a random color in hexadecimal format
     const randomColor = "#" + ((Math.random() * 0xffffff) | 0).toString(16);
-    console.log(randomColor);
     setColor(randomColor);
   };
 
-  useFrame(() => {
+  useFrame((state, delta) => {
     if (mesh.current) {
-      mesh.current.rotation.y += 0.01;
-      if (mesh.current.material instanceof MeshStandardMaterial) {
-        mesh.current.material.color.set(color);
-      }
+      mesh.current.rotation.y += delta * 0.5; // Adjust the rotation speed using delta
+      mesh.current.position.y = Math.cos(state.clock.getElapsedTime()) * 0.0003;
     }
   });
 
@@ -34,10 +42,10 @@ const MyMesh = () => {
     <mesh
       ref={mesh}
       onClick={handleClick}
-      material={new MeshStandardMaterial({ color: color })}
+      material={material} // Use the consistent material
     >
       <Stage preset="upfront" environment={"warehouse"} intensity={0.05}>
-        <Model scale={0.01} />
+        <Model color={color} scale={0.01} />
       </Stage>
     </mesh>
   );

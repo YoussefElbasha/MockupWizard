@@ -38,7 +38,7 @@ export default function RootLayout({
   });
   useEffect(() => {
     if (data && (pathName === "/sign-in" || pathName === "/signup")) {
-      router.replace("/");
+      router.replace("/dashboard");
     }
   }, [data, pathName, router]);
   return (

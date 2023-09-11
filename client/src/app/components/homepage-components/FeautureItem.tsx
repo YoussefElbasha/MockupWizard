@@ -27,7 +27,7 @@ const FeatureItem: React.FC<FeatureItemProps> = ({
         <div className="w-full h-[1px] bg-white/10 w-full" />
         <p className="text-white">{paragraph}</p>
       </div>
-      <div className="flex-1 aspect-video bg-red-400 flex items-start bg-white rounded-lg text-black justify-center items-center">
+      <div className="flex-1 aspect-video flex items-start bg-white rounded-lg text-black justify-center items-center">
         Screenshot Here
       </div>
       {/* <div className="flex-1">
