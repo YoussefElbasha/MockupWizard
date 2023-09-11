@@ -59,7 +59,7 @@ const Dalle = () => {
           formData
         )
 
-        const path = res.data.url.replace(
+        const path = res.data.secure_url.replace(
           'https://res.cloudinary.com/',
           '/image/'
         )

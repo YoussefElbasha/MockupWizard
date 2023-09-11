@@ -29,7 +29,7 @@ const ModelPicker = ({ button }: ModelPickerProps) => {
     <Sheet>
       <TooltipProvider delayDuration={300}>
         <Tooltip disableHoverableContent>
-          <TooltipTrigger>
+          <TooltipTrigger asChild>
             <SheetTrigger asChild>{button}</SheetTrigger>
           </TooltipTrigger>
           <TooltipContent

@@ -1,11 +1,12 @@
-import React from "react";
-import Balancer from "react-wrap-balancer";
+import Image from 'next/image'
+import React from 'react'
+import Balancer from 'react-wrap-balancer'
 
 interface FeatureItemProps {
-  imgUrl: string;
-  title: string;
-  paragraph: string;
-  reverse?: boolean;
+  imgUrl: string
+  title: string
+  paragraph: string
+  reverse?: boolean
 }
 
 const FeatureItem: React.FC<FeatureItemProps> = ({
@@ -17,7 +18,7 @@ const FeatureItem: React.FC<FeatureItemProps> = ({
   return (
     <div
       className={`flex w-full max-w-screen-lg ${
-        reverse ? "flex-row-reverse" : ""
+        reverse ? 'flex-row-reverse' : ''
       } h-[20rem] items-center justify-between gap-52`}
     >
       <div className="flex-1 flex flex-col gap-6 max-w-[30em] justify-start items-start">
@@ -27,14 +28,14 @@ const FeatureItem: React.FC<FeatureItemProps> = ({
         <div className="w-full h-[1px] bg-white/10 w-full" />
         <p className="text-white">{paragraph}</p>
       </div>
-      <div className="flex-1 aspect-video flex items-start bg-white rounded-lg text-black justify-center items-center">
-        Screenshot Here
+      <div className="relative flex-1 aspect-video flex items-start bg-white rounded-lg text-black justify-center items-center">
+        <Image src={imgUrl} alt={title} fill className="object-cover" />
       </div>
       {/* <div className="flex-1">
         <img src={imgUrl} alt={title} className="max-w-full h-auto" />
       </div> */}
     </div>
-  );
-};
+  )
+}
 
-export default FeatureItem;
+export default FeatureItem
