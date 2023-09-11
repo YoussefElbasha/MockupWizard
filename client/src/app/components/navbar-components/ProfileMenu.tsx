@@ -37,7 +37,7 @@ function ProfileMenu(props: profileMenuProps) {
   const closeMenu = () => setIsMenuOpen(false);
 
   const handleSignout = async () => {
-    await api.get("http://api.app.localhost:4000/auth/logout");
+    await api.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`);
     toast.success("Logged out.");
     mutate("user-info");
     router.replace("/");

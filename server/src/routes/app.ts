@@ -1,5 +1,5 @@
 import express from "express";
-import generateImageController from "../controller/editor/generate-image";
+
 const router = express.Router();
 
 router.get("/me", async (req, res) => {
@@ -17,6 +17,6 @@ router.get("/me", async (req, res) => {
   }
 });
 
-router.post("/generate-image", generateImageController);
+
 
 export default router;

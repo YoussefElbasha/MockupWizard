@@ -3,7 +3,7 @@ import Google from "@/app/icons/google.svg";
 import Facebook from "@/app/icons/facebook.svg";
 
 const handleGoogleLogin = () => {
-  window.location.href = "http://localhost:4000/auth/google";
+  window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google`;
 };
 
 const OauthComponent = () => {

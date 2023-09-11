@@ -35,7 +35,7 @@ const schema = yup.object().shape({
     .oneOf([yup.ref("password")], "Passwords do not match"),
 });
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const [passwordType, setPasswordType] = useState("password");
 
@@ -57,15 +57,14 @@ const page = () => {
 
   const registerUser = async (url: string, { arg }: { arg: registerData }) => {
     try {
-      const response = await api.post(url, arg);
-      return response.data;
+      await api.post(url, arg);
     } catch (err: any) {
       throw err;
     }
   };
 
-  const { data, trigger, isMutating } = useSWRMutation(
-    `${process.env.SERVER_URL}auth/register`,
+  const { trigger, isMutating } = useSWRMutation(
+    `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
     registerUser
   );
 
@@ -76,7 +75,7 @@ const page = () => {
       toast.dismiss(loadingPromise);
       toast.success("Registered successfully.");
       mutate("user-info");
-      router.push("/");
+      router.push("/dashboard");
     } catch (error: any) {
       toast.dismiss(loadingPromise);
       handleApiError(error);
@@ -91,7 +90,7 @@ const page = () => {
         transition={{ duration: 0.1, delay: 0 }}
         className="absolute"
       >
-        <div className="w-60 h-60 bg-[#DDA82A] rounded-full blur-3xl opacity-50" />
+        <div className="w-60 h-60 bg-secondary rounded-full blur-3xl opacity-50" />
       </motion.div>
       <motion.div
         initial={{ top: "50%", left: "50%", x: "-50%", y: "-50%", opacity: 1 }}
@@ -99,7 +98,7 @@ const page = () => {
         transition={{ duration: 0.1, delay: 0 }}
         className="absolute"
       >
-        <div className="w-60 h-60 bg-[#4461F2] rounded-full blur-3xl opacity-50" />
+        <div className="w-60 h-60 bg-primary rounded-full blur-3xl opacity-50" />
       </motion.div>
 
       <div className="flex flex-col items-center justify-center md:flex-row z-10">
@@ -120,13 +119,13 @@ const page = () => {
         <div className="p-10 text-white flex-grow justify-center flex flex-col items-start gap-10">
           <div>
             <h1 className="text-4xl font-bold">Unleash your</h1>
-            <h1 className="text-4xl font-bold">product's potential!</h1>
+            <h1 className="text-4xl font-bold">{"product's potential!"}</h1>
           </div>
           <div className="font-semibold">
             <p>already have an account?</p>
             <p>
               you can{" "}
-              <span className="text-[#4461F2] hover:text-indigo-500">
+              <span className="text-primary hover:text-indigo-500">
                 <Link href="/sign-in">sign in here!</Link>
               </span>
             </p>
@@ -137,4 +136,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

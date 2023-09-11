@@ -8,7 +8,7 @@ interface FileUploadProps {
 }
 
 const FileUpload = ({ onClick }: FileUploadProps) => {
-  const { setDesigns, canvasObjects } = useCanvasContext()
+  const { setDesigns, canvasObjects, setCanvasObjects } = useCanvasContext()
 
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -41,8 +41,19 @@ const FileUpload = ({ onClick }: FileUploadProps) => {
       ...canvasObjects,
       {
         url: path,
-        top: 100,
-        left: 100,
+        top: 250,
+        left: 250,
+        scale: 100,
+        rotation: 0,
+      },
+    ])
+
+    setCanvasObjects((prev: any) => [
+      ...canvasObjects,
+      {
+        url: path,
+        top: 250,
+        left: 250,
         scale: 100,
         rotation: 0,
       },
@@ -63,6 +74,7 @@ const FileUpload = ({ onClick }: FileUploadProps) => {
         className="bg-white p-2 rounded-full w-[3.5em] h-[3.5em] drop-shadow-lg"
         onClick={handleClick}
       >
+        <p className="sr-only">File Upload</p>
         <div className="translate-x-[0.20em] hover:scale-[1.1] transition-all ease-in-out duration-300">
           <Images style={{ fill: 'black', height: '2em', width: '2em' }} />
         </div>

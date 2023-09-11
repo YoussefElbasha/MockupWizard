@@ -13,7 +13,7 @@ const Button = (props: buttonProps) => {
       className={
         props.isMutating
           ? "my-6 text-white bg-blue-100 rounded-lg p-3 text-sm shadow-lg shadow-blue-500/50"
-          : "my-6 hover:bg-indigo-500 transition ease-in-out duration-600 text-white bg-[#4461F2] rounded-lg p-3 text-sm shadow-lg shadow-blue-500/50"
+          : "my-6 hover:bg-indigo-500 transition ease-in-out duration-600 text-white bg-primary rounded-lg p-3 text-sm shadow-lg shadow-blue-500/50"
       }
     >
       {props.label}
