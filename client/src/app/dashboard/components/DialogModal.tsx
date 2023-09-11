@@ -55,7 +55,7 @@ const DialogModal = ({
               className="text-[13px] text-white opacity-[0.8]"
               match={(value: any) => value.trim() !== "delete"}
             >
-              Please type 'delete'
+              Please type &apos;delete&apos; to confirm
             </Form.Message>
           )}
         </div>
