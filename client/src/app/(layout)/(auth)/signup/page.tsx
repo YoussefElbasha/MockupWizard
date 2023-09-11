@@ -11,7 +11,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import toast, { Toaster } from "react-hot-toast";
 import Link from "next/link";
 import { mutate } from "swr";
-
 import AuthCanvas from "@/app/components/auth-components/AuthCanvas";
 import Form from "@/app/components/auth-components/Form";
 import { handleApiError } from "../../../../../util/errorHandling";

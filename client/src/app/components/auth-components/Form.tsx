@@ -55,17 +55,19 @@ const Form = (props: formProps) => {
                 passwordType={props.passwordType}
                 eyeIcon={true}
               />
-              <Input
-                label="Confirm Password"
-                placeholder="Confirm password"
-                register={props.register}
-                registerName="confirmPassword"
-                errors={props.errors}
-                onClick={props.toggleHidePassword}
-                passwordType={props.passwordType}
-                eyeIcon={true}
-              />
-              <Button label="Sign up" isMutating={props.isMutating} />
+
+              <div className="flex gap-2 text-xs items-center">
+                <Switch
+                  onChange={() => {
+                    props.setWithOTP(!props.withOTP)
+                  }}
+                  checked={props.withOTP}
+                  checkedIcon={false}
+                  uncheckedIcon={false}
+                  onColor="#4461F2"
+                />
+                <Button label="Sign up" isMutating={props.isMutating} />
+              </div>
             </>
           ) : (
             <>
@@ -89,7 +91,7 @@ const Form = (props: formProps) => {
                   eyeIcon={true}
                 />
               )}
-              <div className="flex items-center gap-2 text-xs">
+              <div className="flex gap-2 text-xs items-center">
                 <Switch
                   onChange={() => {
                     props.setWithOTP(!props.withOTP)
@@ -97,6 +99,7 @@ const Form = (props: formProps) => {
                   checked={props.withOTP}
                   checkedIcon={false}
                   uncheckedIcon={false}
+                  onColor="#4461F2"
                 />
                 <p>Sign in with OTP</p>
               </div>
@@ -109,7 +112,8 @@ const Form = (props: formProps) => {
       </form>
       <Link
         href="/forgot-password"
-        className="text-xs font-medium transition-colors duration-200 text-white/40 hover:text-white/100">
+        className="text-xs font-medium transition-colors duration-200 text-white/40 hover:text-white/100"
+      >
         Forgot password?
       </Link>
     </div>

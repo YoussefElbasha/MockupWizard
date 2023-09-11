@@ -2,8 +2,9 @@ import { Request, Response } from "express";
 
 const editProfile = async (req: Request, res: Response) => {
   try {
-    const { prisma } = req.context;
-    const { id, username, picture } = req.body;
+    const { context, userId } = req;
+    const { prisma } = context;
+    const { username, picture } = req.body;
 
     const updateData: Record<string, any> = {};
 
@@ -16,7 +17,7 @@ const editProfile = async (req: Request, res: Response) => {
 
     // Update the project with the provided data
     await prisma.user.update({
-      where: { id: id },
+      where: { id: userId },
       data: updateData,
     });
 
