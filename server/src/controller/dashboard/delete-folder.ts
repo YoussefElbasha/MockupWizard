@@ -11,7 +11,6 @@ const deleteFolder = async (req: Request, res: Response) => {
 
     return res.status(200).json("Folder deleted.");
   } catch (e: any) {
-    console.log("Error deleting folder: ", e);
     return res.status(500).json("An error occurred.");
   }
 };

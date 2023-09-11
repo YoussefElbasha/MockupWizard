@@ -1,10 +1,10 @@
-'use client'
-import toast from 'react-hot-toast'
-import ImageCard from './components/imagecard'
-import TextInput from './components/TextInput'
-import { motion } from 'framer-motion'
-import React, { useState } from 'react'
-import api from '../../../../../util/Axios'
+"use client";
+import toast from "react-hot-toast";
+import ImageCard from "./components/imagecard";
+import TextInput from "./components/TextInput";
+import { motion } from "framer-motion";
+import React, { useState } from "react";
+import api from "../../../../../util/Axios";
 import {
   Dialog,
   DialogContent,
@@ -12,57 +12,56 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
-import useSWRMutation from 'swr/mutation'
-import { Save } from 'react-ionicons'
-import { useCanvasContext } from '../../contexts/canvas-context'
-import axios from 'axios'
+} from "@/components/ui/dialog";
+import useSWRMutation from "swr/mutation";
+import { Save } from "react-ionicons";
+import { useCanvasContext } from "../../contexts/canvas-context";
+import axios from "axios";
 
 const Dalle = () => {
-  const [urls, setUrls] = useState<string[]>([])
-  const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const [selectedImage, setSelectedImage] = useState<string | null>(null)
-  const { setDesigns, canvasObjects, setCanvasObjects } = useCanvasContext()
+  const [urls, setUrls] = useState<string[]>([]);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const { setDesigns, canvasObjects, setCanvasObjects } = useCanvasContext();
 
   const { trigger, isMutating } = useSWRMutation(
     `${process.env.NEXT_PUBLIC_API_URL}/editor/generate-image`,
     async (url, { arg }: { arg: string }) => {
-      const res = await api.post(url, { prompt: arg })
-      return res.data
+      const res = await api.post(url, { prompt: arg });
+      return res.data;
     },
     {
       onSuccess: (data) => {
-        setUrls(data)
+        setUrls(data);
       },
       onError: (error) => {
-        toast.error('Something went wrong')
-        console.error(error)
+        toast.error("Something went wrong");
+        console.error(error);
       },
     }
-  )
+  );
 
   const handleDialogClose = () => {
-    setIsDialogOpen(false)
-  }
+    setIsDialogOpen(false);
+  };
 
   const handleConfirm = async () => {
     // Perform actions when the user confirms their choice
     try {
       if (selectedImage) {
-        const formData = new FormData()
-        console.log(selectedImage)
-        formData.append('file', selectedImage)
-        formData.append('upload_preset', 'model_designs')
+        const formData = new FormData();
+        formData.append("file", selectedImage);
+        formData.append("upload_preset", "model_designs");
 
         const res = await axios.post(
-          'https://api.cloudinary.com/v1_1/dfbid2goy/image/upload',
+          "https://api.cloudinary.com/v1_1/dfbid2goy/image/upload",
           formData
-        )
+        );
 
         const path = res.data.url.replace(
-          'https://res.cloudinary.com/',
-          '/image/'
-        )
+          "https://res.cloudinary.com/",
+          "/image/"
+        );
 
         setDesigns((prev: any) => [
           ...canvasObjects,
@@ -73,7 +72,7 @@ const Dalle = () => {
             scale: 100,
             rotation: 0,
           },
-        ])
+        ]);
 
         setCanvasObjects((prev: any) => [
           ...canvasObjects,
@@ -84,29 +83,28 @@ const Dalle = () => {
             scale: 100,
             rotation: 0,
           },
-        ])
+        ]);
       } else {
-        console.log('No image selected')
+        console.log("No image selected");
       }
     } catch (error) {
-      toast.error('Something went wrong')
-      console.error(error)
+      toast.error("Something went wrong");
+      console.error(error);
     }
-    setIsDialogOpen(false) // Close the dialog
-  }
+    setIsDialogOpen(false); // Close the dialog
+  };
 
   const handleImageClick = (imageUrl: string) => {
     // Update the selected image when the user clicks on an image
-    setSelectedImage(imageUrl)
-    console.log('Selected image:', imageUrl)
-  }
+    setSelectedImage(imageUrl);
+  };
 
   return (
     <div>
       <TextInput
         onSubmit={(prompt) => {
-          setIsDialogOpen(true)
-          trigger(prompt)
+          setIsDialogOpen(true);
+          trigger(prompt);
         }}
       />
       {isDialogOpen && (
@@ -143,7 +141,7 @@ const Dalle = () => {
         </Dialog>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Dalle
+export default Dalle;

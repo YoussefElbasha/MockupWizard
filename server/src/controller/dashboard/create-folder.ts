@@ -15,7 +15,6 @@ const createFolder = async (req: Request, res: Response) => {
 
     res.status(200).json(folder);
   } catch (e: any) {
-    console.log("Error creating folder:", e);
     return res.status(500).json("An error occurred.");
   }
 };

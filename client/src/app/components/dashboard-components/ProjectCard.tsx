@@ -18,7 +18,6 @@ const ProjectCard = (props: ProjectCardProps) => {
   const [isHover, setIsHover] = useState(false);
 
   const handleClick = () => {
-    console.log("momen");
     router.push(`/editor/${props.id}`);
   };
 
