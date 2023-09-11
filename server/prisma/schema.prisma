@@ -38,7 +38,7 @@ model Folder {
 
 model Project {
   id        String   @id @default(cuid()) @map("_id")
-  folder    Folder   @relation(fields: [folderId], references: [id])
+  folder    Folder   @relation(fields: [folderId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   folderId  String
   name      String   @default("New Project")
   createdAt DateTime @default(now())
