@@ -39,15 +39,14 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const createFolder = async (folderName: string) => {
     try {
       setIsCreatingFolder(true);
-      await api
-        .post(`${process.env.NEXT_PUBLIC_API_URL}/dashboard/create-folder`, {
+      await api.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/dashboard/create-folder`,
+        {
           folderName: folderName,
-        })
-        .then((response) => {
-          setFolders((prevFolders) => [...prevFolders, response.data]);
-        });
+        }
+      );
+      await mutate("getFolders");
       setIsCreatingFolder(false);
-      mutate("getFolders");
     } catch (error: any) {
       handleApiError(error);
     }
