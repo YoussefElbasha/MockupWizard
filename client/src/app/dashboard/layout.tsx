@@ -5,15 +5,15 @@ import useSWR, { mutate } from "swr";
 import { Toaster } from "react-hot-toast";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import FolderLoader from "../components/dashboard-components/FolderLoader";
-import FolderButton from "../components/dashboard-components/FolderButton";
-import DeleteFolder from "../components/dashboard-components/DeleteFolder";
-import CreateFolder from "../components/dashboard-components/CreateFolder";
+import FolderLoader from "./components/FolderLoader";
+import FolderButton from "./components/FolderButton";
+import DeleteFolder from "./components/DeleteFolder";
+import CreateFolder from "./components/CreateFolder";
 import api from "../../../util/Axios";
-import FolderTab from "../components/dashboard-components/FolderTab";
+import FolderTab from "./components/FolderTab";
 import { handleApiError } from "../../../util/errorHandling";
-import FolderPulse from "../components/dashboard-components/FolderPulse";
-import AllProjects from "../components/dashboard-components/AllProjects";
+import FolderPulse from "./components/FolderPulse";
+import AllProjects from "./components/AllProjects";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();

@@ -7,10 +7,10 @@ import { motion } from "framer-motion";
 import { BeatLoader } from "react-spinners";
 
 import BackIcon from "@/app/icons/arrow-back-outline.svg";
-import ProjectCard from "@/app/components/dashboard-components/ProjectCard";
+import ProjectCard from "@/app/dashboard/components/ProjectCard";
 import api from "../../../../util/Axios";
 import { handleApiError } from "../../../../util/errorHandling";
-import CreateProject from "@/app/components/dashboard-components/CreateProject";
+import CreateProject from "@/app/dashboard/components/CreateProject";
 
 interface pageProps {
   params: {
