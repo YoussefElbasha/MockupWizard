@@ -23,27 +23,22 @@ interface ModelPickerProps {
 }
 
 const ModelPicker = ({ button }: ModelPickerProps) => {
-  const Models: ModelEnum[] = [
-    ModelEnum.MUG,
-    ModelEnum.TSHIRT,
-    ModelEnum.POSTERFRAME,
-  ]
+  const Models: ModelEnum[] = [ModelEnum.MUG, ModelEnum.TSHIRT]
 
   return (
     <Sheet>
       <TooltipProvider delayDuration={300}>
         <Tooltip disableHoverableContent>
-          <TooltipTrigger>
+          <TooltipTrigger asChild>
             <SheetTrigger asChild>{button}</SheetTrigger>
           </TooltipTrigger>
           <TooltipContent
             sideOffset={-45}
             alignOffset={75}
             align="start"
-            avoidCollisions={false}>
-            <p>
-              Change Model
-            </p>
+            avoidCollisions={false}
+          >
+            <p>Change Model</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>

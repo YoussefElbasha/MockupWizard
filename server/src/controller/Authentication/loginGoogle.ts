@@ -5,7 +5,7 @@ const loginGoogle = (req: any, res: any) => {
     `https://accounts.google.com/o/oauth2/v2/auth?` +
     `client_id=${GOOGLE_CLIENT_ID}` +
     `&redirect_uri=${encodeURIComponent(
-      process.env.FRONTEND_URL + "/auth/google/callback"
+      process.env.API_URL + "/auth/google/callback"
     )}` +
     `&response_type=code` +
     `&scope=openid%20email%20profile`;

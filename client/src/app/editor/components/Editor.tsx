@@ -6,7 +6,6 @@ import { ModelEnum } from '../contexts/model-enum'
 import { useCanvasContext } from '../contexts/canvas-context'
 import { forwardRef } from 'react'
 import Loader from '@/components/loader'
-import PosterFrame from '../models/PosterFrame'
 import Tshirt from '../models/tshirt'
 import Mug from '../models/mug'
 
@@ -39,14 +38,14 @@ const Editor = forwardRef<HTMLCanvasElement, EditorProps>((props, ref) => {
       gl={{ preserveDrawingBuffer: true }}
       className="w-full h-full max-w-full transition-all ease-in"
       style={{ background: '#ffffff' }}
-      ref={ref}>
+      ref={ref}
+    >
       <ambientLight intensity={0.5} />
       <Environment preset="city" />
       <OrbitControls zoomSpeed={2} />
       <Center>
         {modelType === ModelEnum.TSHIRT && <Tshirt />}
         {modelType === ModelEnum.MUG && <Mug />}
-        {modelType === ModelEnum.POSTERFRAME && <PosterFrame />}
       </Center>
     </Canvas>
   )
