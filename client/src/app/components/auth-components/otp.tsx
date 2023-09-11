@@ -1,8 +1,8 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-
-import axios, { AxiosError } from "axios";
+import { mutate } from "swr";
+import { AxiosError } from "axios";
 import api from "../../../../util/Axios";
 import toast from "react-hot-toast";
 
@@ -27,6 +27,7 @@ const OtpInput = ({ email }: OtpInputProps) => {
         email: email,
       });
       router.push("/dashboard");
+      mutate("user-info");
     } catch (e) {
       const error = (e as AxiosError).response?.data;
       const message =

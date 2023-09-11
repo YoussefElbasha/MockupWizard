@@ -53,11 +53,11 @@ const otpverify = async (req: any, res: any) => {
     });
 
     res.cookie("accessToken", token.accessToken, {
-      maxAge: 3600000,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
       httpOnly: true,
       domain: accessTokenCookieDomain,
     });
-    res.status(200).json({ token, user });
+    res.status(200).json({ token });
   } catch (e: any) {
     res.status(400).json(e.message);
   }
