@@ -7,7 +7,6 @@ const enhahcePrompt = async (req: any, res: any) => {
         data: [prompt],
       })
       .then((result) => {
-        console.log(result.data.data[0]);
         res.send(result.data.data[0]);
       });
   } catch (err) {

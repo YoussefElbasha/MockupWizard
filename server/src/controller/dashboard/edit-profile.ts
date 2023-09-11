@@ -23,7 +23,6 @@ const editProfile = async (req: Request, res: Response) => {
 
     res.status(200).send("Profile edited.");
   } catch (error: any) {
-    console.log("Error editing profile: ", error);
     res.status(500).send("An error occurred.");
   }
 };

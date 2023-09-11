@@ -36,7 +36,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const createFolder = async (folderName: string) => {
     try {
       setIsCreatingFolder(true);
-      console.log(folderName);
       await api.post(
         `${process.env.NEXT_PUBLIC_API_URL}/dashboard/create-folder`,
         {

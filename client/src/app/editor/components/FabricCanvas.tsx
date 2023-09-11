@@ -9,7 +9,6 @@ import { CloseOutline, TrashOutline } from "react-ionicons";
 
 const FabricCanvas = () => {
   const {
-    canvasUrl,
     setCanvasUrl,
     canvas,
     setCanvas,
@@ -18,7 +17,6 @@ const FabricCanvas = () => {
     setCanvasObjects,
     canvasObjects,
     color,
-    setColor,
   } = useCanvasContext();
 
   useEffect(() => {
@@ -30,7 +28,7 @@ const FabricCanvas = () => {
 
     const visibleDesigns = canvasObjects.length ? canvasObjects : ["/1x1.png"];
 
-    visibleDesigns.forEach((design: any, index: any) => {
+    visibleDesigns.forEach((design: any) => {
       fabric.Image.fromURL(design.url, function (img) {
         try {
           img.crossOrigin = "anonymous";
@@ -51,8 +49,7 @@ const FabricCanvas = () => {
       });
     });
 
-    canvas.on("object:modified", function (e) {
-      console.log("modified");
+    canvas.on("object:modified", function () {
       canvas.getActiveObject()?.bringToFront();
       setCanvasUrl(canvas.toDataURL({ multiplier: 4 }));
       setCanvasObjects(
@@ -68,20 +65,17 @@ const FabricCanvas = () => {
       );
     });
 
-    canvas.on("selection:created", function (event) {
-      console.log("selected");
+    canvas.on("selection:created", function () {
       setCanvas(canvas);
       setIsSelected(true);
     });
 
-    canvas.on("selection:updated", function (event) {
-      console.log("updated");
+    canvas.on("selection:updated", function () {
       setCanvas(canvas);
       setIsSelected(true);
     });
 
-    canvas.on("selection:cleared", function (event) {
-      console.log("cleared");
+    canvas.on("selection:cleared", function () {
       setIsSelected(false);
     });
 
@@ -107,15 +101,10 @@ const FabricCanvas = () => {
       setCanvasObjects(tempCanvasObjects);
       setDesigns(tempCanvasObjects);
     } else {
-      console.log("I am here");
       setCanvasObjects([]);
       setDesigns([]);
     }
     setIsSelected(false);
-  };
-
-  const saveHandler = () => {
-    console.log(canvasObjects);
   };
 
   const [isVisible, setIsVisible] = useState(false);

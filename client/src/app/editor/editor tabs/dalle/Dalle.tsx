@@ -50,7 +50,6 @@ const Dalle = () => {
     try {
       if (selectedImage) {
         const formData = new FormData()
-        console.log(selectedImage)
         formData.append('file', selectedImage)
         formData.append('upload_preset', 'model_designs')
 
@@ -98,7 +97,6 @@ const Dalle = () => {
   const handleImageClick = (imageUrl: string) => {
     // Update the selected image when the user clicks on an image
     setSelectedImage(imageUrl)
-    console.log('Selected image:', imageUrl)
   }
 
   return (

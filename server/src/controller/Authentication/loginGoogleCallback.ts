@@ -44,7 +44,6 @@ const googleOAuthCallback = async (req: any, res: any) => {
       return res.redirect(`${process.env.FRONTEND_URL}/dashboard`);
     }
   } catch (error) {
-    console.log(error);
     return res.status(500).send("Something went wrong");
   }
 };
