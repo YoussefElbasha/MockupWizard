@@ -1,6 +1,6 @@
-import { redirect } from "next/navigation";
-import api from "../../../../../util/Axios";
-import Password from "./password";
+import { redirect } from 'next/navigation'
+import api from '../../../../../../util/Axios'
+import Password from './password'
 
 const verifyJwt = async (jwt: string) => {
   try {
@@ -9,19 +9,19 @@ const verifyJwt = async (jwt: string) => {
       {
         jwt,
       }
-    );
+    )
 
-    return data;
+    return data
   } catch (error: any) {
-    console.log(error.message);
-    return redirect("/forgot-password");
+    console.log(error.message)
+    return redirect('/forgot-password')
   }
-};
+}
 
 const ForgotPassword = async ({ params }: { params: { jwt: string } }) => {
-  const { jwt } = params;
+  const { jwt } = params
 
-  const user = await verifyJwt(jwt);
+  const user = await verifyJwt(jwt)
 
   return (
     <div className="flex flex-col w-full max-w-lg gap-10 py-10 mx-auto">
@@ -30,7 +30,7 @@ const ForgotPassword = async ({ params }: { params: { jwt: string } }) => {
       </h1>
       <Password jwt={jwt} />
     </div>
-  );
-};
+  )
+}
 
-export default ForgotPassword;
+export default ForgotPassword

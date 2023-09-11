@@ -2,18 +2,17 @@
 
 import React, { useState, useEffect } from 'react'
 import useSWR, { mutate } from 'swr'
-import api from '../../../../util/Axios'
+import api from '../../../../../util/Axios'
 import toast from 'react-hot-toast'
 import { motion } from 'framer-motion'
-import ProjectCard from '@/app/components/dashboard-components/ProjectCard'
 import { BeatLoader } from 'react-spinners'
-import AddProject from '@/app/components/dashboard-components/AddProject'
 import BackIcon from '@/app/icons/arrow-back-outline.svg'
 import { useRouter, useSearchParams } from 'next/navigation'
-import CreateProject from '@/app/components/dashboard-components/CreateProject'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import ProjectCard from '@/app/components/dashboard-components/ProjectCard'
+import CreateProject from '@/app/components/dashboard-components/CreateProject'
 
 interface pageProps {
   params: {

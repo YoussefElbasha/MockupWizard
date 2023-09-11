@@ -32,7 +32,7 @@ const Screenshot = forwardRef<HTMLCanvasElement, ScreenshotProps>(
         formData
       );
       const path = res.data.url.replace(
-        "http://res.cloudinary.com/",
+        "https://res.cloudinary.com/",
         "/image/"
       );
 

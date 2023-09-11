@@ -1,22 +1,22 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import toast from "react-hot-toast";
-import api from "../../../../../util/Axios";
-import { useRouter } from "next/navigation";
+import { useState } from 'react'
+import toast from 'react-hot-toast'
+import api from '../../../../../../util/Axios'
+import { useRouter } from 'next/navigation'
 
 const Password = ({ jwt }: { jwt: string }) => {
-  const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
+  const [password, setPassword] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
 
   const handlePasswordReset = async () => {
-    if (password.length === 0) return toast.error("Password is required");
+    if (password.length === 0) return toast.error('Password is required')
     if (password.length < 8)
-      return toast.error("Password must be at least 8 characters long");
+      return toast.error('Password must be at least 8 characters long')
 
     try {
-      setIsLoading(true);
+      setIsLoading(true)
 
       await api.post(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/forgot-password/reset`,
@@ -24,16 +24,16 @@ const Password = ({ jwt }: { jwt: string }) => {
           password,
           jwt,
         }
-      );
+      )
 
-      toast.success("Password reset successfully");
-      router.push("/sign-in");
+      toast.success('Password reset successfully')
+      router.push('/sign-in')
     } catch (error: any) {
-      toast.error("Something went wrong");
+      toast.error('Something went wrong')
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -54,12 +54,11 @@ const Password = ({ jwt }: { jwt: string }) => {
         type="button"
         className="p-3 text-xs font-semibold text-white transition-colors duration-200 rounded bg-primary hover:bg-primary/70 disabled:bg-gray-300/40"
         disabled={isLoading}
-        onClick={handlePasswordReset}
-      >
-        {isLoading ? "Resetting..." : "Reset Password"}
+        onClick={handlePasswordReset}>
+        {isLoading ? 'Resetting...' : 'Reset Password'}
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default Password;
+export default Password

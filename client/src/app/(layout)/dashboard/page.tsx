@@ -5,19 +5,18 @@ import Add from '@/app/icons/add.svg'
 import HomeIcon from '@/app/icons/home.svg'
 import FolderIcon from '@/app/icons/folder-outline.svg'
 import FolderrIcon from '@/app/icons/folderr.svg'
-import ProjectCard from '../components/dashboard-components/ProjectCard'
+import ProjectCard from '../../components/dashboard-components/ProjectCard'
 import { AnimatePresence, motion } from 'framer-motion'
-import AddProject from '../components/dashboard-components/AddProject'
-import Home from '../page'
+import AddProject from '../../components/dashboard-components/AddProject'
 import { fadeAnimation, slideAnimation } from './motion'
 import axios from 'axios'
-import api from '../../../util/Axios'
-import Navbar from '../components/navbar-components/Navbar'
-import Folder from '../components/dashboard-components/FolderTab'
+import api from '../../../../util/Axios'
+import Navbar from '../../components/navbar-components/Navbar'
+import Folder from '../../components/dashboard-components/FolderTab'
 import useSWR from 'swr'
 import toast, { Toaster } from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
-import CreateFolder from '../components/dashboard-components/CreateFolder'
+import CreateFolder from '../../components/dashboard-components/CreateFolder'
 
 const Page = () => {
   const router = useRouter()
@@ -141,7 +140,7 @@ const Page = () => {
     //                   })}
     //             </div>
     //           </div>
-    //           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+    //           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
     //             {isLoadingContent ? "Loading..." : ""}
     //             {currentFolderContents &&
     //               currentFolderContents.map((content: any, idx) => (

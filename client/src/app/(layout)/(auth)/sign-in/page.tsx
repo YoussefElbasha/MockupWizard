@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { motion } from "framer-motion";
-import api from "../../../../util/Axios";
+import api from "../../../../../util/Axios";
 import { useRouter } from "next/navigation";
 import useSWRMutation from "swr/mutation";
 import { mutate } from "swr";
@@ -14,7 +14,7 @@ import Link from "next/link";
 
 import AuthCanvas from "@/app/components/auth-components/AuthCanvas";
 import Form from "@/app/components/auth-components/Form";
-import { handleApiError } from "../../../../util/errorHandling";
+import { handleApiError } from "../../../../../util/errorHandling";
 
 interface loginData {
   email: string;
@@ -88,26 +88,26 @@ const Page = () => {
   return (
     <>
       <motion.div
-        // className="absolute top-1/2 left-1/4 transform translate-y-1/4 -translate-x-3/4"
+        // className="absolute transform top-1/2 left-1/4 translate-y-1/4 -translate-x-3/4"
         initial={{ top: "50%", left: "50%", x: "-50%", y: "-50%", opacity: 1 }}
         animate={{ top: "21%", left: "6%", x: "0%", y: "0%", opacity: 1 }}
         transition={{ duration: 0.1, delay: 0 }}
         className="absolute"
       >
-        <div className="w-60 h-60 bg-secondary rounded-full blur-3xl opacity-50" />
+        <div className="rounded-full opacity-50 w-60 h-60 bg-secondary blur-3xl" />
       </motion.div>
 
       <motion.div
-        // className="absolute top-1/2 left-1/4 transform translate-y-1/4 -translate-x-3/4"
+        // className="absolute transform top-1/2 left-1/4 translate-y-1/4 -translate-x-3/4"
         initial={{ top: "50%", left: "50%", x: "-50%", y: "-50%", opacity: 1 }}
         animate={{ top: "57%", left: "13%", x: "0%", y: "0%", opacity: 1 }}
         transition={{ duration: 0.1, delay: 0 }}
         className="absolute"
       >
-        <div className="w-60 h-60 bg-primary rounded-full blur-3xl opacity-50" />
+        <div className="rounded-full opacity-50 w-60 h-60 bg-primary blur-3xl" />
       </motion.div>
-      <div className="flex  flex-col items-center justify-center md:flex-row z-10">
-        <div className="p-10 text-white  justify-center flex flex-col items-start gap-10">
+      <div className="z-10 flex flex-col items-center justify-center md:flex-row">
+        <div className="flex flex-col items-start justify-center gap-10 p-10 text-white">
           <div>
             <h1 className="text-4xl font-bold">Sign in to design</h1>
             <h1 className="text-4xl font-bold">you own product</h1>
@@ -123,7 +123,6 @@ const Page = () => {
           </div>
         </div>
         <AuthCanvas />
-        <Toaster />
         <Form
           label="Sign in"
           onSubmit={handleSubmit(onSubmitHandler)}

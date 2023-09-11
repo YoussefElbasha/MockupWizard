@@ -2,14 +2,7 @@
 import React, { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import Add from "@/app/icons/add.svg";
-import FolderIcon from "@/app/icons/create-folder.svg";
-import { motion, AnimatePresence } from "framer-motion";
-import Backdrop from "./Backdrop";
-import { framer_error } from "@/app/dashboard/motion";
 import Modal from "./Modal";
-import AddProject from "./AddProject";
-import api from "../../../../util/Axios";
-import { toast } from "react-hot-toast";
 
 interface createProjectProps {
   register: any;
@@ -43,7 +36,7 @@ const CreateProject = (props: createProjectProps) => {
     <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
       <Dialog.Trigger asChild>
         <div className="flex h-full">
-          <button className="flex justify-center h-48 hover:opacity-50 items-center bg-highlight rounded-2xl w-full">
+          <button className="flex items-center justify-center w-full h-48 hover:opacity-50 bg-highlight rounded-2xl">
             <div className="flex flex-col items-center gap-3 ">
               <Add />
               <p>New Project</p>
@@ -53,7 +46,7 @@ const CreateProject = (props: createProjectProps) => {
       </Dialog.Trigger>
 
       <Dialog.Portal>
-        <Dialog.Overlay className="bg-black backdrop-blur-md bg-opacity-50 fixed inset-0" />
+        <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-md" />
         <Modal
           title="Create Project"
           label="Name"

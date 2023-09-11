@@ -1,22 +1,22 @@
-import React from "react";
-import Input from "./Input";
-import Button from "./Button";
-import OauthComponent from "./OauthComponent";
+import React from 'react'
+import Input from './Input'
+import Button from './Button'
+import OauthComponent from './OauthComponent'
 
-import Switch from "react-switch";
-import Link from "next/link";
+import Switch from 'react-switch'
+import Link from 'next/link'
 
 interface formProps {
-  label: string;
-  signup?: boolean;
-  onSubmit: any;
-  register: any;
-  errors: any;
-  toggleHidePassword: any;
-  passwordType: string;
-  isMutating: boolean;
-  withOTP: boolean;
-  setWithOTP: any;
+  label: string
+  signup?: boolean
+  onSubmit: any
+  register: any
+  errors: any
+  toggleHidePassword: any
+  passwordType: string
+  isMutating: boolean
+  withOTP: boolean
+  setWithOTP: any
 }
 
 const Form = (props: formProps) => {
@@ -59,7 +59,7 @@ const Form = (props: formProps) => {
               <div className="flex gap-2 text-xs items-center">
                 <Switch
                   onChange={() => {
-                    props.setWithOTP(!props.withOTP);
+                    props.setWithOTP(!props.withOTP)
                   }}
                   checked={props.withOTP}
                   checkedIcon={false}
@@ -94,7 +94,7 @@ const Form = (props: formProps) => {
               <div className="flex gap-2 text-xs items-center">
                 <Switch
                   onChange={() => {
-                    props.setWithOTP(!props.withOTP);
+                    props.setWithOTP(!props.withOTP)
                   }}
                   checked={props.withOTP}
                   checkedIcon={false}
@@ -117,7 +117,7 @@ const Form = (props: formProps) => {
         Forgot password?
       </Link>
     </div>
-  );
-};
+  )
+}
 
-export default Form;
+export default Form

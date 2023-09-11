@@ -1,3 +1,9 @@
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '../../../components/Hover'
 import axios from 'axios'
 import { Save } from 'react-ionicons'
 import useSWRMutation from 'swr/mutation'
@@ -68,29 +74,47 @@ const SaveButton = ({ projectId }: saveButtonProps) => {
   }, [isSaving, screenshotContainerRef])
 
   return (
-    <div>
-      <button
-        className="bg-white p-2 rounded-full w-[3.5em] h-[3.5em] drop-shadow-lg"
-        onClick={() => handleSave()}>
-        <p className="sr-only">Save Button</p>
-        <div className="translate-x-[0.20em] hover:scale-[1.1] transition-all ease-in-out duration-300 ">
-          {!isSaving ? (
-            <Save style={{ fill: 'black', height: '2em', width: '2em' }} />
-          ) : (
-            <div className="w-full -translate-x-1.5 h-full flex items-center justify-center">
-              <Loader className="before:!border-black before:!border-[4px] !w-8 !h-8" />
-            </div>
-          )}
-        </div>
-      </button>
-      {isSaving && (
-        <div
-          ref={screenshotContainerRef}
-          className="fixed left-[100vw] w-[1000px] h-[1000px] bg-red-400 -top-52">
-          <Editor id="save-canvas-editor" />
-        </div>
-      )}
-    </div>
+    <TooltipProvider delayDuration={300}>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <div>
+            <button
+              className="bg-white p-2 rounded-full w-[3.5em] h-[3.5em] drop-shadow-lg"
+              onClick={() => handleSave()}
+            >
+              <p className="sr-only">Save Button</p>
+              <div className="translate-x-[0.20em] hover:scale-[1.1] transition-all ease-in-out duration-300 ">
+                {!isSaving ? (
+                  <Save
+                    style={{ fill: 'black', height: '2em', width: '2em' }}
+                  />
+                ) : (
+                  <div className="w-full -translate-x-1.5 h-full flex items-center justify-center">
+                    <Loader className="before:!border-black before:!border-[4px] !w-8 !h-8" />
+                  </div>
+                )}
+              </div>
+            </button>
+            {isSaving && (
+              <div
+                ref={screenshotContainerRef}
+                className="fixed left-[100vw] w-[1000px] h-[1000px] bg-red-400 -top-52"
+              >
+                <Editor id="save-canvas-editor" />
+              </div>
+            )}
+          </div>
+        </TooltipTrigger>
+        <TooltipContent
+          sideOffset={-45}
+          alignOffset={75}
+          align="start"
+          avoidCollisions={false}
+        >
+          <p>Save Project</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   )
 }
 export default SaveButton
