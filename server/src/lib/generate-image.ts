@@ -18,7 +18,7 @@ async function generateImage(prompt: string) {
   const payload = {
     prompt: prompt,
     //256×256, 512×512, or 1024×1024.
-    size: "256x256",
+    size: "512x512",
     n: 2,
   };
 
