@@ -1,24 +1,23 @@
-import FeatureList from "./components/homepage-components/FeatureList";
+import FeatureList from "../components/homepage-components/FeatureList";
 import Link from "next/link";
-import StarIcon from "./icons/stars.svg";
-import "./globals.css";
+import StarIcon from "../icons/stars.svg";
 
 export default function Home() {
   return (
-    <div className="flex flex-col h-full w-full justify-center items-center gap-4 w-screen overflow-x-hidden">
+    <div className="flex flex-col items-center justify-center w-full w-screen h-full gap-4 overflow-x-hidden">
       <div className="h-[calc(90vh-10rem)] inline-flex p-[32rem 13.5rem 16rem 13.5rem] justify-center items-center flex-col gap-6">
         <div>
-          <h1 className="text-white font-inter font-semibold text-5xl tracking-tight leading-12 mt-1 relative text-center whitespace-nowrap">
+          <h1 className="relative mt-1 text-5xl font-semibold tracking-tight text-center text-white font-inter leading-12 whitespace-nowrap">
             Unleash your product&apos;s potential!
           </h1>
         </div>
         <div className="homepage p-text-black">
-          <p className="flex items-start justify-center relative p-0 px-58 py-18">
+          <p className="relative flex items-start justify-center p-0 px-58 py-18">
             Have a design you want to see materialized? You can see them here
           </p>
         </div>
         <Link href="/sign-in">
-          <button className="bg-custom-gradient rounded-full px-8 py-2 flex items-center">
+          <button className="flex items-center px-8 py-2 rounded-full bg-custom-gradient">
             <div className="text-white">Get Started</div>
           </button>
         </Link>

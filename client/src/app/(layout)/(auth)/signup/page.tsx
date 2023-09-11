@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { motion } from "framer-motion";
-import api from "../../../../util/Axios";
+import api from "../../../../../util/Axios";
 import { useRouter } from "next/navigation";
 import useSWRMutation from "swr/mutation";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,7 +14,7 @@ import { mutate } from "swr";
 
 import AuthCanvas from "@/app/components/auth-components/AuthCanvas";
 import Form from "@/app/components/auth-components/Form";
-import { handleApiError } from "../../../../util/errorHandling";
+import { handleApiError } from "../../../../../util/errorHandling";
 
 interface registerData {
   username: string;
@@ -90,7 +90,7 @@ const Page = () => {
         transition={{ duration: 0.1, delay: 0 }}
         className="absolute"
       >
-        <div className="w-60 h-60 bg-secondary rounded-full blur-3xl opacity-50" />
+        <div className="rounded-full opacity-50 w-60 h-60 bg-secondary blur-3xl" />
       </motion.div>
       <motion.div
         initial={{ top: "50%", left: "50%", x: "-50%", y: "-50%", opacity: 1 }}
@@ -98,10 +98,10 @@ const Page = () => {
         transition={{ duration: 0.1, delay: 0 }}
         className="absolute"
       >
-        <div className="w-60 h-60 bg-primary rounded-full blur-3xl opacity-50" />
+        <div className="rounded-full opacity-50 w-60 h-60 bg-primary blur-3xl" />
       </motion.div>
 
-      <div className="flex flex-col items-center justify-center md:flex-row z-10">
+      <div className="z-10 flex flex-col items-center justify-center md:flex-row">
         <Form
           label="Create Account"
           signup={true}
@@ -114,9 +114,8 @@ const Page = () => {
           withOTP={false}
           setWithOTP={undefined}
         />
-        <Toaster />
         <AuthCanvas />
-        <div className="p-10 text-white flex-grow justify-center flex flex-col items-start gap-10">
+        <div className="flex flex-col items-start justify-center flex-grow gap-10 p-10 text-white">
           <div>
             <h1 className="text-4xl font-bold">Unleash your</h1>
             <h1 className="text-4xl font-bold">{"product's potential!"}</h1>

@@ -2,7 +2,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { ModelEnum } from './model-enum'
 import useSWR from 'swr'
-import axios from 'axios'
+import api from '../../../../util/Axios'
 
 type CanvasContextProviderProps = {
   children: React.ReactNode
@@ -42,7 +42,7 @@ const CanvasContextProvider = ({
   const { data, error } = useSWR(
     `${process.env.NEXT_PUBLIC_API_URL}/editor/${projectId}`,
     (url: string) => {
-      return axios.get(url)
+      return api.get(url)
     },
     {
       onError: () => {

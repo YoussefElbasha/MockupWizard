@@ -2,18 +2,17 @@
 
 import React, { useState, useEffect } from 'react'
 import useSWR, { mutate } from 'swr'
-import api from '../../../../util/Axios'
+import api from '../../../../../util/Axios'
 import toast from 'react-hot-toast'
 import { motion } from 'framer-motion'
-import ProjectCard from '@/app/components/dashboard-components/ProjectCard'
 import { BeatLoader } from 'react-spinners'
-import AddProject from '@/app/components/dashboard-components/AddProject'
 import BackIcon from '@/app/icons/arrow-back-outline.svg'
 import { useRouter, useSearchParams } from 'next/navigation'
-import CreateProject from '@/app/components/dashboard-components/CreateProject'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import ProjectCard from '@/app/components/dashboard-components/ProjectCard'
+import CreateProject from '@/app/components/dashboard-components/CreateProject'
 
 interface pageProps {
   params: {
@@ -74,8 +73,8 @@ const Page = (props: pageProps) => {
     router.replace('/dashboard')
   } else {
     return (
-      <div className="flex flex-col gap-2 w-full">
-        <div className="flex gap-2 items-center">
+      <div className="flex flex-col w-full gap-2">
+        <div className="flex items-center gap-2">
           <button
             onClick={() => router.push('/dashboard')}
             className="hover:bg-[#4461F21A] p-2 rounded-lg"
@@ -89,11 +88,11 @@ const Page = (props: pageProps) => {
         </div>
 
         {isLoading ? (
-          <div className="flex w-full items-center justify-center">
+          <div className="flex items-center justify-center w-full">
             <BeatLoader color="white" />
           </div>
         ) : content.length !== 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
             {content.map((project: any, idx: number) => (
               <>
                 <motion.div
@@ -132,12 +131,12 @@ const Page = (props: pageProps) => {
             ))}
           </div>
         ) : (
-          <div className="flex w-full items-center justify-center">
+          <div className="flex items-center justify-center w-full">
             {isValidating ? (
               <BeatLoader color="white" />
             ) : (
               <div className="flex flex-col gap-6">
-                <h1 className="text-lg md:text-xl lg:text-3xl text-center font-semibold tracking-wide">
+                <h1 className="text-lg font-semibold tracking-wide text-center md:text-xl lg:text-3xl">
                   Create your first project.
                 </h1>
                 <CreateProject

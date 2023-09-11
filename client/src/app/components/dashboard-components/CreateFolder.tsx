@@ -3,9 +3,6 @@ import React, { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import Add from "@/app/icons/add.svg";
 import FolderIcon from "@/app/icons/folder-outline.svg";
-import { motion, AnimatePresence } from "framer-motion";
-import Backdrop from "./Backdrop";
-import { framer_error } from "@/app/dashboard/motion";
 import Modal from "./Modal";
 
 interface createFolderProps {
@@ -46,19 +43,19 @@ const CreateFolder = (props: createFolderProps) => {
             <p>New Folder</p>
           </button>
         ) : (
-          <div className="hover:bg-highlight border border-highlight p-2 rounded-lg cursor-pointer">
+          <div className="p-2 border rounded-lg cursor-pointer hover:bg-highlight border-highlight">
             <div className="flex gap-[10px] items-center">
-              <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center">
+              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-secondary">
                 <Add />
               </div>
-              <p className="text-xs w-20 text-left">New Folder</p>
+              <p className="w-20 text-xs text-left">New Folder</p>
             </div>
           </div>
         )}
       </Dialog.Trigger>
 
       <Dialog.Portal>
-        <Dialog.Overlay className="bg-black backdrop-blur-md bg-opacity-50 fixed inset-0" />
+        <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-md" />
         <Modal
           title="Create Folder"
           label="Folder name"

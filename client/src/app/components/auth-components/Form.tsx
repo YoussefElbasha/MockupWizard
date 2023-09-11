@@ -1,81 +1,50 @@
-import React from "react";
-import Input from "./Input";
-import Button from "./Button";
-import OauthComponent from "./OauthComponent";
+import React from 'react'
+import Input from './Input'
+import Button from './Button'
+import OauthComponent from './OauthComponent'
 
-import Switch from "react-switch";
+import Switch from 'react-switch'
+import Link from 'next/link'
 
 interface formProps {
-  label: string;
-  signup?: boolean;
-  onSubmit: any;
-  register: any;
-  errors: any;
-  toggleHidePassword: any;
-  passwordType: string;
-  isMutating: boolean;
-  withOTP: boolean;
-  setWithOTP: any;
+  label: string
+  signup?: boolean
+  onSubmit: any
+  register: any
+  errors: any
+  toggleHidePassword: any
+  passwordType: string
+  isMutating: boolean
+  withOTP: boolean
+  setWithOTP: any
 }
 
 const Form = (props: formProps) => {
   return (
-    <form onSubmit={props.onSubmit}>
-      <div className="flex flex-col gap-3 text-white py-10 px-24 font-bold">
-        <div className="py-2 px-8">
-          <h1 className="text-center text-lg mx-8">{props.label}</h1>
-        </div>
-        {props.signup ? (
-          <>
-            <Input
-              label="Username"
-              placeholder="Enter a username"
-              register={props.register}
-              registerName="username"
-              errors={props.errors}
-              onClick={() => {}}
-            />
-            <Input
-              label="Email"
-              placeholder="Enter email"
-              register={props.register}
-              registerName="email"
-              errors={props.errors}
-              onClick={() => {}}
-            />
-            <Input
-              label="Password"
-              placeholder="Enter password"
-              register={props.register}
-              registerName="password"
-              errors={props.errors}
-              onClick={props.toggleHidePassword}
-              passwordType={props.passwordType}
-              eyeIcon={true}
-            />
-            <Input
-              label="Confirm Password"
-              placeholder="Confirm password"
-              register={props.register}
-              registerName="confirmPassword"
-              errors={props.errors}
-              onClick={props.toggleHidePassword}
-              passwordType={props.passwordType}
-              eyeIcon={true}
-            />
-            <Button label="Sign up" isMutating={props.isMutating} />
-          </>
-        ) : (
-          <>
-            <Input
-              label="Email"
-              placeholder="Enter email"
-              register={props.register}
-              registerName="email"
-              errors={props.errors}
-              onClick={() => {}}
-            />
-            {!props.withOTP && (
+    <div className="flex flex-col items-center gap-4 pt-12">
+      <form onSubmit={props.onSubmit}>
+        <div className="flex flex-col gap-3 px-24 font-bold text-white">
+          <div className="px-8 py-2">
+            <h1 className="mx-8 text-lg text-center">{props.label}</h1>
+          </div>
+          {props.signup ? (
+            <>
+              <Input
+                label="Username"
+                placeholder="Enter a username"
+                register={props.register}
+                registerName="username"
+                errors={props.errors}
+                onClick={() => {}}
+              />
+              <Input
+                label="Email"
+                placeholder="Enter email"
+                register={props.register}
+                registerName="email"
+                errors={props.errors}
+                onClick={() => {}}
+              />
               <Input
                 label="Password"
                 placeholder="Enter password"
@@ -86,28 +55,65 @@ const Form = (props: formProps) => {
                 passwordType={props.passwordType}
                 eyeIcon={true}
               />
-            )}
-            <div className="flex gap-2 text-xs items-center">
-              <Switch
-                onChange={() => {
-                  props.setWithOTP(!props.withOTP);
-                }}
-                checked={props.withOTP}
-                checkedIcon={false}
-                uncheckedIcon={false}
-                onColor="#4461F2"
+              <Input
+                label="Confirm Password"
+                placeholder="Confirm password"
+                register={props.register}
+                registerName="confirmPassword"
+                errors={props.errors}
+                onClick={props.toggleHidePassword}
+                passwordType={props.passwordType}
+                eyeIcon={true}
               />
-              <p>Sign in with OTP</p>
-            </div>
+              <Button label="Sign up" isMutating={props.isMutating} />
+            </>
+          ) : (
+            <>
+              <Input
+                label="Email"
+                placeholder="Enter email"
+                register={props.register}
+                registerName="email"
+                errors={props.errors}
+                onClick={() => {}}
+              />
+              {!props.withOTP && (
+                <Input
+                  label="Password"
+                  placeholder="Enter password"
+                  register={props.register}
+                  registerName="password"
+                  errors={props.errors}
+                  onClick={props.toggleHidePassword}
+                  passwordType={props.passwordType}
+                  eyeIcon={true}
+                />
+              )}
+              <div className="flex items-center gap-2 text-xs">
+                <Switch
+                  onChange={() => {
+                    props.setWithOTP(!props.withOTP)
+                  }}
+                  checked={props.withOTP}
+                  checkedIcon={false}
+                  uncheckedIcon={false}
+                />
+                <p>Sign in with OTP</p>
+              </div>
 
-            <Button label="Sign in" isMutating={props.isMutating} />
-          </>
-        )}
+              <Button label="Sign in" isMutating={props.isMutating} />
+            </>
+          )}
+          <OauthComponent />
+        </div>
+      </form>
+      <Link
+        href="/forgot-password"
+        className="text-xs font-medium transition-colors duration-200 text-white/40 hover:text-white/100">
+        Forgot password?
+      </Link>
+    </div>
+  )
+}
 
-        <OauthComponent />
-      </div>
-    </form>
-  );
-};
-
-export default Form;
+export default Form

@@ -1,10 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import Add from "@/app/icons/add.svg";
-import { motion, AnimatePresence } from "framer-motion";
-import Backdrop from "./Backdrop";
-import { framer_error } from "@/app/dashboard/motion";
 import Modal from "./Modal";
 import Trash from "@/app/icons/trash-outline.svg";
 
@@ -45,7 +41,7 @@ const DeleteFolder = (props: deleteFolderProps) => {
       </Dialog.Trigger>
 
       <Dialog.Portal>
-        <Dialog.Overlay className="bg-black backdrop-blur-md bg-opacity-50 fixed inset-0" />
+        <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-md" />
         <Modal
           title="Delete Folder"
           label="Type 'delete' to remove the folder"

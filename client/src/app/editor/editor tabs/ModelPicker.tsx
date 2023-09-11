@@ -1,3 +1,9 @@
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '../../../components/Hover'
 import { useCanvasContext } from '../contexts/canvas-context'
 import { ModelEnum } from '../contexts/model-enum'
 import ModelButton from './model sheet/ModelButton'
@@ -25,7 +31,22 @@ const ModelPicker = ({ button }: ModelPickerProps) => {
 
   return (
     <Sheet>
-      <SheetTrigger asChild>{button}</SheetTrigger>
+      <TooltipProvider delayDuration={300}>
+        <Tooltip disableHoverableContent>
+          <TooltipTrigger>
+            <SheetTrigger asChild>{button}</SheetTrigger>
+          </TooltipTrigger>
+          <TooltipContent
+            sideOffset={-45}
+            alignOffset={75}
+            align="start"
+            avoidCollisions={false}>
+            <p>
+              Change Model
+            </p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
       <SheetContent>
         <SheetHeader>
           <SheetTitle>Choose another model</SheetTitle>

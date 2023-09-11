@@ -1,3 +1,9 @@
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '../../../../../components/Hover'
 import React, { useState, useEffect, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
@@ -10,6 +16,7 @@ interface TextInputProps {
 const TextInput: React.FC<TextInputProps> = ({ onSubmit }) => {
   const [prompt, setPrompt] = useState('')
   const [isVisible, setIsVisible] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -49,29 +56,47 @@ const TextInput: React.FC<TextInputProps> = ({ onSubmit }) => {
 
   return (
     <div className="relative" ref={containerRef}>
-      <div>
-        <button
-          className="bg-white p-2 rounded-full w-[3.5em] h-[3.5em] drop-shadow-lg"
-          onClick={toggleTextInput}
-        >
-          <p className="sr-only">Open text input</p>
-          <div className="translate-x-[0.20em] hover:scale-[1.1] transition-all ease-in-out duration-300">
-            <Planet style={{ fill: 'black', height: '2em', width: '2em' }} />
-          </div>
-        </button>
-      </div>
+      <TooltipProvider delayDuration={300}>
+        <Tooltip
+          open={isOpen}
+          onOpenChange={(open: boolean) => {
+            if (isVisible) setIsOpen(false)
+            else setIsOpen(open)
+          }}>
+          <TooltipTrigger asChild>
+            <div>
+              <button
+                className="bg-white p-2 rounded-full w-[3.5em] h-[3.5em] drop-shadow-lg"
+                onClick={toggleTextInput}>
+                <p className="sr-only">Open text input</p>
+                <div className="translate-x-[0.20em] hover:scale-[1.1] transition-all ease-in-out duration-300">
+                  <Planet
+                    style={{ fill: 'black', height: '2em', width: '2em' }}
+                  />
+                </div>
+              </button>
+            </div>
+          </TooltipTrigger>
+          <TooltipContent
+            sideOffset={-45}
+            alignOffset={75}
+            align="start"
+            avoidCollisions={false}>
+            <p>Generate Image from Text</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
       {isVisible && (
         <div className="absolute z-10 p-2 translate-x-4 -translate-y-1/2 rounded-lg shadow-md bg-background left-full top-1/2 w-72">
           <Textarea
             ref={textareaRef}
             placeholder="Enter your prompt..."
-            className="w-full h-24 bg-background rounded-none p-2"
+            className="w-full h-24 p-2 rounded-none bg-background"
             onChange={handleTextareaChange}
           />
           <Button
-            className="bg-secondary text-white px-4 py-2 mt-2 w-full rounded-lg"
-            onClick={handleSubmit}
-          >
+            className="w-full px-4 py-2 mt-2 text-white rounded-lg bg-secondary"
+            onClick={handleSubmit}>
             Submit
           </Button>
         </div>
