@@ -68,8 +68,8 @@ const Dalle = () => {
           ...canvasObjects,
           {
             url: path,
-            top: 250,
-            left: 250,
+            top: 150,
+            left: 150,
             scale: 100,
             rotation: 0,
           },
@@ -79,8 +79,8 @@ const Dalle = () => {
           ...canvasObjects,
           {
             url: path,
-            top: 250,
-            left: 250,
+            top: 150,
+            left: 150,
             scale: 100,
             rotation: 0,
           },

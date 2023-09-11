@@ -105,7 +105,17 @@ const Page = (props: pageProps) => {
                     key={project.id}
                     id={project.id}
                     label={project.name}
-                    image={project.thumbnail}
+                    image={
+                      project.thumbnail
+                        ? project.thumbnail?.replace(
+                            'https://res.cloudinary.com/',
+                            '/image/'
+                          )
+                        : 'https://res.cloudinary.com/dfbid2goy/image/upload/v1693938458/project_screenshots/h62z3gbxkprftc9m6bk3.png'.replace(
+                            'https://res.cloudinary.com/',
+                            '/image/'
+                          )
+                    }
                   />
                 </motion.div>
                 {idx === content.length - 1 && (

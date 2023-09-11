@@ -48,30 +48,27 @@ const FileUpload = ({ onClick }: FileUploadProps) => {
         '/image/'
       )
 
-      setDesigns((prev: any) => [
-        ...canvasObjects,
-        {
-          url: path,
-          top: 250,
-          left: 250,
-          scale: 100,
-          rotation: 0,
-        },
-      ])
+    setDesigns((prev: any) => [
+      ...canvasObjects,
+      {
+        url: path,
+        top: 150,
+        left: 150,
+        scale: 100,
+        rotation: 0,
+      },
+    ])
 
-      setCanvasObjects((prev: any) => [
-        ...canvasObjects,
-        {
-          url: path,
-          top: 250,
-          left: 250,
-          scale: 100,
-          rotation: 0,
-        },
-      ])
-    } catch (error) {
-      toast.error('Error uploading image')
-    }
+    setCanvasObjects((prev: any) => [
+      ...canvasObjects,
+      {
+        url: path,
+        top: 150,
+        left: 150,
+        scale: 100,
+        rotation: 0,
+      },
+    ])
   }
 
   return (
