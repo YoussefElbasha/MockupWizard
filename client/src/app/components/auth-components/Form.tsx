@@ -55,15 +55,16 @@ const Form = (props: formProps) => {
                 passwordType={props.passwordType}
                 eyeIcon={true}
               />
-              <Input
-                label="Confirm Password"
-                placeholder="Confirm password"
-                register={props.register}
-                registerName="confirmPassword"
-                errors={props.errors}
-                onClick={props.toggleHidePassword}
-                passwordType={props.passwordType}
-                eyeIcon={true}
+
+            <div className="flex gap-2 text-xs items-center">
+              <Switch
+                onChange={() => {
+                  props.setWithOTP(!props.withOTP);
+                }}
+                checked={props.withOTP}
+                checkedIcon={false}
+                uncheckedIcon={false}
+                onColor="#4461F2"
               />
               <Button label="Sign up" isMutating={props.isMutating} />
             </>
