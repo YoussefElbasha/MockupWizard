@@ -78,7 +78,8 @@ const Page = (props: pageProps) => {
         <div className="flex items-center gap-2">
           <button
             onClick={() => router.push('/dashboard')}
-            className="hover:bg-[#4461F21A] p-2 rounded-lg">
+            className="hover:bg-[#4461F21A] p-2 rounded-lg"
+          >
             <p className="sr-only">Back button</p>
             <BackIcon className="w-8 " />
           </button>
@@ -99,15 +100,23 @@ const Page = (props: pageProps) => {
                   onClick={() => {}}
                   initial={{ opacity: 0, x: -10, y: 20 }}
                   animate={{ opacity: 1, x: 0, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 * idx }}>
+                  transition={{ duration: 0.5, delay: 0.1 * idx }}
+                >
                   <ProjectCard
                     key={project.id}
                     id={project.id}
                     label={project.name}
-                    image={project.thumbnail.replace(
-                      'https://res.cloudinary.com/',
-                      '/image/'
-                    )}
+                    image={
+                      project.thumbnail
+                        ? project.thumbnail?.replace(
+                            'https://res.cloudinary.com/',
+                            '/image/'
+                          )
+                        : 'https://res.cloudinary.com/dfbid2goy/image/upload/v1693938458/project_screenshots/h62z3gbxkprftc9m6bk3.png'.replace(
+                            'https://res.cloudinary.com/',
+                            '/image/'
+                          )
+                    }
                   />
                 </motion.div>
                 {idx === content.length - 1 && (
@@ -119,7 +128,8 @@ const Page = (props: pageProps) => {
                       onClick={() => {}}
                       initial={{ opacity: 0, x: -10, y: 20 }}
                       animate={{ opacity: 1, x: 0, y: 0 }}
-                      transition={{ duration: 0.5, delay: 0.1 * idx }}>
+                      transition={{ duration: 0.5, delay: 0.1 * idx }}
+                    >
                       <CreateProject
                         register={createProjectForm.register}
                         errors={createProjectForm.formState.errors}
