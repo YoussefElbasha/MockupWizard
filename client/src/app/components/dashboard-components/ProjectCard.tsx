@@ -19,6 +19,7 @@ const ProjectCard = (props: ProjectCardProps) => {
   const [isHover, setIsHover] = useState(false);
 
   const handleClick = () => {
+    console.log("momen");
     router.push(`/editor/${props.id}`);
   };
 
@@ -27,13 +28,13 @@ const ProjectCard = (props: ProjectCardProps) => {
   return (
     <div className="flex h-full">
       <button
-        onClick={handleClick}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
         className="flex w-full hover:cursor-pointer rounded-2xl"
       >
         <div className="relative h-full w-full rounded-2xl overflow-hidden">
           <motion.div
+          onClick={handleClick}
             animate={{ scale: isHover ? 1.08 : 1 }}
             transition={{
               duration: 0.5,

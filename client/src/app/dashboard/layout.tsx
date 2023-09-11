@@ -14,7 +14,6 @@ import DeleteFolder from "../components/dashboard-components/DeleteFolder";
 import CreateFolder from "../components/dashboard-components/CreateFolder";
 import api from "../../../util/Axios";
 import FolderTab from "../components/dashboard-components/FolderTab";
-import Home from "@/app/icons/home.svg";
 import { handleApiError } from "../../../util/errorHandling";
 import FolderPulse from "../components/dashboard-components/FolderPulse";
 
@@ -76,27 +75,14 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     setCurrentFolder(folderId);
     router.push(`/dashboard/${folderName}?id=${folderId}`);
   };
-  const getAllProjects = async () => {
-    try {
-      const projects = await api.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/dashboard/get-all-projects`
-      );
 
-      console.log(projects.data);
-    } catch (e) {
-      console.log(e);
-    }
-    // router.push("/dashboard/all-projects");
-  };
-  const { data, isLoading, isValidating } = useSWR("getFolders", getFolders);
+  const { data, isLoading } = useSWR("getFolders", getFolders);
 
   useEffect(() => {
     if (data) {
       setFolders(data);
     }
-    const newFolder = pathname.split("/")[2];
-    setCurrentFolder(newFolder);
-  }, [data, pathname]);
+  }, [data]);
 
   const deleteFolder = async (folderId: string) => {
     try {
@@ -121,15 +107,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             errors={createFolderForm.formState.errors}
             onClick={createFolderForm.handleSubmit(createFolder)}
           />
-          <button
-            onClick={getAllProjects}
-            className="hover:bg-highlight border border-highlight p-3.5 rounded-lg cursor-pointer"
-          >
-            <div className="flex gap-[10px] items-center">
-              <Home />
-              <p className="text-xs w-20 text-left">All Projects</p>
-            </div>
-          </button>
         </div>
 
         <div>

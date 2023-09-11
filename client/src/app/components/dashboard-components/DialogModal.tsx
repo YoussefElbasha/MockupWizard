@@ -1,8 +1,10 @@
-import React from "react";
+"use client"
+import React, {useState} from "react";
 import * as Form from "@radix-ui/react-form";
 
 interface dialogModalProps {
   onSubmit: any;
+  title: string;
   name: string;
   label: string;
   palceHolder: string;
@@ -10,19 +12,33 @@ interface dialogModalProps {
 
 const DialogModal = ({
   onSubmit,
+  title,
   name,
   label,
   palceHolder,
 }: dialogModalProps) => {
-  const handleSubmit: React.FormEventHandler<HTMLDivElement> = (event) => {
+  const [isLoading, setIsLoading] = useState(false);
+  
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSubmit();
+    if(name === "delete"){
+      onSubmit();
+    }else{
+      const data = new FormData(event.currentTarget);
+      setIsLoading(true);
+      await onSubmit(data.get(name));
+      setIsLoading(false);
+    }
+    
   };
 
   return (
-    <Form.Root>
-      <Form.Field onSubmit={handleSubmit} name={name}>
+    <Form.Root onSubmit={handleSubmit}>
+      <Form.Field name={name}>
         <div className="flex flex-col items-baseline justify-between">
+          <div className="w-full mb-2">
+            <h1 className="text-center text-xl">{title}</h1>
+          </div>
           <Form.Label className="text-[15px] font-medium leading-[35px] text-white">
             {label}
           </Form.Label>
@@ -55,7 +71,7 @@ const DialogModal = ({
             type="submit"
             className="text-sm p-2 justify-end rounded-md bg-secondary hover:bg-background border border-secondary transition duration-300 ease-in-out"
           >
-            {name === "delete" ? "Delete" : "Create"}
+            {isLoading? "Loading" : name === "delete" ? "Delete" : "Create"}
           </button>
         </div>
       </Form.Submit>

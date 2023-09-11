@@ -46,7 +46,7 @@ const CreateProject = (props: createProjectProps) => {
           <button className="flex justify-center h-48 hover:opacity-50 items-center bg-highlight rounded-2xl w-full">
             <div className="flex flex-col items-center gap-3 ">
               <Add />
-              <p>New Project</p>
+              <p className="text-xs md:text-sm">New Project</p>
             </div>
           </button>
         </div>

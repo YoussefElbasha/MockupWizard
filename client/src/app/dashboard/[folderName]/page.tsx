@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { handleApiError } from "../../../../util/errorHandling";
+import CreateProject2 from "@/app/components/dashboard-components/CreateProject2";
 
 interface pageProps {
   params: {
@@ -42,7 +43,7 @@ const Page = (props: pageProps) => {
     );
     return response.data;
   };
-  const { data, error, isLoading, isValidating } = useSWR(folderId, () =>
+  const { data, error, isLoading } = useSWR(folderId, () =>
     getFolderContent(folderId)
   );
   useEffect(() => {
@@ -52,15 +53,20 @@ const Page = (props: pageProps) => {
   }, [data]);
 
   const deleteProject = async (projectId: string) => {
-    setContent((prevContent) => {
-      return prevContent.filter((project: any) => project.id !== projectId);
-    });
-    // await api.delete(
-    //   `${process.env.NEXT_PUBLIC_API_URL}/dashboard/delete-project/${projectId}}`
-    // );
+    try{
+      setContent((prevContent) => {
+        return prevContent.filter((project: any) => project.id !== projectId);
+      });
+      await api.delete(
+        `${process.env.NEXT_PUBLIC_API_URL}/dashboard/delete-project/${projectId}`
+      );
+    }catch(error){
+      handleApiError(error)
+    }
+    
   };
 
-  const createProject = async ({ projectName }: any) => {
+  const createProject = async (projectName: string) => {
     try {
       setIsCreatingProject(true);
       await api.post(
@@ -131,11 +137,7 @@ const Page = (props: pageProps) => {
                       animate={{ opacity: 1, x: 0, y: 0 }}
                       transition={{ duration: 0.5, delay: 0.1 * idx }}
                     >
-                      <CreateProject
-                        register={createProjectForm.register}
-                        errors={createProjectForm.formState.errors}
-                        onSubmit={createProjectForm.handleSubmit(createProject)}
-                      />
+                      <CreateProject2 onSubmit={createProject} />
                     </motion.div>
                   </>
                 )}
@@ -151,11 +153,7 @@ const Page = (props: pageProps) => {
                 <h1 className="text-lg md:text-xl lg:text-3xl text-center font-semibold tracking-wide">
                   Create your first project.
                 </h1>
-                <CreateProject
-                  register={createProjectForm.register}
-                  errors={createProjectForm.formState.errors}
-                  onSubmit={createProjectForm.handleSubmit(createProject)}
-                />
+                <CreateProject2 onSubmit={createProject} />
               </div>
             )}
           </div>

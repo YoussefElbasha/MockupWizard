@@ -1,32 +1,36 @@
 "use client";
 import React, { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import Modal from "./Modal";
-import TrashIcon from "@/app/icons/trash-outline.svg";
+import Add from "@/app/icons/add.svg";
 import DialogModal from "./DialogModal";
 
-interface deleteProjectProps {
+interface createProject2Props {
   onSubmit: any;
 }
 
-const DeleteProject = ({ onSubmit }: deleteProjectProps) => {
+const CreateProject2 = ({ onSubmit }: createProject2Props) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <button className="absolute rounded-full hover:text-red-600 text-gray-500 p-2.5 right-[10px] top-1/2 transform -translate-y-1/2">
-          <TrashIcon className="w-4" />
-        </button>
+      <div className="flex h-full">
+          <button className="flex justify-center h-48 hover:opacity-50 items-center bg-highlight rounded-2xl w-full">
+            <div className="flex flex-col items-center gap-3 ">
+              <Add />
+              <p className="text-xs md:text-sm">New Project</p>
+            </div>
+          </button>
+        </div>
       </Dialog.Trigger>
 
       <Dialog.Portal>
         <Dialog.Overlay className="bg-black backdrop-blur-md bg-opacity-50 fixed inset-0" />
         <Dialog.Content className="text-white fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-background p-[25px] focus:outline-none">
           <DialogModal
+          title="Create Project"
             onSubmit={onSubmit}
-            title="Delete Project"
-            name="delete"
-            label="Type 'delete' to remove project"
-            palceHolder="delete"
+            name="create"
+            label="Name"
+            palceHolder="Enter Project Name"
           />
         </Dialog.Content>
       </Dialog.Portal>
@@ -34,4 +38,4 @@ const DeleteProject = ({ onSubmit }: deleteProjectProps) => {
   );
 };
 
-export default DeleteProject;
+export default CreateProject2;
