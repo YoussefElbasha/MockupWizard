@@ -62,7 +62,7 @@ const Page = () => {
     }
   };
 
-  const { data, trigger, isMutating, error } = useSWRMutation(
+  const { trigger, isMutating } = useSWRMutation(
     `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
     loginUser
   );
@@ -88,7 +88,6 @@ const Page = () => {
   return (
     <>
       <motion.div
-        // className="absolute top-1/2 left-1/4 transform translate-y-1/4 -translate-x-3/4"
         initial={{ top: "50%", left: "50%", x: "-50%", y: "-50%", opacity: 1 }}
         animate={{ top: "21%", left: "6%", x: "0%", y: "0%", opacity: 1 }}
         transition={{ duration: 0.1, delay: 0 }}
@@ -96,12 +95,8 @@ const Page = () => {
       >
         <div className="w-60 h-60 bg-secondary rounded-full blur-3xl opacity-50" />
       </motion.div>
-      {/* <div className="absolute top-1/8 left-[6%] transform -translate-y-1/4 bg-red-700">
-        <div className="w-60 h-60 bg-[#DDA82A] rounded-full blur-3xl opacity-0" />
-      </div> */}
 
       <motion.div
-        // className="absolute top-1/2 left-1/4 transform translate-y-1/4 -translate-x-3/4"
         initial={{ top: "50%", left: "50%", x: "-50%", y: "-50%", opacity: 1 }}
         animate={{ top: "57%", left: "13%", x: "0%", y: "0%", opacity: 1 }}
         transition={{ duration: 0.1, delay: 0 }}
@@ -109,9 +104,7 @@ const Page = () => {
       >
         <div className="w-60 h-60 bg-primary rounded-full blur-3xl opacity-50" />
       </motion.div>
-      {/* <div className="absolute top-1/2 left-1/4 transform translate-y-1/4 -translate-x-3/4">
-        <div className="w-60 h-60 bg-[#4461F2] rounded-full blur-3xl opacity-0" />
-      </div> */}
+
       <div className="flex flex-grow flex-col items-center justify-center md:flex-row z-10">
         <div className="p-10 text-white flex-grow justify-center flex flex-col items-start gap-10">
           <div>

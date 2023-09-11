@@ -1,7 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import Modal from "./Modal";
 import TrashIcon from "@/app/icons/trash-outline.svg";
 import DialogModal from "./DialogModal";
 

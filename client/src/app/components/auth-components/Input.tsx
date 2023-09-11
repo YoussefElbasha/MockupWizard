@@ -1,7 +1,8 @@
 import React from "react";
+import { motion } from "framer-motion";
+
 import EyeIcon from "@/app/icons/eye-outline.svg";
 import EyeOffIcon from "@/app/icons/eye-off-outline.svg";
-import { motion } from "framer-motion";
 
 const framer_error = {
   initial: { opacity: 0, y: 10 },

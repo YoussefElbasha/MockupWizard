@@ -1,6 +1,9 @@
-"use client"
-import React, {useState} from "react";
+"use client";
+import React, { useState } from "react";
 import * as Form from "@radix-ui/react-form";
+
+const loadingCSS =
+  "text-sm p-2 justify-end rounded-md bg-background border border-secondary";
 
 interface dialogModalProps {
   onSubmit: any;
@@ -18,18 +21,17 @@ const DialogModal = ({
   palceHolder,
 }: dialogModalProps) => {
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if(name === "delete"){
+    if (name === "delete") {
       onSubmit();
-    }else{
+    } else {
       const data = new FormData(event.currentTarget);
       setIsLoading(true);
       await onSubmit(data.get(name));
       setIsLoading(false);
     }
-    
   };
 
   return (
@@ -69,9 +71,17 @@ const DialogModal = ({
         <div className="flex mt-6 justify-end space-x-2">
           <button
             type="submit"
-            className="text-sm p-2 justify-end rounded-md bg-secondary hover:bg-background border border-secondary transition duration-300 ease-in-out"
+            className={
+              isLoading
+                ? loadingCSS
+                : `text-sm p-2 justify-end rounded-md bg-secondary hover:bg-background border border-secondary transition duration-300 ease-in-out`
+            }
           >
-            {isLoading? "Loading" : name === "delete" ? "Delete" : "Create"}
+            {isLoading
+              ? "Creating..."
+              : name === "delete"
+              ? "Delete"
+              : "Create"}
           </button>
         </div>
       </Form.Submit>

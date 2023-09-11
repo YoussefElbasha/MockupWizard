@@ -2,20 +2,15 @@
 
 import React, { useState, useEffect } from "react";
 import useSWR, { mutate } from "swr";
-import api from "../../../../util/Axios";
-import toast from "react-hot-toast";
-import { motion } from "framer-motion";
-import ProjectCard from "@/app/components/dashboard-components/ProjectCard";
-import { BeatLoader } from "react-spinners";
-import AddProject from "@/app/components/dashboard-components/AddProject";
-import BackIcon from "@/app/icons/arrow-back-outline.svg";
 import { useRouter, useSearchParams } from "next/navigation";
-import CreateProject from "@/app/components/dashboard-components/CreateProject";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { motion } from "framer-motion";
+import { BeatLoader } from "react-spinners";
+
+import BackIcon from "@/app/icons/arrow-back-outline.svg";
+import ProjectCard from "@/app/components/dashboard-components/ProjectCard";
+import api from "../../../../util/Axios";
 import { handleApiError } from "../../../../util/errorHandling";
-import CreateProject2 from "@/app/components/dashboard-components/CreateProject2";
+import CreateProject from "@/app/components/dashboard-components/CreateProject";
 
 interface pageProps {
   params: {
@@ -23,19 +18,11 @@ interface pageProps {
   };
 }
 
-const createProjectSchema = yup.object().shape({
-  projectName: yup.string().required("Project name is required").max(20),
-});
-
-const Page = (props: pageProps) => {
+const Page = ({ params }: pageProps) => {
   const folderId = String(useSearchParams().get("id"));
   const router = useRouter();
   const [content, setContent] = useState([]);
   const [isCreatingProject, setIsCreatingProject] = useState(false);
-
-  const createProjectForm = useForm({
-    resolver: yupResolver(createProjectSchema),
-  });
 
   const getFolderContent = async (folderId: string) => {
     const response = await api.get(
@@ -53,17 +40,16 @@ const Page = (props: pageProps) => {
   }, [data]);
 
   const deleteProject = async (projectId: string) => {
-    try{
+    try {
       setContent((prevContent) => {
         return prevContent.filter((project: any) => project.id !== projectId);
       });
       await api.delete(
         `${process.env.NEXT_PUBLIC_API_URL}/dashboard/delete-project/${projectId}`
       );
-    }catch(error){
-      handleApiError(error)
+    } catch (error) {
+      handleApiError(error);
     }
-    
   };
 
   const createProject = async (projectName: string) => {
@@ -96,9 +82,7 @@ const Page = (props: pageProps) => {
             <p className="sr-only">Back button</p>
             <BackIcon className="w-8 " />
           </button>
-          <p className="text-lg">
-            {decodeURIComponent(props.params.folderName)}
-          </p>
+          <p className="text-lg">{decodeURIComponent(params.folderName)}</p>
         </div>
 
         {isLoading ? (
@@ -132,12 +116,11 @@ const Page = (props: pageProps) => {
                       </div>
                     )}
                     <motion.div
-                      onClick={() => {}}
                       initial={{ opacity: 0, x: -10, y: 20 }}
                       animate={{ opacity: 1, x: 0, y: 0 }}
                       transition={{ duration: 0.5, delay: 0.1 * idx }}
                     >
-                      <CreateProject2 onSubmit={createProject} />
+                      <CreateProject onSubmit={createProject} />
                     </motion.div>
                   </>
                 )}
@@ -153,7 +136,7 @@ const Page = (props: pageProps) => {
                 <h1 className="text-lg md:text-xl lg:text-3xl text-center font-semibold tracking-wide">
                   Create your first project.
                 </h1>
-                <CreateProject2 onSubmit={createProject} />
+                <CreateProject onSubmit={createProject} />
               </div>
             )}
           </div>

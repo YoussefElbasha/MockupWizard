@@ -1,46 +1,20 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import Add from "@/app/icons/add.svg";
 import FolderIcon from "@/app/icons/folder-outline.svg";
-import { motion, AnimatePresence } from "framer-motion";
-import Backdrop from "./Backdrop";
-import { framer_error } from "@/app/dashboard/motion";
-import Modal from "./Modal";
+import DialogModal from "./DialogModal";
 
 interface createFolderProps {
-  onClick: any;
-  errors: any;
-  register: any;
+  onSubmit: any;
   fromIcon?: boolean;
 }
 
-const CreateFolder = (props: createFolderProps) => {
-  const [isOpen, setIsOpen] = useState(false); // Track whether the dialog is open
-
-  const openDialog = () => {
-    setIsOpen(true);
-  };
-
-  const closeDialog = () => {
-    setIsOpen(false);
-  };
-
-  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    props.onClick(event);
-    if (props.errors.folderName) {
-      console.log(props.errors);
-    } else {
-      console.log("no errors");
-      closeDialog();
-    }
-  };
-
+const CreateFolder = ({ onSubmit, fromIcon }: createFolderProps) => {
   return (
-    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog.Root>
       <Dialog.Trigger asChild>
-        {props.fromIcon ? (
+        {fromIcon ? (
           <button className="flex flex-col items-center gap-2 cursor-pointer hover:opacity-50">
             <FolderIcon className="w-20 lg:w-24" />
             <p>New Folder</p>
@@ -59,16 +33,15 @@ const CreateFolder = (props: createFolderProps) => {
 
       <Dialog.Portal>
         <Dialog.Overlay className="bg-black backdrop-blur-md bg-opacity-50 fixed inset-0" />
-        <Modal
-          title="Create Folder"
-          label="Folder name"
-          placeholder="Enter folder name"
-          button="Create"
-          register={props.register}
-          errors={props.errors}
-          onSubmit={handleFormSubmit}
-          registerName="folderName"
-        />
+        <Dialog.Content className="text-white fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-background p-[25px] focus:outline-none">
+          <DialogModal
+            title="Create Folder"
+            onSubmit={onSubmit}
+            name="create"
+            label="Name"
+            palceHolder="Enter Folder Name"
+          />
+        </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
   );

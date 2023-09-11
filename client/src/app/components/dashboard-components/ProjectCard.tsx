@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import OptionsIcon from "@/app/icons/ellipsis-horizontal-outline.svg";
 import { useRouter } from "next/navigation";
 import DeleteProject from "./DeleteProject";
 
@@ -23,8 +22,6 @@ const ProjectCard = (props: ProjectCardProps) => {
     router.push(`/editor/${props.id}`);
   };
 
-  const deleteProject = async (projectId: string) => {};
-
   return (
     <div className="flex h-full">
       <button
@@ -34,7 +31,7 @@ const ProjectCard = (props: ProjectCardProps) => {
       >
         <div className="relative h-full w-full rounded-2xl overflow-hidden">
           <motion.div
-          onClick={handleClick}
+            onClick={handleClick}
             animate={{ scale: isHover ? 1.08 : 1 }}
             transition={{
               duration: 0.5,

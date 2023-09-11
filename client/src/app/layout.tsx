@@ -1,14 +1,15 @@
-'use client'
-import './globals.css'
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import Navbar from './components/navbar-components/Navbar'
-import api from '../../util/Axios'
-import useSWR from 'swr'
-import { useEffect } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
+"use client";
+import "./globals.css";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import useSWR from "swr";
+import { useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
-const inter = Inter({ subsets: ['latin'] })
+import Navbar from "./components/navbar-components/Navbar";
+import api from "../../util/Axios";
+
+const inter = Inter({ subsets: ["latin"] });
 
 // export const metadata: Metadata = {
 //   title: "Create Next App",
@@ -18,30 +19,30 @@ const inter = Inter({ subsets: ['latin'] })
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
-  const router = useRouter()
-  const pathName = usePathname()
+  const router = useRouter();
+  const pathName = usePathname();
   const fetchUserInfo = async () => {
     try {
       const response = await api.get(
         `${process.env.NEXT_PUBLIC_API_URL}/api/me`
-      )
-      return response.data
+      );
+      return response.data;
     } catch (e) {
-      return null
+      return null;
     }
-  }
-  const { data, isValidating } = useSWR('user-info', fetchUserInfo, {
+  };
+  const { data, isValidating } = useSWR("user-info", fetchUserInfo, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
-  })
+  });
   useEffect(() => {
-    if (data && (pathName === '/sign-in' || pathName === '/signup')) {
-      router.replace('/')
+    if (data && (pathName === "/sign-in" || pathName === "/signup")) {
+      router.replace("/");
     }
-  }, [pathName])
+  }, [pathName]);
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -50,14 +51,14 @@ export default function RootLayout({
             user={data}
             isLoading={isValidating}
             navLinks={[
-              { href: '/dashboard', name: 'Dashboard' },
-              { href: '/', name: 'Home' },
-              { href: '/account', name: 'Account' },
+              { href: "/dashboard", name: "Dashboard" },
+              { href: "/", name: "Home" },
+              { href: "/account", name: "Account" },
             ]}
           />
           {children}
         </div>
       </body>
     </html>
-  )
+  );
 }

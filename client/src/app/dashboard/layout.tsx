@@ -3,10 +3,7 @@
 import React, { useEffect, useState } from "react";
 import useSWR, { mutate } from "swr";
 import { Toaster } from "react-hot-toast";
-import { usePathname, useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import FolderLoader from "../components/dashboard-components/FolderLoader";
 import FolderButton from "../components/dashboard-components/FolderButton";
@@ -16,31 +13,15 @@ import api from "../../../util/Axios";
 import FolderTab from "../components/dashboard-components/FolderTab";
 import { handleApiError } from "../../../util/errorHandling";
 import FolderPulse from "../components/dashboard-components/FolderPulse";
-
-const createFolderSchema = yup.object().shape({
-  folderName: yup.string().required("Folder name is required").max(20),
-});
-
-const deleteFolderSchema = yup.object().shape({
-  deleteFolder: yup
-    .string()
-    .required("You must type 'delete'")
-    .oneOf(["delete"], "You must type 'delete'"),
-});
+import AllProjects from "../components/dashboard-components/AllProjects";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
   const router = useRouter();
+  const currentFolderId = String(useSearchParams().get("id"));
   const [folders, setFolders] = useState<any[]>([]);
   const [currentFolder, setCurrentFolder] = useState(pathname.split("/")[2]);
   const [isCreatingFolder, setIsCreatingFolder] = useState(false);
-
-  const createFolderForm = useForm({
-    resolver: yupResolver(createFolderSchema),
-  });
-  const deleteFolderForm = useForm({
-    resolver: yupResolver(deleteFolderSchema),
-  });
 
   const getFolders = async () => {
     try {
@@ -55,7 +36,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       handleApiError(error);
     }
   };
-  const createFolder = async ({ folderName }: any) => {
+  const createFolder = async (folderName: string) => {
     try {
       setIsCreatingFolder(true);
       await api
@@ -82,7 +63,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     if (data) {
       setFolders(data);
     }
-  }, [data]);
+    setCurrentFolder(currentFolderId);
+  }, [data, pathname]);
 
   const deleteFolder = async (folderId: string) => {
     try {
@@ -92,21 +74,23 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       await api.delete(
         `${process.env.NEXT_PUBLIC_API_URL}/dashboard/delete-folder/${folderId}`
       );
+      await mutate("getFolders");
       router.push("/dashboard");
     } catch (error: any) {
       handleApiError(error);
     }
+  };
+
+  const handleAllFolders = () => {
+    router.replace("/dashboard");
   };
   return (
     <div className="flex gap-16 p-4 sm:p-10 md:px-40 md:py-14">
       <Toaster />
       <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
-          <CreateFolder
-            register={createFolderForm.register}
-            errors={createFolderForm.formState.errors}
-            onClick={createFolderForm.handleSubmit(createFolder)}
-          />
+          <CreateFolder onSubmit={createFolder} />
+          <AllProjects onClick={handleAllFolders} />
         </div>
 
         <div>
@@ -126,13 +110,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                         }
                         isCurrent={currentFolder === folder.id ? true : false}
                       />
-                      <DeleteFolder
-                        onClick={deleteFolderForm.handleSubmit(() =>
-                          deleteFolder(folder.id)
-                        )}
-                        errors={deleteFolderForm.formState.errors}
-                        register={deleteFolderForm.register}
-                      />
+                      <DeleteFolder onSubmit={() => deleteFolder(folder.id)} />
                     </div>
                   </div>
                 );
@@ -157,12 +135,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
               );
             })}
             <div className="grid-start">
-              <CreateFolder
-                register={createFolderForm.register}
-                errors={createFolderForm.formState.errors}
-                onClick={createFolderForm.handleSubmit(createFolder)}
-                fromIcon={true}
-              />
+              <CreateFolder onSubmit={createFolder} fromIcon={true} />
             </div>
           </div>
         </div>

@@ -1,9 +1,9 @@
 import React from "react";
+import Switch from "react-switch";
+
 import Input from "./Input";
 import Button from "./Button";
 import OauthComponent from "./OauthComponent";
-
-import Switch from "react-switch";
 
 interface formProps {
   label: string;

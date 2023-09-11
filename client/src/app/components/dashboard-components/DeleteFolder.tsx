@@ -1,43 +1,16 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import Add from "@/app/icons/add.svg";
-import { motion, AnimatePresence } from "framer-motion";
-import Backdrop from "./Backdrop";
-import { framer_error } from "@/app/dashboard/motion";
-import Modal from "./Modal";
 import Trash from "@/app/icons/trash-outline.svg";
+import DialogModal from "./DialogModal";
 
 interface deleteFolderProps {
-  onClick: any;
-  errors: any;
-  register: any;
+  onSubmit: any;
 }
 
-const DeleteFolder = (props: deleteFolderProps) => {
-  const [isOpen, setIsOpen] = useState(false); // Track whether the dialog is open
-
-  const openDialog = () => {
-    setIsOpen(true);
-  };
-
-  const closeDialog = () => {
-    setIsOpen(false);
-  };
-
-  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    props.onClick();
-    if (props.errors.deleteFolder) {
-      console.log(props.errors);
-    } else {
-      console.log("no errors");
-      closeDialog();
-    }
-  };
-
+const DeleteFolder = ({ onSubmit }: deleteFolderProps) => {
   return (
-    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog.Root>
       <Dialog.Trigger asChild>
         <button className="rounded-full hover:text-red-600 text-gray-500 p-2.5">
           <Trash className="w-4" />
@@ -46,16 +19,15 @@ const DeleteFolder = (props: deleteFolderProps) => {
 
       <Dialog.Portal>
         <Dialog.Overlay className="bg-black backdrop-blur-md bg-opacity-50 fixed inset-0" />
-        <Modal
-          title="Delete Folder"
-          label="Type 'delete' to remove the folder"
-          placeholder="delete"
-          button="Delete"
-          register={props.register}
-          errors={props.errors}
-          onSubmit={handleFormSubmit}
-          registerName="deleteFolder"
-        />
+        <Dialog.Content className="text-white fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-background p-[25px] focus:outline-none">
+          <DialogModal
+            title="Delete Folder"
+            onSubmit={onSubmit}
+            name="delete"
+            label="Type 'delete' to remove folder"
+            palceHolder="delete"
+          />
+        </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
   );
