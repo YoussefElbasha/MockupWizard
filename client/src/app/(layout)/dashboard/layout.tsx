@@ -1,27 +1,16 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import useSWR, { mutate } from "swr";
-import { Toaster } from "react-hot-toast";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-
-import FolderLoader from "../../components/dashboard-components/FolderLoader";
-import FolderButton from "../../components/dashboard-components/FolderButton";
-import DeleteFolder from "../../components/dashboard-components/DeleteFolder";
-import CreateFolder from "../../components/dashboard-components/CreateFolder";
+import FolderLoader from "@/app/components/dashboard-components/FolderLoader";
+import FolderButton from "@/app/components/dashboard-components/FolderButton";
+import DeleteFolder from "@/app/components/dashboard-components/DeleteFolder";
+import CreateFolder from "@/app/components/dashboard-components/CreateFolder";
+import FolderPulse from "@/app/components/dashboard-components/FolderPulse";
+import AllProjects from "@/app/components/dashboard-components/AllProjects";
 import api from "../../../../util/Axios";
 import FolderTab from "../../components/dashboard-components/FolderTab";
-import Home from "@/app/icons/home.svg";
 import { handleApiError } from "../../../../util/errorHandling";
-import React, { useEffect, useState } from "react";
-import useSWR, { mutate } from "swr";
-import { Toaster } from "react-hot-toast";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-
-import FolderPulse from "./components/FolderPulse";
-import AllProjects from "./components/AllProjects";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
@@ -71,7 +60,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       setFolders(data);
     }
     setCurrentFolder(currentFolderId);
-  }, [data, pathname]);
+  }, [currentFolderId, data, pathname]);
 
   const deleteFolder = async (folderId: string) => {
     try {
