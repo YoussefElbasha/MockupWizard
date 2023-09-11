@@ -38,10 +38,11 @@ export default function RootLayout({
     revalidateOnReconnect: false,
   })
   useEffect(() => {
-    if (data && (pathName === '/sign-in' || pathName === '/signup')) {
-      router.replace('/')
+    if (data && (pathName === "/sign-in" || pathName === "/signup")) {
+      router.replace("/dashboard");
     }
-  }, [pathName])
+  }, [data, pathName, router]);
+
   return (
     <html lang="en">
       <body className={inter.className}>

@@ -61,7 +61,8 @@ const Page = () => {
     }
   };
 
-  const { trigger, isMutating } = useSWRMutation(
+  const { data, trigger, isMutating, error } = useSWRMutation(
+
     `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
     loginUser
   );
@@ -105,9 +106,8 @@ const Page = () => {
       >
         <div className="w-60 h-60 bg-primary rounded-full blur-3xl opacity-50" />
       </motion.div>
-
-      <div className="flex flex-grow flex-col items-center justify-center md:flex-row z-10">
-        <div className="p-10 text-white flex-grow justify-center flex flex-col items-start gap-10">
+      <div className="flex  flex-col items-center justify-center md:flex-row z-10">
+        <div className="p-10 text-white  justify-center flex flex-col items-start gap-10">
           <div>
             <h1 className="text-4xl font-bold">Sign in to design</h1>
             <h1 className="text-4xl font-bold">you own product</h1>
