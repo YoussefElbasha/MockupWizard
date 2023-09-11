@@ -1,62 +1,38 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import Add from "@/app/icons/add.svg";
-import Modal from "./Modal";
+import DialogModal from "./DialogModal";
 
 interface createProjectProps {
-  register: any;
-  errors: any;
   onSubmit: any;
 }
 
-const CreateProject = (props: createProjectProps) => {
-  const [isOpen, setIsOpen] = useState(false); // Track whether the dialog is open
-
-  const openDialog = () => {
-    setIsOpen(true);
-  };
-
-  const closeDialog = () => {
-    setIsOpen(false);
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    props.onSubmit(event);
-    if (props.errors.projectName) {
-      console.log(props.errors);
-    } else {
-      console.log("no errors");
-      closeDialog();
-    }
-  };
-
+const CreateProject = ({ onSubmit }: createProjectProps) => {
   return (
-    <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog.Root>
       <Dialog.Trigger asChild>
         <div className="flex h-full">
-          <button className="flex items-center justify-center w-full h-48 hover:opacity-50 bg-highlight rounded-2xl">
+          <button className="flex justify-center h-48 hover:opacity-50 items-center bg-highlight rounded-2xl w-full">
             <div className="flex flex-col items-center gap-3 ">
               <Add />
-              <p>New Project</p>
+              <p className="text-xs md:text-sm">New Project</p>
             </div>
           </button>
         </div>
       </Dialog.Trigger>
 
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-md" />
-        <Modal
-          title="Create Project"
-          label="Name"
-          placeholder="Enter project name"
-          button="Create"
-          register={props.register}
-          errors={props.errors}
-          onSubmit={handleSubmit}
-          registerName="projectName"
-        />
+        <Dialog.Overlay className="bg-black backdrop-blur-md bg-opacity-50 fixed inset-0" />
+        <Dialog.Content className="text-white fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[6px] bg-background p-[25px] focus:outline-none">
+          <DialogModal
+            title="Create Project"
+            onSubmit={onSubmit}
+            name="create"
+            label="Name"
+            palceHolder="Enter Project Name"
+          />
+        </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
   );

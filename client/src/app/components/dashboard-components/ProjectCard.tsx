@@ -3,13 +3,14 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import OptionsIcon from "@/app/icons/ellipsis-horizontal-outline.svg";
 import { useRouter } from "next/navigation";
+import DeleteProject from "./DeleteProject";
 
 interface ProjectCardProps {
   id: string;
   label: string;
   image: string;
+  onSubmit: any;
 }
 
 const ProjectCard = (props: ProjectCardProps) => {
@@ -17,19 +18,20 @@ const ProjectCard = (props: ProjectCardProps) => {
   const [isHover, setIsHover] = useState(false);
 
   const handleClick = () => {
+    console.log("momen");
     router.push(`/editor/${props.id}`);
   };
 
   return (
     <div className="flex h-full">
       <button
-        onClick={handleClick}
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
         className="flex w-full hover:cursor-pointer rounded-2xl"
       >
         <div className="relative w-full h-full overflow-hidden rounded-2xl">
           <motion.div
+            onClick={handleClick}
             animate={{ scale: isHover ? 1.08 : 1 }}
             transition={{
               duration: 0.5,
@@ -50,9 +52,7 @@ const ProjectCard = (props: ProjectCardProps) => {
             transition={{ duration: 0.3 }}
           >
             <p className="">{props.label}</p>
-            <div className="absolute hover:opacity-50 right-[10px] top-1/2 transform -translate-y-1/2">
-              <OptionsIcon className="w-8" />
-            </div>
+            <DeleteProject onSubmit={props.onSubmit} />
           </motion.div>
         </div>
       </button>

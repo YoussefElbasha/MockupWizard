@@ -1,5 +1,4 @@
 import React from "react";
-// import FolderIcon from "@/app/icons/folder.svg";
 import FolderIcon from "@/app/icons/folder-outline.svg";
 import FolderOpenIcon from "@/app/icons/folder-open.svg";
 import { motion } from "framer-motion";
