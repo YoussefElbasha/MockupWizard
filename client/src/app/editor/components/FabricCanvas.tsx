@@ -1,11 +1,11 @@
-"use client";
+'use client'
 
-import { fabric } from "fabric";
-import { useCanvasContext } from "../contexts/canvas-context";
-import { use, useEffect, useRef, useState } from "react";
-import MagicWand from "../../icons/magic-line.svg";
-import { AnimatePresence, motion } from "framer-motion";
-import { CloseOutline, TrashOutline } from "react-ionicons";
+import { fabric } from 'fabric'
+import { useCanvasContext } from '../contexts/canvas-context'
+import { use, useEffect, useRef, useState } from 'react'
+import MagicWand from '../../icons/magic-line.svg'
+import { AnimatePresence, motion } from 'framer-motion'
+import { CloseOutline, TrashOutline } from 'react-ionicons'
 
 const FabricCanvas = () => {
   const {
@@ -19,42 +19,42 @@ const FabricCanvas = () => {
     canvasObjects,
     color,
     setColor,
-  } = useCanvasContext();
+  } = useCanvasContext()
 
   useEffect(() => {
-    const canvas = new fabric.Canvas("canvas", {
+    const canvas = new fabric.Canvas('canvas', {
       backgroundColor: `${color}`,
       width: 300,
       height: 300,
-    });
+    })
 
-    const visibleDesigns = canvasObjects.length ? canvasObjects : ["/1x1.png"];
+    const visibleDesigns = canvasObjects.length ? canvasObjects : ['/1x1.png']
 
     visibleDesigns.forEach((design: any, index: any) => {
       fabric.Image.fromURL(design.url, function (img) {
         try {
-          img.crossOrigin = "anonymous";
-          img.scaleToWidth(design.scale);
-          img.rotate(design.rotation);
+          img.crossOrigin = 'anonymous'
+          img.scaleToWidth(design.scale)
+          img.rotate(design.rotation)
           img.set({
             left: design.left,
             top: design.top,
-            originX: "center",
-            originY: "center",
-          });
-          canvas.add(img);
-          canvas.renderAll();
-          setCanvasUrl(canvas.toDataURL({ multiplier: 4 }));
+            originX: 'center',
+            originY: 'center',
+          })
+          canvas.add(img)
+          canvas.renderAll()
+          setCanvasUrl(canvas.toDataURL({ multiplier: 4 }))
         } catch (error) {
-          console.log(error);
+          console.log(error)
         }
-      });
-    });
+      })
+    })
 
-    canvas.on("object:modified", function (e) {
-      console.log("modified");
-      canvas.getActiveObject()?.bringToFront();
-      setCanvasUrl(canvas.toDataURL({ multiplier: 4 }));
+    canvas.on('object:modified', function (e) {
+      console.log('modified')
+      canvas.getActiveObject()?.bringToFront()
+      setCanvasUrl(canvas.toDataURL({ multiplier: 4 }))
       setCanvasObjects(
         designs.map((design: any, index: any) => {
           return {
@@ -63,63 +63,56 @@ const FabricCanvas = () => {
             left: canvas.getObjects()[index].left,
             scale: canvas.getObjects()[index].getScaledWidth(),
             rotation: canvas.getObjects()[index].angle,
-          };
+          }
         })
-      );
-    });
+      )
+    })
 
-    canvas.on("selection:created", function (event) {
-      console.log("selected");
-      setCanvas(canvas);
-      setIsSelected(true);
-    });
+    canvas.on('selection:created', function (event) {
+      console.log('selected')
+      setCanvas(canvas)
+      setIsSelected(true)
+    })
 
-    canvas.on("selection:updated", function (event) {
-      console.log("updated");
-      setCanvas(canvas);
-      setIsSelected(true);
-    });
+    canvas.on('selection:updated', function (event) {
+      console.log('updated')
+      setCanvas(canvas)
+      setIsSelected(true)
+    })
 
-    canvas.on("selection:cleared", function (event) {
-      console.log("cleared");
-      setIsSelected(false);
-    });
+    canvas.on('selection:cleared', function (event) {
+      console.log('cleared')
+      setIsSelected(false)
+    })
 
     return () => {
-      canvas.dispose();
-    };
-  }, [
-    designs,
-    color,
-    canvasObjects,
-    setCanvasUrl,
-    setCanvasObjects,
-    setCanvas,
-  ]);
+      canvas.dispose()
+    }
+  }, [designs, color])
 
   const deleteHandler = () => {
-    const tempCanvasObjects = [...canvasObjects];
+    const tempCanvasObjects = [...canvasObjects]
     canvas?.getActiveObjects().forEach((obj) => {
-      const index = canvas?.getObjects().indexOf(obj);
-      tempCanvasObjects.splice(index, 1);
-    });
+      const index = canvas?.getObjects().indexOf(obj)
+      tempCanvasObjects.splice(index, 1)
+    })
     if (designs) {
-      setCanvasObjects(tempCanvasObjects);
-      setDesigns(tempCanvasObjects);
+      setCanvasObjects(tempCanvasObjects)
+      setDesigns(tempCanvasObjects)
     } else {
-      console.log("I am here");
-      setCanvasObjects([]);
-      setDesigns([]);
+      console.log('I am here')
+      setCanvasObjects([])
+      setDesigns([])
     }
-    setIsSelected(false);
-  };
+    setIsSelected(false)
+  }
 
   const saveHandler = () => {
-    console.log(canvasObjects);
-  };
+    console.log(canvasObjects)
+  }
 
-  const [isVisible, setIsVisible] = useState(false);
-  const [isSelected, setIsSelected] = useState(false);
+  const [isVisible, setIsVisible] = useState(false)
+  const [isSelected, setIsSelected] = useState(false)
 
   return (
     <div className="absolute z-10 -translate-y-1/2 right-6 top-1/2">
@@ -128,7 +121,7 @@ const FabricCanvas = () => {
           <button
             className="bg-white p-2 rounded-full w-[3.5em] h-[3.5em] drop-shadow-lg "
             onClick={() => {
-              setIsVisible(!isVisible);
+              setIsVisible(!isVisible)
             }}
           >
             <AnimatePresence mode="wait" initial={false}>
@@ -143,11 +136,11 @@ const FabricCanvas = () => {
                   transition={{
                     duration: 0.1,
                   }}
-                  key={"close-icon"}
+                  key={'close-icon'}
                 >
                   <div className="hover:scale-[1.1] transition-all ease-in-out duration-300">
                     <CloseOutline
-                      style={{ fill: "black", height: "2.5em", width: "2.5em" }}
+                      style={{ fill: 'black', height: '2.5em', width: '2.5em' }}
                     />
                   </div>
                 </motion.div>
@@ -162,10 +155,10 @@ const FabricCanvas = () => {
                   transition={{
                     duration: 0.1,
                   }}
-                  key={"color-picker-palette-icon"}
+                  key={'color-picker-palette-icon'}
                 >
                   <MagicWand
-                    style={{ fill: "black", height: "2.5em", width: "2.5em" }}
+                    style={{ fill: 'black', height: '2.5em', width: '2.5em' }}
                   />
                 </motion.div>
               )}
@@ -175,7 +168,7 @@ const FabricCanvas = () => {
             <button
               className="bg-white p-2 rounded-full w-[3.5em] h-[3.5em] drop-shadow-lg "
               onClick={() => {
-                deleteHandler();
+                deleteHandler()
               }}
             >
               <p className="sr-only">Delete selected design</p>
@@ -185,14 +178,14 @@ const FabricCanvas = () => {
         </div>
         <div
           className={`height-full border-black border-4 ${
-            isVisible ? "" : "hidden"
+            isVisible ? '' : 'hidden'
           }`}
         >
           <canvas id="canvas" />
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default FabricCanvas;
+export default FabricCanvas

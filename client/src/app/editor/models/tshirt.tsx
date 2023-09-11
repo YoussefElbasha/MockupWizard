@@ -1,28 +1,28 @@
-import * as THREE from "three";
-import React, { forwardRef, useRef } from "react";
-import { useGLTF, useTexture } from "@react-three/drei";
-import { GLTF } from "three-stdlib";
-import { useCanvasContext } from "../contexts/canvas-context";
-import { Mesh } from "three";
+import * as THREE from 'three'
+import React, { forwardRef, useRef } from 'react'
+import { useGLTF, useTexture } from '@react-three/drei'
+import { GLTF } from 'three-stdlib'
+import { useCanvasContext } from '../contexts/canvas-context'
+import { Mesh } from 'three'
 
 type GLTFResult = GLTF & {
   nodes: {
-    T_Shirt_male: THREE.Mesh;
-  };
+    T_Shirt_male: THREE.Mesh
+  }
   materials: {
-    lambert1: THREE.MeshStandardMaterial;
-  };
-};
+    lambert1: THREE.MeshStandardMaterial
+  }
+}
 
 const Tshirt = forwardRef<Mesh>((_props, ref) => {
-  const { nodes, materials } = useGLTF("/tshirt.glb") as GLTFResult;
+  const { nodes, materials } = useGLTF('/tshirt.glb') as GLTFResult
 
-  const { canvasUrl } = useCanvasContext();
-  const testTexture = useTexture(canvasUrl || "/uv_texture.png", (t) => {
+  const { canvasUrl } = useCanvasContext()
+  const testTexture = useTexture(canvasUrl || '/uv_texture.png', (t) => {
     if (!Array.isArray(t)) {
-      t.flipY = false;
+      t.flipY = false
     }
-  });
+  })
 
   return (
     <group dispose={null}>
@@ -36,11 +36,11 @@ const Tshirt = forwardRef<Mesh>((_props, ref) => {
         )}
       </mesh>
     </group>
-  );
-});
+  )
+})
 
-useGLTF.preload("/tshirt.glb");
+useGLTF.preload('/tshirt.glb')
 
-Tshirt.displayName = "Tshirt";
+Tshirt.displayName = 'Tshirt'
 
-export default Tshirt;
+export default Tshirt

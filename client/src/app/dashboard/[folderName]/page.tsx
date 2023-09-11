@@ -74,12 +74,11 @@ const Page = (props: pageProps) => {
     router.replace('/dashboard')
   } else {
     return (
-      <div className="flex flex-col gap-2 w-full">
-        <div className="flex gap-2 items-center">
+      <div className="flex flex-col w-full gap-2">
+        <div className="flex items-center gap-2">
           <button
             onClick={() => router.push('/dashboard')}
-            className="hover:bg-[#4461F21A] p-2 rounded-lg"
-          >
+            className="hover:bg-[#4461F21A] p-2 rounded-lg">
             <p className="sr-only">Back button</p>
             <BackIcon className="w-8 " />
           </button>
@@ -89,24 +88,26 @@ const Page = (props: pageProps) => {
         </div>
 
         {isLoading ? (
-          <div className="flex w-full items-center justify-center">
+          <div className="flex items-center justify-center w-full">
             <BeatLoader color="white" />
           </div>
         ) : content.length !== 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
             {content.map((project: any, idx: number) => (
               <>
                 <motion.div
                   onClick={() => {}}
                   initial={{ opacity: 0, x: -10, y: 20 }}
                   animate={{ opacity: 1, x: 0, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 * idx }}
-                >
+                  transition={{ duration: 0.5, delay: 0.1 * idx }}>
                   <ProjectCard
                     key={project.id}
                     id={project.id}
                     label={project.name}
-                    image={project.thumbnail}
+                    image={project.thumbnail.replace(
+                      'https://res.cloudinary.com/',
+                      '/image/'
+                    )}
                   />
                 </motion.div>
                 {idx === content.length - 1 && (
@@ -118,8 +119,7 @@ const Page = (props: pageProps) => {
                       onClick={() => {}}
                       initial={{ opacity: 0, x: -10, y: 20 }}
                       animate={{ opacity: 1, x: 0, y: 0 }}
-                      transition={{ duration: 0.5, delay: 0.1 * idx }}
-                    >
+                      transition={{ duration: 0.5, delay: 0.1 * idx }}>
                       <CreateProject
                         register={createProjectForm.register}
                         errors={createProjectForm.formState.errors}
@@ -132,12 +132,12 @@ const Page = (props: pageProps) => {
             ))}
           </div>
         ) : (
-          <div className="flex w-full items-center justify-center">
+          <div className="flex items-center justify-center w-full">
             {isValidating ? (
               <BeatLoader color="white" />
             ) : (
               <div className="flex flex-col gap-6">
-                <h1 className="text-lg md:text-xl lg:text-3xl text-center font-semibold tracking-wide">
+                <h1 className="text-lg font-semibold tracking-wide text-center md:text-xl lg:text-3xl">
                   Create your first project.
                 </h1>
                 <CreateProject
