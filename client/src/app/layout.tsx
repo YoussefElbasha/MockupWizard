@@ -5,7 +5,6 @@ import { Toaster } from 'react-hot-toast'
 
 const inter = Inter({ subsets: ['latin'] })
 
-
 export default function RootLayout({
   children,
 }: {
@@ -14,7 +13,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="relative flex flex-col min-h-screen text-white bg-background">
+        <div className="relative flex flex-col min-h-screen text-white bg-background max-w-screen overflow-x-hidden">
           <Toaster />
           {children}
         </div>
