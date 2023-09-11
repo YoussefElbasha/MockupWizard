@@ -56,17 +56,18 @@ const Form = (props: formProps) => {
                 eyeIcon={true}
               />
 
-            <div className="flex gap-2 text-xs items-center">
-              <Switch
-                onChange={() => {
-                  props.setWithOTP(!props.withOTP);
-                }}
-                checked={props.withOTP}
-                checkedIcon={false}
-                uncheckedIcon={false}
-                onColor="#4461F2"
-              />
-              <Button label="Sign up" isMutating={props.isMutating} />
+              <div className="flex gap-2 text-xs items-center">
+                <Switch
+                  onChange={() => {
+                    props.setWithOTP(!props.withOTP);
+                  }}
+                  checked={props.withOTP}
+                  checkedIcon={false}
+                  uncheckedIcon={false}
+                  onColor="#4461F2"
+                />
+                <Button label="Sign up" isMutating={props.isMutating} />
+              </div>
             </>
           ) : (
             <>
