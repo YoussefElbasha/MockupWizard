@@ -1,49 +1,49 @@
-import axios from 'axios'
-import api from '../../../../util/Axios'
-import toast from 'react-hot-toast'
-import Image from 'next/image'
+import axios from "axios";
+import api from "../../../../util/Axios";
+import toast from "react-hot-toast";
+import Image from "next/image";
 
-const ProfilePicture = ({data, mutate}:any) => {
-
+const ProfilePicture = ({ data, mutate }: any) => {
   const handleProfilePictureChange = async (e: any) => {
-    const prevData = { ...data }
+    const prevData = { ...data };
     try {
-      const image = e.target.files[0]
+      const image = e.target.files[0];
 
-      if (!image) return
+      if (!image) return;
 
-      mutate({ ...data, picture: URL.createObjectURL(image) }, false)
+      mutate({ ...data, picture: URL.createObjectURL(image) }, false);
 
-      const formData = new FormData()
+      const formData = new FormData();
 
-      formData.append('file', image)
-      formData.append('upload_preset', 'model_designs')
+      formData.append("file", image);
+      formData.append("upload_preset", "model_designs");
 
       const {
         data: { secure_url: url },
       } = await axios.post(
-        'https://api.cloudinary.com/v1_1/dfbid2goy/image/upload',
+        "https://api.cloudinary.com/v1_1/dfbid2goy/image/upload",
         formData
-      )
+      );
 
       await api.patch(
         `${process.env.NEXT_PUBLIC_API_URL}/dashboard/edit-profile`,
         {
           picture: url,
         }
-      )
+      );
 
       mutate(
         { ...data, picture: url },
         {
           revalidate: true,
         }
-      )
+      );
+      mutate("user-info");
     } catch (error: any) {
-      toast.error('Failed to upload profile picture')
-      mutate(prevData, false)
+      toast.error("Failed to upload profile picture");
+      mutate(prevData, false);
     }
-  }
+  };
 
   return (
     <div className="flex flex-col gap-2">
@@ -60,14 +60,14 @@ const ProfilePicture = ({data, mutate}:any) => {
           onChange={handleProfilePictureChange}
         />
         <Image
-          src={data?.picture ?? '/pepeWizard.png'}
+          src={data?.picture ?? "/pepeWizard.png"}
           fill
           alt="Profile Picture"
           className="object-cover w-full h-full"
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProfilePicture
+export default ProfilePicture;
