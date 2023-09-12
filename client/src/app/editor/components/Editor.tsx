@@ -11,6 +11,7 @@ import Mug from '../models/mug'
 
 interface EditorProps {
   id?: string
+  meshRef: React.MutableRefObject<any>
 }
 
 const Editor = forwardRef<HTMLCanvasElement, EditorProps>((props, ref) => {
@@ -44,8 +45,8 @@ const Editor = forwardRef<HTMLCanvasElement, EditorProps>((props, ref) => {
       <Environment preset="city" />
       <OrbitControls zoomSpeed={2} />
       <Center>
-        {modelType === ModelEnum.TSHIRT && <Tshirt />}
-        {modelType === ModelEnum.MUG && <Mug />}
+        {modelType === ModelEnum.TSHIRT && <Tshirt ref={props.meshRef} />}
+        {modelType === ModelEnum.MUG && <Mug ref={props.meshRef} />}
       </Center>
     </Canvas>
   )

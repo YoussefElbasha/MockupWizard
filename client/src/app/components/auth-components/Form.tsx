@@ -1,22 +1,22 @@
-import React from "react";
-import Input from "./Input";
-import Button from "./Button";
-import OauthComponent from "./OauthComponent";
+import React from 'react'
+import Input from './Input'
+import Button from './Button'
+import OauthComponent from './OauthComponent'
 
-import Switch from "react-switch";
-import Link from "next/link";
+import Switch from 'react-switch'
+import Link from 'next/link'
 
 interface formProps {
-  label: string;
-  signup?: boolean;
-  onSubmit: any;
-  register: any;
-  errors: any;
-  toggleHidePassword: any;
-  passwordType: string;
-  isMutating: boolean;
-  withOTP: boolean;
-  setWithOTP: any;
+  label: string
+  signup?: boolean
+  onSubmit: any
+  register: any
+  errors: any
+  toggleHidePassword: any
+  passwordType: string
+  isMutating: boolean
+  withOTP: boolean
+  setWithOTP: any
 }
 
 const Form = (props: formProps) => {
@@ -55,19 +55,17 @@ const Form = (props: formProps) => {
                 passwordType={props.passwordType}
                 eyeIcon={true}
               />
-
-              <div className="flex gap-2 text-xs items-center">
-                <Switch
-                  onChange={() => {
-                    props.setWithOTP(!props.withOTP);
-                  }}
-                  checked={props.withOTP}
-                  checkedIcon={false}
-                  uncheckedIcon={false}
-                  onColor="#4461F2"
-                />
-                <Button label="Sign up" isMutating={props.isMutating} />
-              </div>
+              <Input
+                label="Confirm Password"
+                placeholder="Confirm password"
+                register={props.register}
+                registerName="confirmPassword"
+                errors={props.errors}
+                onClick={props.toggleHidePassword}
+                passwordType={props.passwordType}
+                eyeIcon={true}
+              />
+              <Button label="Sign up" isMutating={props.isMutating} />
             </>
           ) : (
             <>
@@ -94,7 +92,7 @@ const Form = (props: formProps) => {
               <div className="flex gap-2 text-xs items-center">
                 <Switch
                   onChange={() => {
-                    props.setWithOTP(!props.withOTP);
+                    props.setWithOTP(!props.withOTP)
                   }}
                   checked={props.withOTP}
                   checkedIcon={false}
@@ -105,19 +103,19 @@ const Form = (props: formProps) => {
               </div>
 
               <Button label="Sign in" isMutating={props.isMutating} />
+              <Link
+                href="/forgot-password"
+                className="text-xs font-medium transition-colors duration-200 text-white/40 hover:text-white/100"
+              >
+                Forgot password?
+              </Link>
             </>
           )}
           <OauthComponent />
         </div>
       </form>
-      <Link
-        href="/forgot-password"
-        className="text-xs font-medium transition-colors duration-200 text-white/40 hover:text-white/100"
-      >
-        Forgot password?
-      </Link>
     </div>
-  );
-};
+  )
+}
 
-export default Form;
+export default Form

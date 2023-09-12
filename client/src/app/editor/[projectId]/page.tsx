@@ -20,7 +20,7 @@ const Home = ({ params }: pageProps) => {
   return (
     <CanvasContextProvider projectId={params.projectId}>
       <div className="relative w-full h-screen overflow-hidden bg-gray-500">
-        <Editor ref={screenShotRef} />
+        <Editor ref={screenShotRef} meshRef={meshRef} />
         <EditorTabs
           ref={screenShotRef}
           projectId={params.projectId}

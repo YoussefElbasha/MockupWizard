@@ -1,8 +1,8 @@
-import React from "react";
-import Home from "@/app/icons/home.svg";
+import React from 'react'
+import Home from '@/app/icons/home.svg'
 
 interface allFoldersProps {
-  onClick: any;
+  onClick: any
 }
 
 const AllFolders = ({ onClick }: allFoldersProps) => {
@@ -13,10 +13,10 @@ const AllFolders = ({ onClick }: allFoldersProps) => {
     >
       <div className="flex gap-[10px] items-center">
         <Home />
-        <p className="w-20 text-xs text-left">All Projects</p>
+        <p className="w-20 text-xs text-left">All Folders</p>
       </div>
     </button>
-  );
-};
+  )
+}
 
-export default AllFolders;
+export default AllFolders
