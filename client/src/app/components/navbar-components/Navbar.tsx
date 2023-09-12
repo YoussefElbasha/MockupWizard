@@ -12,6 +12,7 @@ const isActiveStyle =
 type UserInfo = {
   email: string;
   username: string;
+  picture: string;
 };
 type link = {
   name: string;
@@ -53,7 +54,11 @@ const Navbar = ({ user, navLinks, isLoading }: navbarProps) => {
       {isLoading ? (
         <ProfileLoader />
       ) : user ? (
-        <ProfileMenu email={user.email} username={user.username} />
+        <ProfileMenu
+          email={user.email}
+          username={user.username}
+          picture={user.picture}
+        />
       ) : (
         <div className="flex gap-6 items-center">
           <Link href="/sign-in" className="text-primary text-sm font-[700]">
