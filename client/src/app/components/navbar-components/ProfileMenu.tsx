@@ -28,7 +28,7 @@ const profileMenuItems = [
 interface profileMenuProps {
   email: string;
   username: string;
-  image: string;
+  picture: string;
 }
 
 function ProfileMenu(props: profileMenuProps) {
