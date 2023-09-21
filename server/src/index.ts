@@ -36,13 +36,6 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/api", isAuthenticated);
-app.use(
-  session({
-    secret: String(process.env.ACCESS_SECRET),
-    resave: false,
-    saveUninitialized: true,
-  })
-);
 
 app.use((req, res, next) => {
   req.context = {
@@ -51,15 +44,13 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/auth", authRouter)
-app.use("/api", apiRouter)
-app.use("/dashboard", isAuthenticated, dashboardRouter)
-app.use('/editor', EditorRouter)
-
+app.use("/auth", authRouter);
+app.use("/api", apiRouter);
+app.use("/dashboard", isAuthenticated, dashboardRouter);
+app.use("/editor", EditorRouter);
 
 app.listen(port, () => {
-  console.log(`Listening on port ${port}: http://localhost:${port}`)
-})
+  console.log(`Listening on port ${port}: http://localhost:${port}`);
+});
 
-export default app
-
+export default app;
